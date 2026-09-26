@@ -37,24 +37,28 @@ evaluaciones_pasteur/
 │   └── matter_states/                    # Modelos corpusculares de partículas (6° Básico)
 │
 ├── output/                               # Salida local de documentos generados
+│   ├── temarios/                         # Temarios oficiales por curso (.docx)
+│   │   ├── Temario_Ciencias_5Basico_A_B.docx
+│   │   ├── Temario_Ciencias_6Basico_A_B.docx
+│   │   ├── Temario_Ciencias_8Basico_A.docx
+│   │   ├── Temario_Musica_1Basico_A.docx
+│   │   ├── Temario_Musica_2Basico_A.docx
+│   │   └── Temario_Orientacion_5Basico_A.docx
 │   ├── Evaluacion_Final_Ciencias_5Basico.docx
 │   ├── Pauta_Correccion_Ciencias_5Basico.docx
-│   ├── Temario_Evaluacion_Final_Ciencias_5Basico.docx
 │   ├── Evaluacion_Final_Ciencias_6Basico.docx
 │   ├── Pauta_Correccion_Ciencias_6Basico.docx
-│   ├── Temario_Evaluacion_Final_Ciencias_6Basico.docx
 │   └── Cronograma_Entrevistas_Apoderados_2026.xlsx
 │
 ├── main.py                               # Menú interactivo y orquestador CLI
 ├── generator_core.py                     # Motor base de estilos Word (python-docx)
+├── build_temarios.py                     # Generador unificado de los 6 temarios para apoderados
 │
-├── build_student_test.py                 # Generador Prueba 5° Básico (OA 11 - 28 pts)
+├── build_student_test.py                 # Generador Evaluación 5° Básico (OA 11 - 28 pts)
 ├── build_teacher_answer_key.py           # Generador Pauta 5° Básico
-├── build_comunicado_temario.py           # Generador Temario 5° Básico
 │
-├── build_student_test_6basico.py         # Generador Prueba 6° Básico (OA 13 - 26 pts)
+├── build_student_test_6basico.py         # Generador Evaluación 6° Básico (OA 13 - 26 pts)
 ├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico
-├── build_comunicado_temario_6basico.py   # Generador Temario 6° Básico
 │
 ├── crear_excel_entrevistas.py            # Generador Planilla Excel de Entrevistas
 ├── perfect_symbols.py                    # Generador de símbolos eléctricos con matplotlib
