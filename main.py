@@ -46,29 +46,32 @@ def deploy_file(filename, target_subpath):
         print(f"  [ERROR] Al desplegar '{filename}': {e}")
 
 def run_ciencias_5basico():
-    print("\n--- Generando Ciencias Naturales 5\u00b0 B\u00e1sico (OA 11 - 28 pts) ---")
+    print("\n--- Generando Ciencias Naturales 5° Básico (OA 11 - 28 pts) ---")
     build_evaluacion_estudiante()
     build_pauta_correccion()
     build_comunicado()
-    deploy_file("Evaluacion_Final_Ciencias_5Basico.docx", r"01 - Ciencias Naturales\5\u00b0 B\u00e1sico (5\u00b0A y 5\u00b0B)")
-    deploy_file("Pauta_Correccion_Ciencias_5Basico.docx", r"01 - Ciencias Naturales\5\u00b0 B\u00e1sico (5\u00b0A y 5\u00b0B)")
-    deploy_file("Temario_Evaluacion_Final_Ciencias_5Basico.docx", r"01 - Ciencias Naturales\5\u00b0 B\u00e1sico (5\u00b0A y 5\u00b0B)")
-    print("[COMPLETADO] Evaluaci\u00f3n, Pauta y Temario de 5\u00b0 B\u00e1sico generados.")
+    dest = os.path.join("01 - Ciencias Naturales", "5° Básico (5°A y 5°B)")
+    deploy_file("Evaluacion_Final_Ciencias_5Basico.docx", dest)
+    deploy_file("Pauta_Correccion_Ciencias_5Basico.docx", dest)
+    deploy_file("Temario_Evaluacion_Final_Ciencias_5Basico.docx", dest)
+    print("[COMPLETADO] Evaluación, Pauta y Temario de 5° Básico generados.")
 
 def run_ciencias_6basico():
-    print("\n--- Generando Ciencias Naturales 6\u00b0 B\u00e1sico (OA 13 - 26 pts) ---")
+    print("\n--- Generando Ciencias Naturales 6° Básico (OA 13 - 26 pts) ---")
     build_evaluacion_estudiante_6b()
     build_pauta_correccion_6b()
     build_comunicado_6b()
-    deploy_file("Evaluacion_Final_Ciencias_6Basico.docx", r"01 - Ciencias Naturales\6\u00b0 B\u00e1sico (6\u00b0A y 6\u00b0B)")
-    deploy_file("Pauta_Correccion_Ciencias_6Basico.docx", r"01 - Ciencias Naturales\6\u00b0 B\u00e1sico (6\u00b0A y 6\u00b0B)")
-    deploy_file("Temario_Evaluacion_Final_Ciencias_6Basico.docx", r"01 - Ciencias Naturales\6\u00b0 B\u00e1sico (6\u00b0A y 6\u00b0B)")
-    print("[COMPLETADO] Evaluaci\u00f3n, Pauta y Temario de 6\u00b0 B\u00e1sico generados.")
+    dest = os.path.join("01 - Ciencias Naturales", "6° Básico (6°A y 6°B)")
+    deploy_file("Evaluacion_Final_Ciencias_6Basico.docx", dest)
+    deploy_file("Pauta_Correccion_Ciencias_6Basico.docx", dest)
+    deploy_file("Temario_Evaluacion_Final_Ciencias_6Basico.docx", dest)
+    print("[COMPLETADO] Evaluación, Pauta y Temario de 6° Básico generados.")
 
 def run_excel_entrevistas():
     print("\n--- Generando Cronograma de Entrevistas de Apoderados 2026 ---")
     generar_cronograma_excel()
-    deploy_file("Cronograma_Entrevistas_Apoderados_2026.xlsx", r"03 - Registro y Gesti\u00f3n Docente\N\u00f3minas y Listas")
+    dest = os.path.join("03 - Registro y Gestión Docente", "Nóminas y Listas")
+    deploy_file("Cronograma_Entrevistas_Apoderados_2026.xlsx", dest)
     print("[COMPLETADO] Planilla Excel de entrevistas generada.")
 
 def run_assets():
