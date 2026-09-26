@@ -25,6 +25,8 @@ from build_student_test_6basico import build_evaluacion_estudiante_6b
 from build_teacher_answer_key_6basico import build_pauta_correccion_6b
 
 from build_temarios import generar_todos_los_temarios
+from build_rubricas_musica import generar_rubricas_musica
+from build_orientacion_5basico import generar_orientacion_completa
 from crear_excel_entrevistas import generar_cronograma_excel
 from perfect_symbols import *  # Circuit symbols generator
 from generate_matter_states import *  # Matter states generator
@@ -62,6 +64,12 @@ def run_ciencias_6basico():
     deploy_file("Pauta_Correccion_Ciencias_6Basico.docx", dest)
     print("[COMPLETADO] Evaluación y Pauta de 6° Básico generadas.")
 
+def run_musica():
+    generar_rubricas_musica()
+
+def run_orientacion():
+    generar_orientacion_completa()
+
 def run_temarios():
     generar_todos_los_temarios()
 
@@ -85,6 +93,8 @@ def run_all():
     run_assets()
     run_ciencias_5basico()
     run_ciencias_6basico()
+    run_musica()
+    run_orientacion()
     run_temarios()
     run_excel_entrevistas()
     print("\n=======================================================")
@@ -93,42 +103,50 @@ def run_all():
 
 def menu_interactivo():
     while True:
-        print("\n" + "=" * 58)
-        print("   SISTEMA DOCENTE LUIS PASTEUR - PROFESORA MARGARITA   ")
-        print("=" * 58)
-        print("1. Generar 5° Básico (Prueba y Pauta de Ciencias)")
-        print("2. Generar 6° Básico (Prueba y Pauta de Ciencias)")
-        print("3. Generar TODOS los Temarios por Curso (00 - Temarios)")
-        print("4. Generar Planilla Excel de Entrevistas a Apoderados")
-        print("5. Regenerar Recursos Gráficos (Circuitos y Partículas)")
-        print("6. Generar y Desplegar TODO a Descargas")
+        print("\n" + "=" * 60)
+        print("    SISTEMA DOCENTE LUIS PASTEUR - PROFESORA MARGARITA     ")
+        print("=" * 60)
+        print("1. Generar 5° Básico (Prueba y Pauta de Ciencias Naturales)")
+        print("2. Generar 6° Básico (Prueba y Pauta de Ciencias Naturales)")
+        print("3. Generar Rúbricas de Música (1° Básico A y 2° Básico A)")
+        print("4. Generar Evaluación y Pauta de Orientación (5° Básico A)")
+        print("5. Generar TODOS los Temarios por Curso (00 - Temarios)")
+        print("6. Generar Planilla Excel de Entrevistas a Apoderados")
+        print("7. Regenerar Recursos Gráficos (Circuitos y Partículas)")
+        print("8. Generar y Desplegar TODO a Descargas")
         print("0. Salir")
-        print("-" * 58)
-        opcion = input("Selecciona una opción (0-6): ").strip()
+        print("-" * 60)
+        opcion = input("Selecciona una opción (0-8): ").strip()
 
         if opcion == "1":
             run_ciencias_5basico()
         elif opcion == "2":
             run_ciencias_6basico()
         elif opcion == "3":
-            run_temarios()
+            run_musica()
         elif opcion == "4":
-            run_excel_entrevistas()
+            run_orientacion()
         elif opcion == "5":
-            run_assets()
+            run_temarios()
         elif opcion == "6":
+            run_excel_entrevistas()
+        elif opcion == "7":
+            run_assets()
+        elif opcion == "8":
             run_all()
         elif opcion == "0":
             print("Cerrando el sistema docente. ¡Hasta pronto!")
             break
         else:
-            print("Opción inválida. Por favor, ingresa un número del 0 al 6.")
+            print("Opción inválida. Por favor, ingresa un número del 0 al 8.")
 
 def main():
     parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Luis Pasteur")
     parser.add_argument("--all", action="store_true", help="Genera todas las evaluaciones, pautas, temarios y Excel")
-    parser.add_argument("--ciencias5", action="store_true", help="Genera material de 5to básico")
-    parser.add_argument("--ciencias6", action="store_true", help="Genera material de 6to básico")
+    parser.add_argument("--ciencias5", action="store_true", help="Genera material de Ciencias 5to básico")
+    parser.add_argument("--ciencias6", action="store_true", help="Genera material de Ciencias 6to básico")
+    parser.add_argument("--musica", action="store_true", help="Genera rúbricas de música 1°A y 2°A")
+    parser.add_argument("--orientacion", action="store_true", help="Genera evaluación y pauta de Orientación 5°A")
     parser.add_argument("--temarios", action="store_true", help="Genera todos los temarios por curso (00 - Temarios)")
     parser.add_argument("--excel", action="store_true", help="Genera el Excel de entrevistas de apoderados")
     parser.add_argument("--assets", action="store_true", help="Regenera las imágenes y símbolos gráficos")
@@ -141,6 +159,10 @@ def main():
         run_ciencias_5basico()
     elif args.ciencias6:
         run_ciencias_6basico()
+    elif args.musica:
+        run_musica()
+    elif args.orientacion:
+        run_orientacion()
     elif args.temarios:
         run_temarios()
     elif args.excel:
