@@ -9,26 +9,47 @@ from docx.oxml.ns import nsdecls
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-# Definición de colores institucionales
-COLOR_NAVY_HEX = "173F73"      # Azul Marino Institucional
-COLOR_ICE_HEX = "EAF3FB"       # Azul Cielo Suave
-COLOR_BOX_BG_HEX = "F6FAFE"    # Fondo Tarjetas/Destacados
-COLOR_BORDER_HEX = "B0C4DE"    # Borde Azul Acero Suave
-COLOR_CORRECT_HEX = "1E7E34"   # Verde Pauta
+from institution_manager import institution_manager
 
-COLOR_NAVY_RGB = RGBColor(0x17, 0x3F, 0x73)
-COLOR_WHITE_RGB = RGBColor(0xFF, 0xFF, 0xFF)
-COLOR_DARK_RGB = RGBColor(0x22, 0x22, 0x22)
-COLOR_GRAY_RGB = RGBColor(0x55, 0x55, 0x55)
-COLOR_CORRECT_RGB = RGBColor(0x1B, 0x5E, 0x20)
+# Carga dinámica de identidad institucional activa
+active_theme = institution_manager.get_active_theme_bundle()
+COLOR_NAVY_HEX = active_theme["primary_hex"]
+COLOR_ICE_HEX = active_theme["secondary_hex"]
+COLOR_BOX_BG_HEX = active_theme["card_bg_hex"]
+COLOR_BORDER_HEX = active_theme["border_hex"]
+COLOR_CORRECT_HEX = active_theme["teacher_correct_hex"]
+
+COLOR_NAVY_RGB = active_theme["primary_rgb"]
+COLOR_WHITE_RGB = active_theme["white_rgb"]
+COLOR_DARK_RGB = active_theme["dark_rgb"]
+COLOR_GRAY_RGB = active_theme["gray_rgb"]
+COLOR_CORRECT_RGB = active_theme["teacher_correct_rgb"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo_colegio.png")
+LOGO_PATH = active_theme["logo_path"]
 ASSETS_DIR = os.path.join(BASE_DIR, "assets", "circuit_components")
 MATTER_ASSETS_DIR = os.path.join(BASE_DIR, "assets", "matter_states")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 DOWNLOADS_DIR = r"C:\Users\Jack\Downloads\Evaluaciones Finales Profesora Margarita"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+def reload_active_theme():
+    """Recarga los colores y logo cuando el usuario cambia de institución"""
+    global COLOR_NAVY_HEX, COLOR_ICE_HEX, COLOR_BOX_BG_HEX, COLOR_BORDER_HEX, COLOR_CORRECT_HEX
+    global COLOR_NAVY_RGB, COLOR_WHITE_RGB, COLOR_DARK_RGB, COLOR_GRAY_RGB, COLOR_CORRECT_RGB, LOGO_PATH
+    theme = institution_manager.get_active_theme_bundle()
+    COLOR_NAVY_HEX = theme["primary_hex"]
+    COLOR_ICE_HEX = theme["secondary_hex"]
+    COLOR_BOX_BG_HEX = theme["card_bg_hex"]
+    COLOR_BORDER_HEX = theme["border_hex"]
+    COLOR_CORRECT_HEX = theme["teacher_correct_hex"]
+    COLOR_NAVY_RGB = theme["primary_rgb"]
+    COLOR_WHITE_RGB = theme["white_rgb"]
+    COLOR_DARK_RGB = theme["dark_rgb"]
+    COLOR_GRAY_RGB = theme["gray_rgb"]
+    COLOR_CORRECT_RGB = theme["teacher_correct_rgb"]
+    LOGO_PATH = theme["logo_path"]
+    return theme
 
 def set_cell_shading(cell, color_hex):
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{color_hex}"/>')
@@ -69,7 +90,11 @@ def create_base_doc():
         s.right_margin = Inches(0.7)
     return doc
 
-def add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle=None):
+def add_header(doc, school=None, subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle=None):
+    reload_active_theme()
+    active_inst = institution_manager.get_active()
+    effective_school = school if school else active_inst.get("name", "COLEGIO LUIS PASTEUR ANEXO")
+
     table = doc.add_table(rows=1, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
@@ -96,7 +121,7 @@ def add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATUR
     p_title.paragraph_format.space_before = Pt(0)
     p_title.paragraph_format.space_after = Pt(0)
 
-    r1 = p_title.add_run(f"{school}\n")
+    r1 = p_title.add_run(f"{effective_school}\n")
     r1.font.name = "Arial"
     r1.font.size = Pt(11)
     r1.bold = True

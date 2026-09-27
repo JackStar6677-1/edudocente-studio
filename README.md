@@ -3,24 +3,25 @@
 ![EduDocente-Studio Banner](assets/banner_animated.svg)
 
 # 🎓 EduDocente-Studio
-### *Automated Pedagogical Assessment & Multi-AI Curriculum Engine*
+### *Automated Pedagogical Assessment, Multi-AI Engine & Institutional Memory*
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Multi-AI Support](https://img.shields.io/badge/AI_Engine-Claude%20%7C%20Gemini%20%7C%20GPT--4o%20%7C%20DeepSeek%20%7C%20Kimi%20%7C%20Grok-8A2BE2?style=for-the-badge&logo=openai&logoColor=white)](#-conector-universal-multi-ia)
-[![python-docx](https://img.shields.io/badge/Document_Engine-python--docx-2B579A?style=for-the-badge&logo=microsoftword&logoColor=white)](https://python-docx.readthedocs.io/)
-[![OpenPyXL](https://img.shields.io/badge/Spreadsheets-openpyxl-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://openpyxl.readthedocs.io/)
+[![Multi-Branding](https://img.shields.io/badge/Branding-Multi--Colegio%20%26%20Logos-0D5C3A?style=for-the-badge&logo=materialdesign&logoColor=white)](#-memoria-de-identidad-multi-colegio--branding)
+[![OAuth 2.0 Ready](https://img.shields.io/badge/Auth-Google%20Workspace%20%7C%20GitHub%20%7C%20M365-blue?style=for-the-badge&logo=googlecloud&logoColor=white)](#-autenticación-y-single-sign-on-oauth-20)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>Generador declarativo y asistido por IA de evaluaciones escolares, pautas de corrección con justificación pedagógica, temarios oficiales para apoderados y planillas de gestión docente en Word (.docx) y Excel (.xlsx).</b>
+  <b>Motor declarativo y asistido por IA de evaluaciones escolares, pautas de corrección con justificación pedagógica, temarios oficiales para apoderados, planillas dinámicas de nóminas en Excel (.xlsx) y memoria de identidad para docentes multicolegio.</b>
 </p>
 
 [✨ Características](#-características-principales) •
 [🤖 Conector Multi-IA](#-conector-universal-multi-ia) •
-[🏛️ Arquitectura](#-arquitectura-del-sistema) •
-[🚀 Instalación](#-instalación-y-puesta-en-marcha) •
+[🏛️ Memoria Multi-Colegio](#-memoria-de-identidad-multi-colegio--branding) •
+[📊 Nóminas Excel](#-gestor-especializado-de-nóminas-y-entrevistas-excel) •
+[🔐 OAuth 2.0](#-autenticación-y-single-sign-on-oauth-20) •
+[🏭 Despliegue Industrial](#-despliegue-en-entornos-de-producción-e-industria) •
 [💻 Modos de Uso](#-modos-de-uso) •
-[🏆 Materiales de Aula](#-materiales-docentes-listos-para-producción) •
 [📄 Licencia](#-licencia)
 
 </div>
@@ -31,16 +32,19 @@
 
 ### El Desafío
 Los docentes dedican decenas de horas semanales a diseñar pruebas, redactar solucionarios con retroalimentación explicada, elaborar temarios informativos para apoderados y cuadrar planillas de entrevistas. En procesadores de texto manuales, esto conlleva:
-* Desalineaciones tipográficas y estéticas entre instrumentos.
-* Filtración involuntaria de pistas o respuestas en los enunciados.
-* Falta de justificaciones pedagógicas claras para la retroalimentación al estudiante.
-* Duplicación innecesaria de trabajo entre la versión del alumno, la pauta docente y el temario a las familias.
+* **Desalineaciones de diseño e imagen:** Muchos profesores imparten clases en 2 o más colegios distintos y deben rehacer manualmente encabezados, logos y colores.
+* **Filtración involuntaria:** Pistas o respuestas dejadas por descuido en la copia del estudiante.
+* **Falta de fundamentación pedagógica:** Solucionarios escuetos sin citas directas a las páginas del texto de estudio.
+* **Desorden en planillas:** Nóminas de apoderados desactualizadas y sin formato condicional estándar.
 
 ### Nuestra Solución
-**EduDocente-Studio** estandariza este flujo de trabajo mediante un motor de software con **arquitectura pedagógica de 3 ítems universales**:
-1. **Ítem I (Selección Múltiple):** Alternativas directas `A)`, `B)`, `C)`, `D)` sin casillas distractoras, con clave y justificación formal en la pauta.
-2. **Ítem II (Verdadero o Falso):** Casillas limpias `(   )` para el alumno y tabla de justificaciones pedagógicas con respuestas destacadas en verde institucional (`#1E7E34`) para el profesor.
-3. **Ítem III (Aplicación Práctica / Dibujo / Esquema Técnico):** Marcos delimitados para dibujar con líneas de explicación, o láminas vectoriales tipo esqueleto para rotular y pintar.
+**EduDocente-Studio** estandariza este flujo de trabajo mediante:
+1. **Memoria Multi-Colegio:** Guarda perfiles de instituciones (logos en alta resolución sin fondo, colores corporativos primarios y secundarios, lemas y departamentos) que se aplican automáticamente a cualquier documento generado.
+2. **Arquitectura Pedagógica de 3 Ítems:**
+   - **Ítem I (Selección Múltiple):** Alternativas directas `A)`, `B)`, `C)`, `D)` sin casillas distractoras, con clave y justificación formal en la pauta.
+   - **Ítem II (Verdadero o Falso):** Casillas limpias `(   )` para el alumno y tabla de justificaciones pedagógicas con respuestas destacadas en verde institucional (`#1E7E34`) para el profesor.
+   - **Ítem III (Aplicación Práctica / Dibujo / Esquema Técnico):** Marcos delimitados para dibujar con líneas de explicación, o láminas vectoriales tipo esqueleto para rotular y pintar.
+3. **Gestor de Nóminas Excel Dinámicas:** Planillas openpyxl configurables para citación de apoderados con validación desplegable de asistencia y formato institucional automático.
 
 ---
 
@@ -56,6 +60,7 @@ EduDocente-Studio integra un **agente de inteligencia artificial agnóstico a pr
 flowchart LR
     subgraph USER_INPUT ["Entrada Docente"]
         TOPIC["Tema Curricular / OA / Páginas del Libro"]
+        INST["Institución Seleccionada (Branding Activo)"]
     end
 
     subgraph AI_ROUTER ["AI Universal Connector (ai_connector.py)"]
@@ -70,86 +75,146 @@ flowchart LR
         MOCK["Smart Pedagogical Synthesizer (Sin API Key)"]
     end
 
-    subgraph ENGINE_RENDER ["DocenteEngine"]
+    subgraph ENGINE_RENDER ["DocenteEngine & Core"]
         W_EST["Prueba Alumno (.docx)"]
         W_PAU["Pauta Docente (.docx)"]
+        XLS["Planilla Nómina (.xlsx)"]
     end
 
     TOPIC --> AI_ROUTER
+    INST --> ENGINE_RENDER
     G & C & O & D & K & X & L & MOCK --> ENGINE_RENDER
     ENGINE_RENDER --> W_EST
     ENGINE_RENDER --> W_PAU
+    ENGINE_RENDER --> XLS
 ```
 
-### Proveedores Soportados y Variables de Entorno:
-
-| Proveedor | Modelo Predeterminado | Variable de Entorno | Notas |
-| :--- | :--- | :--- | :--- |
-| **Google Gemini / Antigravity** | `gemini-1.5-pro` / `gemini-2.0-flash` | `GEMINI_API_KEY` | Soporte nativo para grounding y búsqueda web |
-| **Anthropic Claude** | `claude-3-5-sonnet-20241022` | `ANTHROPIC_API_KEY` | Máxima precisión en justificaciones pedagógicas |
-| **OpenAI / Codex** | `gpt-4o` | `OPENAI_API_KEY` | Respuestas JSON estructuradas de alta velocidad |
-| **DeepSeek** | `deepseek-chat` / `deepseek-reasoner` | `DEEPSEEK_API_KEY` | Razonamiento deductivo avanzado para ciencias |
-| **Kimi (Moonshot)** | `moonshot-v1-8k` | `MOONSHOT_API_KEY` | Procesamiento profundo de textos escolares extensos |
-| **Grok (xAI)** | `grok-beta` | `XAI_API_KEY` | Síntesis concisa y directa |
-| **Local / Ollama** | `llama3.2` / `deepseek-r1` | *Sin clave requerida* | Privacidad 100% offline en tu equipo |
-| **Smart Synthesizer** | *Motor heurístico local* | *Automático* | **Zero-Crash**: Funciona sin internet ni claves de API |
-
-> [!TIP]
-> Si no cuentas con una clave de API configurada, el conector activa automáticamente su **Smart Pedagogical Synthesizer** local, permitiéndote probar todo el pipeline de compilación sin costo alguno.
+### Proveedores Soportados:
+* ♊ **Google Gemini / Antigravity** (`gemini-1.5-pro` / `gemini-2.0-flash`)
+* 🧠 **Anthropic Claude** (`claude-3-5-sonnet`)
+* ⚡ **OpenAI / Codex** (`gpt-4o`)
+* 🐋 **DeepSeek** (`deepseek-chat` / `deepseek-reasoner` V3 / R1)
+* 🌙 **Moonshot Kimi AI** (`moonshot-v1-8k`)
+* 🚀 **xAI Grok** (`grok-beta`)
+* 💻 **Local / Ollama** (`llama3.2`, etc.)
+* 🛡️ **Smart Pedagogical Synthesizer:** Fallback heurístico local **Zero-Crash** que funciona sin claves de API para pruebas inmediatas.
 
 ---
 
-## 🏛️ Arquitectura del Sistema
+## 🏛️ Memoria de Identidad Multi-Colegio & Branding
 
-```mermaid
-flowchart TD
-    subgraph INPUT ["Entrada Curricular"]
-        AI["🤖 Asistente Multi-IA (ai_connector.py)"]
-        JSON["📄 Archivo Declarativo (.json)"]
-        WIZ["💬 Asistente CLI Guiado (wizard.py)"]
-    end
+Si un profesor trabaja en varias escuelas o liceos, puede almacenar sus perfiles en `config/institutions.json`:
 
-    subgraph ENGINE ["EduDocente Core Engine"]
-        DE["DocenteEngine (engine.py)"]
-        GC["Motor de Estilos XML (generator_core.py)"]
-        VEC["Generador Gráfico Vectorial (Matplotlib)"]
-    end
+```json
+{
+  "id": "liceo_bicentenario",
+  "name": "LICEO BICENTENARIO DE EXCELENCIA",
+  "sub_header": "UNIDAD TÉCNICO PEDAGÓGICA (UTP)",
+  "motto": "Compromiso, Mérito y Superación",
+  "logo_path": "assets/logos/logo_bicentenario.png",
+  "font_family": "Arial",
+  "colors": {
+    "primary_hex": "0D5C3A",
+    "secondary_hex": "E8F5E9",
+    "card_bg_hex": "F1F8E9",
+    "border_hex": "A5D6A7",
+    "teacher_correct_hex": "1E7E34"
+  },
+  "is_active": true
+}
+```
 
-    subgraph DELIVERABLES ["Entregables Institucionales (.docx / .xlsx)"]
-        EST["Prueba del Estudiante (.docx)\n- Sin pistas de corrección\n- Sin términos inductores de ansiedad"]
-        PAU["Pauta Oficial Docente (.docx)\n- Solucionario destacado en verde (#1E7E34)\n- Justificaciones curriculares completas"]
-        TEM["Temario para Apoderados (.docx)\n- Páginas del libro Mineduc\n- Consejos de estudio en el hogar"]
-        XLS["Planilla de Gestión Escolar (.xlsx)\n- Cronograma de entrevistas\n- Formato condicional y anchos automáticos"]
-    end
+* **Cambio Dinámico:** Al alternar el colegio activo en la barra superior de la Interfaz Web o mediante `institution_manager.set_active("id")`, todas las pruebas, pautas y planillas Excel adoptan de inmediato el logo de alta resolución, membrete y paleta cromática de dicho colegio.
+* **Soporte de Logos:** Permite logos transparentes en formatos PNG, SVG o WEBP de hasta 4K de resolución.
 
-    AI --> DE
-    JSON --> DE
-    WIZ --> DE
-    VEC --> GC
-    GC --> DE
+---
 
-    DE --> EST
-    DE --> PAU
-    DE --> TEM
-    DE --> XLS
+## 📊 Gestor Especializado de Nóminas y Entrevistas Excel
+
+El módulo `roster_manager.py` automatiza la citación mensual de apoderados y gestión de cursos:
+
+* **Columnas Configurables:** `N°`, `Nombre del apoderado/a`, `Correo electrónico`, `Nombre del/la estudiante`, `Curso`, `Día`, `Fecha entrevista`, `Hora de entrevista`, `Estado` y `Observaciones`.
+* **Validación de Datos en Celda:** Menú desplegable nativo en Excel para estados: `Confirmado`, `Pendiente`, `Reprogramado`, `Inasistencia`.
+* **Estilo Institucional:** Cabecera con el color corporativo del colegio, bordes suaves, alternancia zebra (`#F6FAFE` / `#FFFFFF`) y anchos de columna auto-ajustados.
+* **Actualizable en Vivo:** Agrega nuevas entrevistas desde la pestaña **"2. Nóminas & Entrevistas Excel"** de la Web UI o vía API REST (`POST /api/roster/add`).
+
+---
+
+## 🔐 Autenticación y Single Sign-On (OAuth 2.0)
+
+El módulo `oauth_manager.py` permite vincular credenciales institucionales:
+
+1. **Google Workspace for Education / Google Classroom:**
+   - Permisos de lectura de cursos y nóminas de alumnos (`classroom.courses.readonly`, `classroom.rosters.readonly`).
+2. **GitHub Academic (`@JackStar6677-1`):**
+   - Sincronización con repositorios de aula y código didáctico.
+3. **Microsoft 365 Educación (Entra ID):**
+   - Integración con cuentas escolares de Microsoft Teams y Outlook institucional.
+4. **Modo Sandbox Educativo:**
+   - Permite probar el flujo de autenticación de forma inmediata en entornos locales sin requerir aprobación previa en Google Cloud Console.
+
+---
+
+## 🏭 Despliegue en Entornos de Producción e Industria
+
+### Opción 1: Instalación Rápida con 1 Clic (Recomendada para Profesores)
+* **En Windows:** Haz doble clic en `install.bat` para instalar las dependencias y luego en `start.bat` para iniciar la interfaz gráfica.
+* **En Linux / macOS:**
+  ```bash
+  chmod +x install.sh
+  ./install.sh
+  python3 app.py
+  ```
+
+### Opción 2: Despliegue con Contenedores Docker (Para Departamentos de TI Escolar)
+```bash
+# Construir y levantar el contenedor en segundo plano
+docker-compose up -d
+
+# Acceder a la plataforma en:
+# http://localhost:8080
+```
+
+### Opción 3: Variables de Entorno de Producción (`.env`)
+Copia la plantilla `.env.example` a `.env` y configura tus credenciales:
+```env
+GOOGLE_CLIENT_ID=tu_cliente_google.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=tu_secreto_google
+GEMINI_API_KEY=tu_clave_gemini
+PORT=8080
 ```
 
 ---
 
-## ✨ Características Principales
+## 💻 Modos de Uso
 
-* 🎨 **Línea Gráfica Institucional Impecable:**
-  - Tipografía unificada `Arial` en todo el documento.
-  - Paleta de color armónica: Azul Marino Institucional (`#173F73`), Azul Cielo Suave (`#EAF3FB`), Fondo de Tarjetas (`#F6FAFE`) y Borde Acero (`#B0C4DE`).
-  - Escudo institucional insertado con proporciones matemáticas perfectas.
-* ⚖️ **Rigor Pedagógico Integrado:**
-  - Eliminación estricta de términos contraproducentes (prohibida la palabra `SUMATIVA`, prohibidos porcentajes de exigencia como `60%`, prohibidas escalas de conversión `1.0 a 7.0` en la prueba del alumno, prohibidos tiempos límites estimados).
-  - Respuestas docentes 100% fundamentadas para retroalimentación formativa inmediata.
-* 📐 **Generación Vectorial de Recursos Didácticos:**
-  - **Circuitos Eléctricos:** Símbolos esquemáticos normalizados (fuente de poder, interruptor abierto/cerrado, ampolleta con cruz circular, cables ortogonales).
-  - **Modelo Corpuscular:** Distribución estocástica de partículas según estados sólido, líquido y gaseoso.
-  - **Estructura Atómica:** Modelo de Bohr/Dalton con órbitas elípticas, corteza, núcleo, protones, neutrones y electrones.
-* 📦 **Despliegue Multi-Directorio:** Salida sincronizada localmente en el repositorio Git y en las carpetas de gestión docente de Descargas.
+### 1. Interfaz Web Gráfica (Web UI)
+Inicia el servidor local y abre la aplicación en tu navegador predeterminado:
+```bash
+python app.py
+# o también:
+python main.py --web
+```
+
+### 2. Generación Asistida por IA por Consola
+```bash
+python ai_connector.py
+# o también:
+python main.py --ai
+```
+
+### 3. Asistente Manual Paso a Paso (Wizard CLI)
+```bash
+python wizard.py
+# o también:
+python main.py --wizard
+```
+
+### 4. Orquestador en Lote del Colegio
+```bash
+python main.py --all            # Genera todo el material institucional
+python main.py --excel          # Regenera el cronograma de entrevistas en Excel
+```
 
 ---
 
@@ -158,194 +223,44 @@ flowchart TD
 ```text
 evaluaciones_pasteur/
 │
-├── assets/                               # Recursos gráficos vectoriales e insignias
-│   ├── banner_animated.svg               # Banner interactivo animado para GitHub
-│   ├── logo_colegio.png                  # Escudo oficial de la institución
-│   ├── circuit_components/               # Símbolos esquemáticos de circuitos eléctricos
-│   ├── matter_states/                    # Modelos corpusculares de la materia
-│   └── atom_model/                       # Esqueleto y modelo atómico resuelto
+├── assets/                               # Recursos gráficos y logos
+│   ├── banner_animated.svg               # Banner interactivo para GitHub
+│   ├── logo_colegio.png                  # Escudo oficial de alta resolución
+│   ├── circuit_components/               # Símbolos esquemáticos vectoriales
+│   ├── matter_states/                    # Modelos corpusculares
+│   └── atom_model/                       # Modelo atómico de Dalton
 │
-├── output/                               # Entregables compilados (.docx y .xlsx)
-│   ├── temarios/                         # Temarios oficiales para enviar por correo
-│   ├── Evaluacion_Final_Ciencias_5Basico.docx
-│   ├── Pauta_Correccion_Ciencias_5Basico.docx
+├── config/                               # Memoria persistente del sistema
+│   ├── institutions.json                 # Perfiles, logos y colores de colegios
+│   └── roster_data.json                  # Nómina configurable de apoderados y citas
+│
+├── web/                                  # Interfaz gráfica de usuario (SPA)
+│   └── index.html                        # Panel interactivo moderno (Tailwind CSS)
+│
+├── output/                               # Entregables oficiales compilados
+│   ├── temarios/                         # Temarios oficiales para apoderados
 │   ├── Evaluacion_Final_Ciencias_6Basico.docx
 │   ├── Pauta_Correccion_Ciencias_6Basico.docx
-│   ├── Evaluacion_Final_Ciencias_8Basico.docx
-│   ├── Pauta_Correccion_Ciencias_8Basico.docx
-│   ├── Rubrica_Evaluacion_Final_Musica_1Basico.docx
-│   ├── Rubrica_Evaluacion_Final_Musica_2Basico.docx
-│   ├── Evaluacion_Final_Orientacion_5Basico.docx
-│   ├── Pauta_Correccion_Orientacion_5Basico.docx
 │   └── Cronograma_Entrevistas_Apoderados_2026.xlsx
 │
+├── app.py                                # Servidor Web local y API REST multi-hilo
+├── oauth_manager.py                      # Gestor de autenticación OAuth 2.0 (Google/GitHub/M365)
+├── institution_manager.py                # Memoria de Identidad Multi-Colegio y Branding
+├── roster_manager.py                     # Gestor de Nóminas y Cronogramas en Excel
 ├── ai_connector.py                       # Conector Universal Multi-IA (Claude, Gemini, GPT, DeepSeek)
 ├── engine.py                             # Motor declarativo central (DocenteEngine)
-├── wizard.py                             # Asistente CLI interactivo para crear nuevas pruebas
-├── generator_core.py                     # Motor base de renderizado XML y estilos python-docx
-├── main.py                               # Orquestador del sistema con menú interactivo y flags
+├── generator_core.py                     # Motor base de renderizado XML y estilos dinámicos
+├── wizard.py                             # Asistente CLI interactivo
+├── main.py                               # Orquestador del sistema con flags y menú
 │
-├── build_temarios.py                     # Compilador unificado de los 6 temarios a apoderados
-├── build_student_test.py                 # Generador Evaluación 5° Básico (OA 11 - 28 pts)
-├── build_teacher_answer_key.py           # Generador Pauta 5° Básico
-├── build_student_test_6basico.py         # Generador Evaluación 6° Básico (OA 13 - 26 pts)
-├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico
-├── build_ciencias_8basico.py             # Generador Evaluación y Pauta 8° Básico (OA 3 - 25 pts)
-├── build_rubricas_musica.py              # Generador Rúbricas Música 1°A y 2°A (25 pts c/u)
-├── build_orientacion_5basico.py          # Generador Evaluación y Pauta Orientación 5°A (OA 5 - 25 pts)
-├── crear_excel_entrevistas.py            # Generador de Planilla Excel de Entrevistas
-│
-├── generate_atom_assets.py               # Renderizador gráfico del átomo (Matplotlib)
-├── generate_matter_states.py             # Renderizador de estados de la materia
-├── perfect_symbols.py                    # Renderizador de circuitos normalizados
-│
-├── examples/                             # Plantillas JSON de evaluaciones declarativas
-│   └── evaluacion_modelo.json            # Plantilla base para nuevas evaluaciones
+├── install.bat / install.sh              # Instaladores de 1 clic para Windows y Linux/Mac
+├── start.bat                             # Lanzador directo de la interfaz web
+├── Dockerfile / docker-compose.yml       # Contenedores para despliegue industrial
+├── .env.example                          # Plantilla de credenciales OAuth e IA
 ├── requirements.txt                      # Dependencias de Python
 ├── LICENSE                               # Licencia MIT
 └── README.md                             # Documentación del proyecto
 ```
-
----
-
-## 🚀 Instalación y Puesta en Marcha
-
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/Jackstar6677-1/edudocente-studio.git
-cd edudocente-studio
-```
-
-### 2. Instalar dependencias
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configurar claves de API (Opcional)
-```bash
-# En Windows PowerShell:
-$env:GEMINI_API_KEY="tu_clave_gemini"
-$env:ANTHROPIC_API_KEY="tu_clave_claude"
-$env:OPENAI_API_KEY="tu_clave_openai"
-$env:DEEPSEEK_API_KEY="tu_clave_deepseek"
-
-# En Linux / macOS / Bash:
-export GEMINI_API_KEY="tu_clave_gemini"
-export ANTHROPIC_API_KEY="tu_clave_claude"
-export OPENAI_API_KEY="tu_clave_openai"
-export DEEPSEEK_API_KEY="tu_clave_deepseek"
-```
-
----
-
-## 💻 Modos de Uso
-
-### Opción 1: Generación Asistida por Inteligencia Artificial (IA)
-Solo indica el tema y el curso; la IA consultará las fuentes, comparará con las pautas curriculares y generará el paquete evaluativo:
-```bash
-python ai_connector.py
-# o también:
-python main.py --ai
-```
-
-### Opción 2: Asistente Interactivo de Creación Manual (Wizard)
-Construye una evaluación paso a paso respondiendo preguntas en la consola:
-```bash
-python wizard.py
-# o también:
-python main.py --wizard
-```
-
-### Opción 3: Compilación Declarativa desde JSON
-Crea o edita un archivo `.json` y compílalo programáticamente:
-```python
-from engine import DocenteEngine
-
-engine = DocenteEngine("examples/evaluacion_modelo.json")
-prueba_docx, pauta_docx = engine.build_all()
-print(f"Evaluación creada en: {prueba_docx}")
-```
-
-### Opción 4: Orquestador General del Colegio
-Genera el paquete completo del colegio o módulos específicos:
-```bash
-python main.py                  # Abre el menú interactivo con 11 opciones
-
-# Banderas directas por consola:
-python main.py --all            # Genera todo el material docente (Word, Excel y gráficos)
-python main.py --ciencias8      # Genera evaluación y pauta de Ciencias 8° Básico
-python main.py --musica         # Genera rúbricas prácticas de Música 1° y 2° Básico
-python main.py --orientacion    # Genera prueba y pauta de Orientación 5° Básico
-python main.py --temarios       # Genera los 6 temarios para enviar a apoderados
-python main.py --excel          # Genera la planilla Excel de entrevistas
-```
-
----
-
-## 📋 Estructura de Configuración Declarativa (JSON)
-
-```json
-{
-  "colegio": "COLEGIO LUIS PASTEUR ANEXO",
-  "asignatura": "CIENCIAS NATURALES",
-  "curso": "7° Básico A",
-  "titulo": "EVALUACIÓN FINAL: MICROORGANISMOS Y BACTERIAS",
-  "oa": "OA 7 — Investigar y explicar las características de virus y bacterias.",
-  "contenidos": "Microorganismos patógenos y benéficos, estructura y prevención.",
-  "puntaje_total": 25,
-  
-  "item1_seleccion_multiple": [
-    {
-      "pregunta": "1. ¿Qué estructura celular es propia de las bacterias?",
-      "alternativas": [
-        ["A", "Pared celular y material genético libre en el citoplasma."],
-        ["B", "Núcleo delimitado por membrana carioteca."],
-        ["C", "Cápsula de cristal inorgánico."],
-        ["D", "Ausencia total de ribosomas."]
-      ],
-      "correcta": "A) Pared celular y material genético libre en el citoplasma.",
-      "justificacion": "Las bacterias son organismos procariontes sin núcleo delimitado por carioteca."
-    }
-  ],
-
-  "item2_verdadero_falso": [
-    {
-      "oracion": "Los virus son considerados células vivas con metabolismo independiente.",
-      "resp": "F",
-      "justificacion": "Los virus son agentes acelulares que requieren una célula hospedera para replicarse."
-    }
-  ],
-
-  "item3_aplicacion": {
-    "titulo": "ÍTEM III: DIBUJO Y EXPLICACIÓN DE MEDIDAS PREVENTIVAS",
-    "puntaje": 5,
-    "tipo": "drawing_boxes",
-    "instruccion": "Dibuja en el recuadro una medida de prevención sanitaria y descríbela:",
-    "cajas": [
-      {
-        "titulo": "Medida: Lavado adecuado de manos con jabón",
-        "ejemplo_pauta": "Estudiante lavando manos con agua y jabón disolviendo la cubierta viral."
-      }
-    ]
-  }
-}
-```
-
----
-
-## 🏆 Materiales Docentes Listos para Producción
-
-El repositorio incluye casos reales listos para aula generados para el **Colegio Luis Pasteur Anexo**:
-
-| Asignatura | Curso | Instrumento Evaluativo | Puntaje | Entregables |
-| :--- | :--- | :--- | :---: | :--- |
-| **Ciencias Naturales** | 5° Básico A-B | Energía eléctrica y circuitos | 28 pts | Prueba, Pauta y Temario |
-| **Ciencias Naturales** | 6° Básico A-B | Cambios de estado y partículas | 26 pts | Prueba, Pauta y Temario |
-| **Ciencias Naturales** | 8° Básico A | Teoría atómica de Dalton y átomo | 25 pts | Prueba, Pauta con modelo resuelto y Temario |
-| **Música** | 1° Básico A | Canto al unísono y percusión (*Estrellita*) | 25 pts | Rúbrica práctica de aula y Temario |
-| **Música** | 2° Básico A | Interpretación coral y metalófono | 25 pts | Rúbrica práctica de aula y Temario |
-| **Orientación** | 5° Básico A | Prevención de drogas y autocuidado | 25 pts | Prueba, Pauta con justificaciones y Temario |
-| **Gestión Docente** | Jefatura / Asignatura | Cronograma de entrevistas a apoderados | — | Planilla Excel automatizada (16 apoderados) |
 
 ---
 

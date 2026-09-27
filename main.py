@@ -117,6 +117,10 @@ def run_wizard():
     from wizard import interactive_wizard
     interactive_wizard()
 
+def run_web():
+    from app import start_server
+    start_server(port=8080, open_browser=True)
+
 def menu_interactivo():
     while True:
         print("\n" + "=" * 66)
@@ -133,9 +137,10 @@ def menu_interactivo():
         print(" 9. Generar y Desplegar TODO a Descargas")
         print("10. [IA] Crear Nueva Evaluación Asistida por IA (Gemini/Claude/GPT/DeepSeek)")
         print("11. [WIZARD] Asistente Paso a Paso Manual")
+        print("12. [WEB UI] Iniciar Servidor Web con Interfaz Gráfica y OAuth 2.0")
         print(" 0. Salir")
         print("-" * 66)
-        opcion = input("Selecciona una opción (0-11): ").strip()
+        opcion = input("Selecciona una opción (0-12): ").strip()
 
         if opcion == "1":
             run_ciencias_5basico()
@@ -159,11 +164,13 @@ def menu_interactivo():
             run_ai()
         elif opcion == "11":
             run_wizard()
+        elif opcion == "12":
+            run_web()
         elif opcion == "0":
             print("Cerrando el sistema docente. ¡Hasta pronto!")
             break
         else:
-            print("Opción inválida. Por favor, ingresa un número del 0 al 11.")
+            print("Opción inválida. Por favor, ingresa un número del 0 al 12.")
 
 def main():
     parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Luis Pasteur")
@@ -178,6 +185,7 @@ def main():
     parser.add_argument("--assets", action="store_true", help="Regenera las imágenes y símbolos gráficos")
     parser.add_argument("--ai", action="store_true", help="Inicia sesión interactiva con el Conector Multi-IA")
     parser.add_argument("--wizard", action="store_true", help="Inicia el asistente paso a paso manual")
+    parser.add_argument("--web", action="store_true", help="Inicia el servidor web local y abre la UI en el navegador")
 
     args = parser.parse_args()
 
@@ -203,6 +211,8 @@ def main():
         run_ai()
     elif args.wizard:
         run_wizard()
+    elif args.web:
+        run_web()
     else:
         menu_interactivo()
 
