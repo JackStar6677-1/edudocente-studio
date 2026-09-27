@@ -8,6 +8,7 @@ import os
 import sys
 import shutil
 import argparse
+import zipfile
 
 # Asegurar codificación utf-8 en consola de Windows
 if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
@@ -93,6 +94,84 @@ def run_assets():
     generate_teacher_atom_solved()
     print("[COMPLETADO] Símbolos eléctricos, partículas y modelos atómicos regenerados en assets/.")
 
+def deploy_consolidated_package():
+    print("\n--- Generando Paquete Consolidado para Enviar (Pautas, Rúbricas y Evaluaciones) ---")
+    package_dir = os.path.join(DOWNLOADS_ROOT, "_PAQUETE PARA ENVIAR (Pautas, Rúbricas y Evaluaciones)")
+    pautas_dir = os.path.join(package_dir, "01 - Solo Pautas y Rúbricas (Documentos Docentes)")
+    evals_dir = os.path.join(package_dir, "02 - Evaluaciones Estudiantes (Para Fotocopiar)")
+    temarios_dir = os.path.join(package_dir, "03 - Temarios de Estudio (Para Apoderados)")
+    todo_junto_dir = os.path.join(package_dir, "04 - Todos los Archivos Juntos (Sin Subcarpetas)")
+
+    for d in [package_dir, pautas_dir, evals_dir, temarios_dir, todo_junto_dir]:
+        os.makedirs(d, exist_ok=True)
+
+    # 1. Pautas y Rúbricas
+    pautas_files = [
+        "Pauta_Correccion_Ciencias_5Basico.docx",
+        "Pauta_Correccion_Ciencias_6Basico.docx",
+        "Pauta_Correccion_Ciencias_8Basico.docx",
+        "Pauta_Correccion_Orientacion_5Basico.docx",
+        "Rubrica_Evaluacion_Final_Musica_1Basico.docx",
+        "Rubrica_Evaluacion_Final_Musica_2Basico.docx"
+    ]
+    for pf in pautas_files:
+        src = os.path.join(OUTPUT_DIR, pf)
+        if os.path.exists(src):
+            try:
+                shutil.copy2(src, os.path.join(pautas_dir, pf))
+                shutil.copy2(src, os.path.join(todo_junto_dir, pf))
+                shutil.copy2(src, os.path.join(package_dir, pf))
+            except Exception:
+                pass
+
+    # 2. Evaluaciones Alumnos
+    eval_files = [
+        "Evaluacion_Final_Ciencias_5Basico.docx",
+        "Evaluacion_Final_Ciencias_6Basico.docx",
+        "Evaluacion_Final_Ciencias_8Basico.docx",
+        "Evaluacion_Final_Orientacion_5Basico.docx"
+    ]
+    for ef in eval_files:
+        src = os.path.join(OUTPUT_DIR, ef)
+        if os.path.exists(src):
+            try:
+                shutil.copy2(src, os.path.join(evals_dir, ef))
+                shutil.copy2(src, os.path.join(todo_junto_dir, ef))
+                shutil.copy2(src, os.path.join(package_dir, ef))
+            except Exception:
+                pass
+
+    # 3. Temarios
+    temario_files = [
+        "Temario_Ciencias_5Basico_A_B.docx",
+        "Temario_Ciencias_6Basico_A_B.docx",
+        "Temario_Ciencias_8Basico_A.docx",
+        "Temario_Musica_1Basico_A.docx",
+        "Temario_Musica_2Basico_A.docx",
+        "Temario_Orientacion_5Basico_A.docx"
+    ]
+    for tf in temario_files:
+        src = os.path.join(OUTPUT_DIR, "temarios", tf)
+        if os.path.exists(src):
+            try:
+                shutil.copy2(src, os.path.join(temarios_dir, tf))
+                shutil.copy2(src, os.path.join(todo_junto_dir, tf))
+                shutil.copy2(src, os.path.join(package_dir, tf))
+            except Exception:
+                pass
+
+    # 4. ZIP comprimido para envío por email
+    zip_path = os.path.join(DOWNLOADS_ROOT, "Entrega_Final_Profesora_Margarita_2026.zip")
+    try:
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for f in os.listdir(todo_junto_dir):
+                zipf.write(os.path.join(todo_junto_dir, f), arcname=f)
+        shutil.copy2(zip_path, os.path.join(package_dir, "Entrega_Final_Profesora_Margarita_2026.zip"))
+    except Exception:
+        pass
+    print(f"  [OK] Paquete consolidado generado en: {package_dir}")
+    print(f"  [OK] Archivo ZIP para enviar creado en: {zip_path}")
+
 def run_all():
     print("\n=======================================================")
     print(" EJECUTANDO GENERACIÓN COMPLETA DE RECURSOS DOCENTES ")
@@ -105,6 +184,7 @@ def run_all():
     run_orientacion()
     run_temarios()
     run_excel_entrevistas()
+    deploy_consolidated_package()
     print("\n=======================================================")
     print(" ¡TODO EL MATERIAL FUE GENERADO Y ACTUALIZADO CON ÉXITO! ")
     print("=======================================================\n")
@@ -138,9 +218,10 @@ def menu_interactivo():
         print("10. [IA] Crear Nueva Evaluación Asistida por IA (Gemini/Claude/GPT/DeepSeek)")
         print("11. [WIZARD] Asistente Paso a Paso Manual")
         print("12. [WEB UI] Iniciar Servidor Web con Interfaz Gráfica y OAuth 2.0")
+        print("13. [PAQUETE] Generar Paquete Consolidado para Enviar (Pautas, Rúbricas y Evaluaciones)")
         print(" 0. Salir")
         print("-" * 66)
-        opcion = input("Selecciona una opción (0-12): ").strip()
+        opcion = input("Selecciona una opción (0-13): ").strip()
 
         if opcion == "1":
             run_ciencias_5basico()
@@ -166,15 +247,18 @@ def menu_interactivo():
             run_wizard()
         elif opcion == "12":
             run_web()
+        elif opcion == "13":
+            deploy_consolidated_package()
         elif opcion == "0":
             print("Cerrando el sistema docente. ¡Hasta pronto!")
             break
         else:
-            print("Opción inválida. Por favor, ingresa un número del 0 al 12.")
+            print("Opción inválida. Por favor, ingresa un número del 0 al 13.")
 
 def main():
     parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Luis Pasteur")
     parser.add_argument("--all", action="store_true", help="Genera todas las evaluaciones, pautas, temarios y Excel")
+    parser.add_argument("--package", action="store_true", help="Genera y empaqueta todo el material para envío a UTP")
     parser.add_argument("--ciencias5", action="store_true", help="Genera material de Ciencias 5to básico")
     parser.add_argument("--ciencias6", action="store_true", help="Genera material de Ciencias 6to básico")
     parser.add_argument("--ciencias8", action="store_true", help="Genera material de Ciencias 8vo básico")
@@ -191,6 +275,8 @@ def main():
 
     if args.all:
         run_all()
+    elif args.package:
+        deploy_consolidated_package()
     elif args.ciencias5:
         run_ciencias_5basico()
     elif args.ciencias6:
