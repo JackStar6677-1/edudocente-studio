@@ -26,7 +26,7 @@ from generator_core import (
     create_base_doc, add_header, add_title_banner, add_section_header,
     set_cell_shading, set_cell_borders, set_cell_margins, COLOR_NAVY_HEX,
     COLOR_ICE_HEX, COLOR_BOX_BG_HEX, COLOR_BORDER_HEX, COLOR_NAVY_RGB,
-    COLOR_DARK_RGB, COLOR_WHITE_RGB
+    COLOR_DARK_RGB, COLOR_WHITE_RGB, safe_save
 )
 
 def build_temario_base(curso_header, subject_header, title_banner, datos_caja, saludo_parrafo, secciones_datos, orientaciones_estudio, nota_extra=None):
@@ -234,8 +234,8 @@ def generar_temario_5ciencias():
         orientaciones_estudio=orientaciones
     )
     out_name = "Temario_Ciencias_5Basico_A_B.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 # ==============================================================================
@@ -286,8 +286,8 @@ def generar_temario_6ciencias():
         orientaciones_estudio=orientaciones
     )
     out_name = "Temario_Ciencias_6Basico_A_B.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 # ==============================================================================
@@ -341,8 +341,8 @@ def generar_temario_8ciencias():
         orientaciones_estudio=orientaciones
     )
     out_name = "Temario_Ciencias_8Basico_A.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 # ==============================================================================
@@ -388,8 +388,8 @@ def generar_temario_1musica():
         nota_extra="El instrumento (sonaja o metalófono) será el que el estudiante ha venido utilizando en sus clases habituales."
     )
     out_name = "Temario_Musica_1Basico_A.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 # ==============================================================================
@@ -435,8 +435,8 @@ def generar_temario_2musica():
         nota_extra="Se evaluará en clases presenciales según el instrumento escogido por cada estudiante."
     )
     out_name = "Temario_Musica_2Basico_A.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 # ==============================================================================
@@ -488,8 +488,8 @@ def generar_temario_5orientacion():
         nota_extra="La evaluación constará de análisis de situaciones cotidianas, preguntas de reflexión y compromiso de autocuidado."
     )
     out_name = "Temario_Orientacion_5Basico_A.docx"
-    doc.save(os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
-    doc.save(os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(OUTPUT_TEMARIOS_DIR, out_name))
+    safe_save(doc, os.path.join(DOWNLOADS_TEMARIOS_DIR, out_name))
     print(f"[OK] Generado: {out_name}")
 
 def reubicar_temarios_anteriores():

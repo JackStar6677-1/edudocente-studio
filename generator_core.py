@@ -4,8 +4,8 @@ import docx
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
-from docx.oxml import parse_xml
-from docx.oxml.ns import nsdecls
+from docx.oxml import parse_xml, OxmlElement
+from docx.oxml.ns import nsdecls, qn
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -79,8 +79,48 @@ def set_cell_borders(cell, **kwargs):
             tcBorders.append(b_xml)
     cell._tc.get_or_add_tcPr().append(tcBorders)
 
-def create_base_doc():
+def set_document_language(doc, lang_code="es-CL"):
+    """
+    Configura el idioma predeterminado de corrección ortográfica y gramatical
+    en los metadatos de estilos OpenXML (w:docDefaults y estilo Normal).
+    Evita que Microsoft Word marque todo el texto en español con líneas rojas de error.
+    """
+    try:
+        styles_elm = doc.styles.element
+        doc_defaults = styles_elm.find(qn('w:docDefaults'))
+        if doc_defaults is not None:
+            rpr_default = doc_defaults.find(qn('w:rPrDefault'))
+            if rpr_default is not None:
+                rpr = rpr_default.find(qn('w:rPr'))
+                if rpr is not None:
+                    lang = rpr.find(qn('w:lang'))
+                    if lang is not None:
+                        lang.set(qn('w:val'), lang_code)
+                        lang.set(qn('w:eastAsia'), lang_code)
+                        lang.set(qn('w:bidi'), 'ar-SA')
+                    else:
+                        lang = OxmlElement('w:lang')
+                        lang.set(qn('w:val'), lang_code)
+                        lang.set(qn('w:eastAsia'), lang_code)
+                        lang.set(qn('w:bidi'), 'ar-SA')
+                        rpr.append(lang)
+
+        # Configurar explícitamente en el estilo Normal
+        normal = doc.styles['Normal']
+        normal_rpr = normal.element.get_or_add_rPr()
+        normal_lang = normal_rpr.find(qn('w:lang'))
+        if normal_lang is None:
+            normal_lang = OxmlElement('w:lang')
+            normal_rpr.append(normal_lang)
+        normal_lang.set(qn('w:val'), lang_code)
+        normal_lang.set(qn('w:eastAsia'), lang_code)
+        normal_lang.set(qn('w:bidi'), 'ar-SA')
+    except Exception as e:
+        print(f"[Aviso] No se pudo configurar metadatos de idioma: {e}")
+
+def create_base_doc(lang_code="es-CL"):
     doc = docx.Document()
+    set_document_language(doc, lang_code=lang_code)
     for s in doc.sections:
         s.page_width = Inches(8.5)
         s.page_height = Inches(11.0)
@@ -89,6 +129,19 @@ def create_base_doc():
         s.left_margin = Inches(0.7)
         s.right_margin = Inches(0.7)
     return doc
+
+def safe_save(doc, path):
+    """Guarda el documento Word capturando posibles bloqueos por tener el archivo abierto en Word."""
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    try:
+        doc.save(path)
+        return True
+    except PermissionError:
+        print(f"  [AVISO] No se pudo sobrescribir '{os.path.basename(path)}' en '{os.path.dirname(path)}' porque el archivo está abierto en Microsoft Word.")
+        return False
+    except Exception as e:
+        print(f"  [ERROR] Al guardar '{path}': {e}")
+        return False
 
 def add_header(doc, school=None, subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle=None):
     reload_active_theme()

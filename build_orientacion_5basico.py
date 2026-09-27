@@ -27,7 +27,7 @@ from generator_core import (
     create_base_doc, add_header, add_title_banner, add_section_header,
     set_cell_shading, set_cell_borders, set_cell_margins, COLOR_NAVY_HEX,
     COLOR_ICE_HEX, COLOR_BOX_BG_HEX, COLOR_BORDER_HEX, COLOR_CORRECT_HEX,
-    COLOR_NAVY_RGB, COLOR_CORRECT_RGB, COLOR_DARK_RGB, COLOR_WHITE_RGB
+    COLOR_NAVY_RGB, COLOR_CORRECT_RGB, COLOR_DARK_RGB, COLOR_WHITE_RGB, safe_save
 )
 
 def add_orientacion_info(doc, is_pauta=False):
@@ -314,8 +314,8 @@ def build_evaluacion_estudiante_orientacion():
         rt.font.size = Pt(8.5)
 
     out_name = "Evaluacion_Final_Orientacion_5Basico.docx"
-    doc.save(os.path.join(OUTPUT_DIR, out_name))
-    doc.save(os.path.join(DEST_ORIENTACION, out_name))
+    safe_save(doc, os.path.join(OUTPUT_DIR, out_name))
+    safe_save(doc, os.path.join(DEST_ORIENTACION, out_name))
     print(f"  [OK] Prueba Estudiante guardada: {out_name}")
 
 # ==============================================================================
@@ -529,8 +529,8 @@ def build_pauta_correccion_orientacion():
         rj.font.color.rgb = RGBColor(0x33, 0x33, 0x33)
 
     out_name = "Pauta_Correccion_Orientacion_5Basico.docx"
-    doc.save(os.path.join(OUTPUT_DIR, out_name))
-    doc.save(os.path.join(DEST_ORIENTACION, out_name))
+    safe_save(doc, os.path.join(OUTPUT_DIR, out_name))
+    safe_save(doc, os.path.join(DEST_ORIENTACION, out_name))
     print(f"  [OK] Pauta Docente guardada: {out_name}")
 
 def generar_orientacion_completa():

@@ -29,7 +29,7 @@ from generator_core import (
     set_cell_shading, set_cell_borders, set_cell_margins,
     COLOR_NAVY_HEX, COLOR_ICE_HEX, COLOR_BOX_BG_HEX, COLOR_BORDER_HEX,
     COLOR_CORRECT_HEX, COLOR_NAVY_RGB, COLOR_CORRECT_RGB, COLOR_DARK_RGB,
-    COLOR_WHITE_RGB, LOGO_PATH
+    COLOR_WHITE_RGB, LOGO_PATH, safe_save
 )
 
 class DocenteEngine:
@@ -498,7 +498,7 @@ class DocenteEngine:
             clean_crs = self.course.replace(" ", "_").replace("°", "").replace("—", "")
             out_path = os.path.join(OUTPUT_DIR, f"Evaluacion_{clean_sub}_{clean_crs}.docx")
 
-        doc.save(out_path)
+        safe_save(doc, out_path)
         print(f"[OK] Prueba Estudiante generada: {out_path}")
         return out_path
 
@@ -517,7 +517,7 @@ class DocenteEngine:
             clean_crs = self.course.replace(" ", "_").replace("°", "").replace("—", "")
             out_path = os.path.join(OUTPUT_DIR, f"Pauta_Correccion_{clean_sub}_{clean_crs}.docx")
 
-        doc.save(out_path)
+        safe_save(doc, out_path)
         print(f"[OK] Pauta Docente generada: {out_path}")
         return out_path
 
