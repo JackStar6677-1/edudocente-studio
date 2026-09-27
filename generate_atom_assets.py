@@ -53,40 +53,41 @@ def generate_student_atom_skeleton():
                               edgecolor='#CBD5E1', linestyle=':', linewidth=1.2)
         ax.add_patch(el_c)
 
-    # Líneas y cuadros guía para rotular partes (Callout boxes)
-    # 1. CORTEZA / ÓRBITA (arriba a la izquierda)
-    ax.annotate("1. ___________________\n   (Corteza / Órbita)",
+    # Líneas y cuadros guía para rotular partes (Callout boxes en blanco para que el estudiante responda)
+    # 1. Zona exterior / corteza
+    ax.annotate("1. ___________________",
                 xy=(-2.5, 2.5), xytext=(-5.8, 3.5),
                 arrowprops=dict(arrowstyle="->", color="#173F73", lw=1.5),
-                fontsize=8.5, fontweight='bold', color="#173F73",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#FFFFFF", ec="#B0C4DE", lw=1.2))
+                fontsize=9.5, fontweight='bold', color="#173F73",
+                bbox=dict(boxstyle="round,pad=0.35", fc="#FFFFFF", ec="#B0C4DE", lw=1.3))
 
-    # 2. ELECTRÓN (arriba a la derecha)
-    ax.annotate("2. ___________________\n   (Partícula en órbita)",
+    # 2. Partícula en órbita
+    ax.annotate("2. ___________________",
                 xy=(3.8, 1.8), xytext=(4.2, 3.2),
                 arrowprops=dict(arrowstyle="->", color="#173F73", lw=1.5),
-                fontsize=8.5, fontweight='bold', color="#173F73",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#FFFFFF", ec="#B0C4DE", lw=1.2))
+                fontsize=9.5, fontweight='bold', color="#173F73",
+                bbox=dict(boxstyle="round,pad=0.35", fc="#FFFFFF", ec="#B0C4DE", lw=1.3))
 
-    # 3. NÚCLEO (abajo a la izquierda)
-    ax.annotate("3. ___________________\n   (Zona central)",
+    # 3. Región central
+    ax.annotate("3. ___________________",
                 xy=(-0.8, -0.4), xytext=(-5.8, -2.5),
                 arrowprops=dict(arrowstyle="->", color="#173F73", lw=1.5),
-                fontsize=8.5, fontweight='bold', color="#173F73",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#FFFFFF", ec="#B0C4DE", lw=1.2))
+                fontsize=9.5, fontweight='bold', color="#173F73",
+                bbox=dict(boxstyle="round,pad=0.35", fc="#FFFFFF", ec="#B0C4DE", lw=1.3))
 
-    # 4. PROTÓN y NEUTRÓN (abajo a la derecha)
-    ax.annotate("4. ___________________\n   (Partícula en el núcleo)",
+    # 4. Partícula nuclear
+    ax.annotate("4. ___________________",
                 xy=(0.5, 0.4), xytext=(4.0, -1.8),
                 arrowprops=dict(arrowstyle="->", color="#173F73", lw=1.5),
-                fontsize=8.5, fontweight='bold', color="#173F73",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#FFFFFF", ec="#B0C4DE", lw=1.2))
+                fontsize=9.5, fontweight='bold', color="#173F73",
+                bbox=dict(boxstyle="round,pad=0.35", fc="#FFFFFF", ec="#B0C4DE", lw=1.3))
 
-    ax.annotate("5. ___________________\n   (Partícula en el núcleo)",
+    # 5. Otra partícula nuclear
+    ax.annotate("5. ___________________",
                 xy=(0.0, -0.5), xytext=(4.0, -3.6),
                 arrowprops=dict(arrowstyle="->", color="#173F73", lw=1.5),
-                fontsize=8.5, fontweight='bold', color="#173F73",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#FFFFFF", ec="#B0C4DE", lw=1.2))
+                fontsize=9.5, fontweight='bold', color="#173F73",
+                bbox=dict(boxstyle="round,pad=0.35", fc="#FFFFFF", ec="#B0C4DE", lw=1.3))
 
     out_file = os.path.join(out_dir, "atom_skeleton_student.png")
     plt.savefig(out_file, bbox_inches='tight', transparent=False, facecolor='white', pad_inches=0.08)

@@ -305,9 +305,9 @@ def build_evaluacion_estudiante_8b():
     p_i3.paragraph_format.space_before = Pt(1)
     p_i3.paragraph_format.space_after = Pt(4)
     r_i3 = p_i3.add_run(
-        "Observa el siguiente esquema de un átomo. Completa las líneas escribiendo el nombre de las partes "
-        "indicadas por las flechas (Núcleo, Corteza, Protón, Neutrón y Electrón). Luego, dibuja las partículas "
-        "faltantes y pinta según lo visto en clases:"
+        "Observa con atención el esquema del modelo atómico. Completa cada una de las líneas numeradas (1 al 5) "
+        "escribiendo el nombre de las partes de la estructura del átomo y sus partículas subatómicas según "
+        "corresponda. Luego, dibuja las partículas faltantes en las órbitas y el núcleo, y colorea según lo trabajado en clases:"
     )
     r_i3.font.name = "Arial"
     r_i3.font.size = Pt(8.5)
@@ -341,9 +341,7 @@ def build_evaluacion_estudiante_8b():
     rc1.font.size = Pt(8)
     rc1.font.color.rgb = COLOR_NAVY_RGB
     rc2 = p_cr.add_run(
-        "1. Identifica y rotula la Corteza/Órbita. | 2. Identifica y rotula el Electrón (e–). | "
-        "3. Identifica y rotula el Núcleo atómico. | 4. Identifica y rotula el Protón (p+). | "
-        "5. Identifica y rotula el Neutrón (n0) y colorea adecuadamente."
+        "1 punto por cada rotulación correcta del 1 al 5. Identificación clara de las partes del átomo, partículas subatómicas y dibujo/coloreado correspondiente."
     )
     rc2.font.name = "Arial"
     rc2.font.size = Pt(7.5)
