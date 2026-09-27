@@ -212,7 +212,7 @@ evaluaciones_pasteur/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/edudocente-studio.git
+git clone https://github.com/Jackstar6677-1/edudocente-studio.git
 cd edudocente-studio
 ```
 
@@ -351,7 +351,7 @@ El repositorio incluye casos reales listos para aula generados para el **Colegio
 
 ## 👨‍💻 Autor y Reconocimientos
 
-- **Desarrollo y Arquitectura de Software:** Jack ([GitHub Profile](https://github.com))
+- **Desarrollo y Arquitectura de Software:** Jack ([@Jackstar6677-1](https://github.com/Jackstar6677-1))
 - **Asesoría y Validación Pedagógica:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
 - **Contacto:** `profesora.margaritamiranda@cepluispasteur.cl`
 
