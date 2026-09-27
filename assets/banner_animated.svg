@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="60%" stop-color="#090D16"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+
+    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="100%" stop-color="#0072FF"/>
+    </linearGradient>
+
+    <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8A2387"/>
+      <stop offset="50%" stop-color="#E94057"/>
+      <stop offset="100%" stop-color="#F27121"/>
+    </linearGradient>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#67E8F9"/>
+      <stop offset="70%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="glowPulse" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- CSS Keyframe Animations -->
+    <style>
+      .pulse-line {
+        stroke-dasharray: 8, 12;
+        animation: dashMove 20s linear infinite;
+      }
+      .node-pulse {
+        animation: pulseScale 3s ease-in-out infinite alternate;
+      }
+      .glow-text {
+        animation: textFlicker 4s ease-in-out infinite alternate;
+      }
+      .float-badge {
+        animation: floatUpDown 4s ease-in-out infinite alternate;
+      }
+      .badge-delay-1 { animation-delay: 0.5s; }
+      .badge-delay-2 { animation-delay: 1.0s; }
+      .badge-delay-3 { animation-delay: 1.5s; }
+      .badge-delay-4 { animation-delay: 2.0s; }
+      .badge-delay-5 { animation-delay: 2.5s; }
+      .badge-delay-6 { animation-delay: 3.0s; }
+
+      @keyframes dashMove {
+        to { stroke-dashoffset: -400; }
+      }
+      @keyframes pulseScale {
+        0% { transform: scale(0.95); opacity: 0.7; }
+        100% { transform: scale(1.08); opacity: 1; }
+      }
+      @keyframes floatUpDown {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-7px); }
+      }
+      @keyframes textFlicker {
+        0% { filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4)); }
+        100% { filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.85)); }
+      }
+    </style>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="420" fill="url(#bgGrad)" />
+
+  <!-- Animated Neural Grid Lines & Waves -->
+  <g opacity="0.25">
+    <path class="pulse-line" d="M -50 100 Q 300 250 600 120 T 1250 200" fill="none" stroke="#00F0FF" stroke-width="1.8" />
+    <path class="pulse-line" d="M -50 320 Q 300 160 600 280 T 1250 220" fill="none" stroke="#818CF8" stroke-width="1.5" />
+    <path class="pulse-line" d="M -50 210 Q 400 380 800 150 T 1250 350" fill="none" stroke="#38BDF8" stroke-width="1.2" />
+  </g>
+
+  <!-- Cybernetic Grid Points -->
+  <g fill="#38BDF8" opacity="0.3">
+    <circle cx="150" cy="80" r="2.5" />
+    <circle cx="350" cy="140" r="3" />
+    <circle cx="900" cy="90" r="2" />
+    <circle cx="1050" cy="160" r="3" />
+    <circle cx="180" cy="340" r="2.5" />
+    <circle cx="1000" cy="320" r="3.5" />
+  </g>
+
+  <!-- Glowing Central Emblem / Academic Shield & AI Core -->
+  <g transform="translate(600, 105)">
+    <!-- Outer Glow Orbit -->
+    <circle cx="0" cy="0" r="54" fill="none" stroke="#00F0FF" stroke-width="1.5" stroke-dasharray="6, 8" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="25s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#818CF8" stroke-width="1.2" stroke-dasharray="4, 6" opacity="0.5">
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="18s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Central Hexagon Core -->
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="#1E293B" stroke="url(#neonCyan)" stroke-width="2.5" filter="url(#glowCyan)" />
+    
+    <!-- Graduation Cap / Learning Node Icon -->
+    <path d="M 0 -12 L 18 -3 L 0 6 L -18 -3 Z" fill="url(#goldGrad)" />
+    <path d="M -12 2 L -12 11 Q 0 17 12 11 L 12 2" fill="none" stroke="url(#goldGrad)" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M 14 -1 L 19 8 L 17 16" fill="none" stroke="#FDE047" stroke-width="1.8" stroke-linecap="round" />
+  </g>
+
+  <!-- Main Title -->
+  <text x="600" y="200" text-anchor="middle" class="glow-text" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-weight="900" font-size="44" letter-spacing="1.5" fill="url(#textGrad)">
+    EduDocente-Studio
+  </text>
+
+  <!-- Subtitle with Glowing Accent -->
+  <text x="600" y="235" text-anchor="middle" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-weight="500" font-size="16" letter-spacing="3.5" fill="#94A3B8">
+    AUTONOMOUS PEDAGOGICAL ASSESSMENT &amp; CURRICULUM ENGINE
+  </text>
+
+  <text x="600" y="260" text-anchor="middle" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-weight="400" font-size="13" letter-spacing="1.5" fill="#38BDF8">
+    Institutional Word (.docx) • Solucionarios con Justificación • Vector Schematics • Multi-AI Engine
+  </text>
+
+  <!-- Horizontal Tech Divider -->
+  <line x1="380" y1="282" x2="820" y2="282" stroke="url(#neonCyan)" stroke-width="1.5" opacity="0.6" />
+  <circle cx="600" cy="282" r="3.5" fill="#00F0FF" filter="url(#glowCyan)" />
+
+  <!-- Multi-AI Provider Badges Floating -->
+  <!-- 1. Google Gemini / Antigravity -->
+  <g class="float-badge badge-delay-1" transform="translate(130, 315)">
+    <rect width="135" height="38" rx="19" fill="#1E293B" stroke="#38BDF8" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#38BDF8" filter="url(#glowCyan)" />
+    <text x="75" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">Gemini 2.0</text>
+  </g>
+
+  <!-- 2. Anthropic Claude -->
+  <g class="float-badge badge-delay-2" transform="translate(285, 315)">
+    <rect width="145" height="38" rx="19" fill="#1E293B" stroke="#D97706" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#F59E0B" />
+    <text x="80" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">Claude 3.5</text>
+  </g>
+
+  <!-- 3. OpenAI / Codex GPT-4o -->
+  <g class="float-badge badge-delay-3" transform="translate(450, 315)">
+    <rect width="135" height="38" rx="19" fill="#1E293B" stroke="#10B981" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#10B981" />
+    <text x="75" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">GPT-4o / o1</text>
+  </g>
+
+  <!-- 4. DeepSeek V3 / R1 -->
+  <g class="float-badge badge-delay-4" transform="translate(605, 315)">
+    <rect width="140" height="38" rx="19" fill="#1E293B" stroke="#6366F1" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#818CF8" />
+    <text x="77" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">DeepSeek R1</text>
+  </g>
+
+  <!-- 5. Kimi (Moonshot) -->
+  <g class="float-badge badge-delay-5" transform="translate(765, 315)">
+    <rect width="135" height="38" rx="19" fill="#1E293B" stroke="#EC4899" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#F472B6" />
+    <text x="75" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">Kimi AI</text>
+  </g>
+
+  <!-- 6. Grok (xAI) -->
+  <g class="float-badge badge-delay-6" transform="translate(920, 315)">
+    <rect width="145" height="38" rx="19" fill="#1E293B" stroke="#F43F5E" stroke-width="1.4" opacity="0.95" />
+    <circle cx="20" cy="19" r="6" fill="#FB7185" />
+    <text x="80" y="24" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="12" font-weight="700" fill="#E2E8F0">xAI Grok</text>
+  </g>
+
+  <!-- Bottom Mini Footer Status -->
+  <g transform="translate(600, 390)" opacity="0.8">
+    <circle cx="-135" cy="-4" r="3.5" fill="#22C55E">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <text x="0" y="0" text-anchor="middle" font-family="'Segoe UI', Arial" font-size="11" font-weight="600" fill="#64748B" letter-spacing="1">
+      READY FOR DEPLOYMENT • COLEGIOS &amp; INSTITUCIONES K-12 • OPEN SOURCE (MIT)
+    </text>
+  </g>
+</svg>

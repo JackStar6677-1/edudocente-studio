@@ -45,3 +45,9 @@ Desktop.ini
 ~$*.docx
 ~$*.xlsx
 *.tmp
+
+# Generated Evaluation Output
+output/*.docx
+output/*.xlsx
+output/temarios/*.docx
+!output/.gitkeep

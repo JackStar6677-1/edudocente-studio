@@ -109,23 +109,33 @@ def run_all():
     print(" ¡TODO EL MATERIAL FUE GENERADO Y ACTUALIZADO CON ÉXITO! ")
     print("=======================================================\n")
 
+def run_ai():
+    from ai_connector import interactive_ai_session
+    interactive_ai_session()
+
+def run_wizard():
+    from wizard import interactive_wizard
+    interactive_wizard()
+
 def menu_interactivo():
     while True:
-        print("\n" + "=" * 62)
-        print("     SISTEMA DOCENTE LUIS PASTEUR - PROFESORA MARGARITA       ")
-        print("=" * 62)
-        print("1. Generar 5° Básico (Prueba y Pauta de Ciencias Naturales)")
-        print("2. Generar 6° Básico (Prueba y Pauta de Ciencias Naturales)")
-        print("3. Generar 8° Básico (Prueba y Pauta de Ciencias Naturales)")
-        print("4. Generar Rúbricas de Música (1° Básico A y 2° Básico A)")
-        print("5. Generar Evaluación y Pauta de Orientación (5° Básico A)")
-        print("6. Generar TODOS los Temarios por Curso (00 - Temarios)")
-        print("7. Generar Planilla Excel de Entrevistas a Apoderados")
-        print("8. Regenerar Recursos Gráficos (Circuitos, Partículas, Átomo)")
-        print("9. Generar y Desplegar TODO a Descargas")
-        print("0. Salir")
-        print("-" * 62)
-        opcion = input("Selecciona una opción (0-9): ").strip()
+        print("\n" + "=" * 66)
+        print("     SISTEMA DOCENTE LUIS PASTEUR — PROFESORA MARGARITA       ")
+        print("=" * 66)
+        print(" 1. Generar 5° Básico (Prueba y Pauta de Ciencias Naturales)")
+        print(" 2. Generar 6° Básico (Prueba y Pauta de Ciencias Naturales)")
+        print(" 3. Generar 8° Básico (Prueba y Pauta de Ciencias Naturales)")
+        print(" 4. Generar Rúbricas de Música (1° Básico A y 2° Básico A)")
+        print(" 5. Generar Evaluación y Pauta de Orientación (5° Básico A)")
+        print(" 6. Generar TODOS los Temarios por Curso (00 - Temarios)")
+        print(" 7. Generar Planilla Excel de Entrevistas a Apoderados")
+        print(" 8. Regenerar Recursos Gráficos (Circuitos, Partículas, Átomo)")
+        print(" 9. Generar y Desplegar TODO a Descargas")
+        print("10. [IA] Crear Nueva Evaluación Asistida por IA (Gemini/Claude/GPT/DeepSeek)")
+        print("11. [WIZARD] Asistente Paso a Paso Manual")
+        print(" 0. Salir")
+        print("-" * 66)
+        opcion = input("Selecciona una opción (0-11): ").strip()
 
         if opcion == "1":
             run_ciencias_5basico()
@@ -145,11 +155,15 @@ def menu_interactivo():
             run_assets()
         elif opcion == "9":
             run_all()
+        elif opcion == "10":
+            run_ai()
+        elif opcion == "11":
+            run_wizard()
         elif opcion == "0":
             print("Cerrando el sistema docente. ¡Hasta pronto!")
             break
         else:
-            print("Opción inválida. Por favor, ingresa un número del 0 al 9.")
+            print("Opción inválida. Por favor, ingresa un número del 0 al 11.")
 
 def main():
     parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Luis Pasteur")
@@ -162,6 +176,8 @@ def main():
     parser.add_argument("--temarios", action="store_true", help="Genera todos los temarios por curso (00 - Temarios)")
     parser.add_argument("--excel", action="store_true", help="Genera el Excel de entrevistas de apoderados")
     parser.add_argument("--assets", action="store_true", help="Regenera las imágenes y símbolos gráficos")
+    parser.add_argument("--ai", action="store_true", help="Inicia sesión interactiva con el Conector Multi-IA")
+    parser.add_argument("--wizard", action="store_true", help="Inicia el asistente paso a paso manual")
 
     args = parser.parse_args()
 
@@ -183,6 +199,10 @@ def main():
         run_excel_entrevistas()
     elif args.assets:
         run_assets()
+    elif args.ai:
+        run_ai()
+    elif args.wizard:
+        run_wizard()
     else:
         menu_interactivo()
 
