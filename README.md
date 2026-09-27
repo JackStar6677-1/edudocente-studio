@@ -1,50 +1,101 @@
-# 📚 Sistema de Generación Docente y Evaluaciones
-### Colegio Luis Pasteur Anexo — Profesora Margarita Miranda B.
+# 🎓 EduDocente-Studio
+### *Automated Pedagogical Assessment & Curriculum Framework*
 
-Repositorio automatizado en Python para el diseño, generación y despliegue de **Evaluaciones Finales**, **Pautas de Corrección**, **Temarios/Informativos a Apoderados** y **Planillas Excel de Gestión y Entrevistas**, bajo estrictos estándares pedagógicos y diseño institucional.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![python-docx](https://img.shields.io/badge/Document_Engine-python--docx-2B579A?style=flat-square&logo=microsoftword&logoColor=white)](https://python-docx.readthedocs.io/)
+[![OpenPyXL](https://img.shields.io/badge/Spreadsheets-openpyxl-217346?style=flat-square&logo=microsoftexcel&logoColor=white)](https://openpyxl.readthedocs.io/)
+[![Matplotlib](https://img.shields.io/badge/Vector_Graphics-Matplotlib-11557c?style=flat-square)](https://matplotlib.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Production_Ready-brightgreen?style=flat-square)](#)
 
----
-
-## 🏛️ Estándar de Diseño Institucional
-
-Todos los documentos generados cumplen rigurosamente con la línea gráfica del Colegio:
-- **Tipografía**: `Arial` uniforme en todos los textos, títulos y tablas.
-- **Paleta de Colores**:
-  - `Azul Marino Institucional`: `#173F73` (Encabezados, títulos principales y líneas maestras).
-  - `Azul Cielo Suave`: `#EAF3FB` (Banners de datos del estudiante y subtítulos).
-  - `Fondo Tarjetas / Cuadros`: `#F6FAFE` (Cuadros de instrucciones y tablas).
-  - `Bordes`: `#B0C4DE` (Líneas finas y suaves de separación).
-  - `Verde Solucionario`: `#1E7E34` (Respuestas destacadas en pautas de corrección).
-- **Insignia Oficial**: Logotipo institucional nítido incorporado en el encabezado izquierdo.
-- **Reglas Pedagógicas Aplicadas**:
-  - Sin etiquetas innecesarias como `"SUMATIVA"`.
-  - Sin escalas de conversión de notas ni porcentajes de exigencia en las pruebas y temarios.
-  - Sin tiempos estimados ni advertencias de "orden y limpieza".
-  - En alternativas: formato directo `A) `, `B) `, `C) `, `D) ` (sin casillas `[ ]`).
-  - Sin pistas ni nombres dados en ítems de dibujo o identificación.
-  - Lenguaje positivo y formativo en comunicados a apoderados.
+> **EduDocente-Studio** es un motor de software declarativo diseñado para transformar objetivos curriculares (Mineduc) y contenidos pedagógicos en **paquetes evaluativos completos y listos para imprimir en Word (.docx) y Excel (.xlsx)**, bajo rigurosos estándares de diseño institucional, lenguaje formativo y consistencia visual.
 
 ---
 
-## 📁 Estructura del Repositorio
+## 💡 El Problema y la Solución
+
+### El Desafío
+Los docentes de educación básica y media dedican decenas de horas semanales a diseñar pruebas, elaborar solucionarios con justificaciones, redactar temarios para apoderados y cuadrar planillas de entrevistas. La mayoría de estas tareas se realizan en procesadores de texto manuales, provocando:
+* Desalineaciones tipográficas y estéticas.
+* Filtración involuntaria de respuestas o pistas en los enunciados.
+* Falta de justificaciones pedagógicas claras para la retroalimentación.
+* Duplicación innecesaria de trabajo entre la versión del alumno, la pauta docente y el temario a familias.
+
+### Nuestra Solución
+**EduDocente-Studio** estandariza este flujo de trabajo mediante una **arquitectura de 3 ítems universales**:
+1. **Ítem I (Selección Múltiple):** Alternativas limpias `A)`, `B)`, `C)`, `D)` sin casillas distractoras.
+2. **Ítem II (Verdadero o Falso):** Casillas `(   )` para el alumno y tabla de justificaciones pedagógicas con respuestas en verde (`#1E7E34`) para el profesor.
+3. **Ítem III (Aplicación Práctica / Dibujo / Esquema Técnico):** Marcos delimitados para dibujar con líneas de explicación, o láminas vectoriales tipo esqueleto para rotular y pintar.
+
+---
+
+## 🏛️ Arquitectura del Sistema
+
+```mermaid
+flowchart TD
+    subgraph INPUT ["Entrada Curricular"]
+        JSON["Archivo Declarativo (.json)"]
+        WIZ["Asistente CLI Interactivo (wizard.py)"]
+        PROMPT["Temas y Objetivos Mineduc (OA)"]
+    end
+
+    subgraph ENGINE ["EduDocente Core Engine"]
+        DE["DocenteEngine (engine.py)"]
+        GC["Motor de Estilos (generator_core.py)"]
+        VEC["Generador Vectorial (Matplotlib Assets)"]
+    end
+
+    subgraph DELIVERABLES ["Entregables Institucionales"]
+        EST["Prueba del Estudiante (.docx)\n- Sin pistas ni escalas de conversión\n- Espacios limpios de dibujo"]
+        PAU["Pauta Oficial Docente (.docx)\n- Solucionario destacado en verde\n- Justificaciones y modelos resueltos"]
+        TEM["Temario e Informativo a Familias (.docx)\n- Páginas del texto escolar\n- Sugerencias de estudio en el hogar"]
+        XLS["Planilla de Gestión Escolar (.xlsx)\n- Cronograma de entrevistas\n- Formato condicional y anchos óptimos"]
+    end
+
+    JSON --> DE
+    WIZ --> DE
+    PROMPT --> DE
+    VEC --> GC
+    GC --> DE
+
+    DE --> EST
+    DE --> PAU
+    DE --> TEM
+    DE --> XLS
+```
+
+---
+
+## ✨ Características Principales
+
+* 🎨 **Línea Gráfica Institucional Impecable:**
+  - Tipografía unificada `Arial`.
+  - Paleta de color armónica: Azul Marino Institucional (`#173F73`), Azul Cielo (`#EAF3FB`), Fondo Tarjetas (`#F6FAFE`) y Borde Acero (`#B0C4DE`).
+  - Escudo institucional integrado de alta fidelidad.
+* ⚖️ **Rigor Pedagógico Integrado:**
+  - Eliminación de etiquetas distractoras (`SUMATIVA`, tiempos límite que generan ansiedad, porcentajes de exigencia que no corresponden al alumno).
+  - Respuestas docentes 100% justificadas con citas al texto escolar oficial.
+* 📐 **Generación Vectorial de Recursos Didácticos:**
+  - **Circuitos Eléctricos:** Símbolos esquemáticos normalizados (fuente/pila, interruptor abierto/cerrado, ampolleta circular con cruz, cable).
+  - **Modelo Corpuscular:** Distribución de partículas en estados sólido, líquido y gaseoso.
+  - **Estructura Atómica:** Modelo atómico con órbitas elípticas, corteza, núcleo, protones, neutrones y electrones.
+* 📦 **Despliegue Multi-Directorio:** Salida sincronizada localmente en el repositorio Git y en las carpetas de gestión docente de Descargas.
+
+---
+
+## 📁 Estructura del Proyecto
 
 ```text
 evaluaciones_pasteur/
 │
-├── assets/                               # Recursos gráficos institucionales
-│   ├── logo_colegio.png                  # Escudo oficial del colegio
-│   ├── circuit_components/               # Símbolos vectoriales de circuitos (5° Básico)
-│   ├── matter_states/                    # Modelos corpusculares de partículas (6° Básico)
-│   └── atom_model/                       # Modelos atómicos y esqueleto para rotular (8° Básico)
+├── assets/                               # Recursos gráficos vectoriales e insignias
+│   ├── logo_colegio.png                  # Escudo oficial de la institución
+│   ├── circuit_components/               # Símbolos esquemáticos de circuitos eléctricos
+│   ├── matter_states/                    # Modelos corpusculares de la materia
+│   └── atom_model/                       # Esqueleto y modelo atómico resuelto
 │
-├── output/                               # Salida local de documentos generados
-│   ├── temarios/                         # Temarios oficiales por curso (.docx)
-│   │   ├── Temario_Ciencias_5Basico_A_B.docx
-│   │   ├── Temario_Ciencias_6Basico_A_B.docx
-│   │   ├── Temario_Ciencias_8Basico_A.docx
-│   │   ├── Temario_Musica_1Basico_A.docx
-│   │   ├── Temario_Musica_2Basico_A.docx
-│   │   └── Temario_Orientacion_5Basico_A.docx
+├── output/                               # Entregables compilados (.docx y .xlsx)
+│   ├── temarios/                         # Temarios oficiales para enviar por correo
 │   ├── Evaluacion_Final_Ciencias_5Basico.docx
 │   ├── Pauta_Correccion_Ciencias_5Basico.docx
 │   ├── Evaluacion_Final_Ciencias_6Basico.docx
@@ -57,98 +108,158 @@ evaluaciones_pasteur/
 │   ├── Pauta_Correccion_Orientacion_5Basico.docx
 │   └── Cronograma_Entrevistas_Apoderados_2026.xlsx
 │
-├── main.py                               # Menú interactivo y orquestador CLI
-├── generator_core.py                     # Motor base de estilos Word (python-docx)
-├── build_temarios.py                     # Generador unificado de los 6 temarios para apoderados
+├── engine.py                             # Motor declarativo central (DocenteEngine)
+├── wizard.py                             # Asistente CLI interactivo para crear nuevas pruebas
+├── generator_core.py                     # Motor base de renderizado XML y estilos python-docx
+├── main.py                               # Orquestador del sistema con menú interactivo y flags
 │
-├── build_student_test.py                 # Generador Evaluación 5° Básico Ciencias (OA 11 - 28 pts)
-├── build_teacher_answer_key.py           # Generador Pauta 5° Básico Ciencias
-│
-├── build_student_test_6basico.py         # Generador Evaluación 6° Básico Ciencias (OA 13 - 26 pts)
-├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico Ciencias
-│
-├── build_ciencias_8basico.py             # Generador Evaluación y Pauta 8° Básico Ciencias (OA 3 - 25 pts)
+├── build_temarios.py                     # Compilador unificado de los 6 temarios a apoderados
+├── build_student_test.py                 # Generador Evaluación 5° Básico (OA 11 - 28 pts)
+├── build_teacher_answer_key.py           # Generador Pauta 5° Básico
+├── build_student_test_6basico.py         # Generador Evaluación 6° Básico (OA 13 - 26 pts)
+├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico
+├── build_ciencias_8basico.py             # Generador Evaluación y Pauta 8° Básico (OA 3 - 25 pts)
 ├── build_rubricas_musica.py              # Generador Rúbricas Música 1°A y 2°A (25 pts c/u)
 ├── build_orientacion_5basico.py          # Generador Evaluación y Pauta Orientación 5°A (OA 5 - 25 pts)
+├── crear_excel_entrevistas.py            # Generador de Planilla Excel de Entrevistas
 │
-├── crear_excel_entrevistas.py            # Generador Planilla Excel de Entrevistas
-├── perfect_symbols.py                    # Generador de símbolos eléctricos con matplotlib
-├── generate_matter_states.py             # Generador de estados de la materia con matplotlib
-├── generate_atom_assets.py               # Generador de modelo y esqueleto del átomo con matplotlib
-├── organizar_descargas.py                # Script de organización de carpetas
+├── generate_atom_assets.py               # Renderizador gráfico del átomo (Matplotlib)
+├── generate_matter_states.py             # Renderizador de estados de la materia
+├── perfect_symbols.py                    # Renderizador de circuitos normalizados
 │
+├── examples/                             # Plantillas JSON de evaluaciones declarativas
+│   └── evaluacion_modelo.json            # Plantilla base para nuevas evaluaciones
 ├── requirements.txt                      # Dependencias de Python
-├── .gitignore                            # Exclusión de temporales y locks de Office
+├── LICENSE                               # Licencia MIT
 └── README.md                             # Documentación del proyecto
 ```
 
 ---
 
-## 🚀 Requisitos e Instalación
+## 🚀 Instalación y Puesta en Marcha
 
-Este proyecto utiliza librerías nativas de Python y genera archivos Word (`.docx`) y Excel (`.xlsx`) sin necesidad de instalar suites ofimáticas externas en la terminal.
-
-1. **Clonar o abrir este directorio**:
-   ```bash
-   cd C:\Users\Jack\.gemini\antigravity\scratch\evaluaciones_pasteur
-   ```
-
-2. **Instalar dependencias**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
----
-
-## 💻 Uso y Ejecución
-
-### 1. Menú Interactivo
-Simplemente ejecuta:
+### 1. Clonar el repositorio
 ```bash
-python main.py
+git clone https://github.com/tu-usuario/edudocente-studio.git
+cd edudocente-studio
 ```
-Aparecerá un menú con opciones numéricas para generar material específico o todo el conjunto.
 
-### 2. Modo Línea de Comandos (CLI)
-Puedes pasar argumentos directos:
-- **Generar TODO y desplegar a Descargas**:
-  ```bash
-  python main.py --all
-  ```
-- **Solo 5° Básico**:
-  ```bash
-  python main.py --ciencias5
-  ```
-- **Solo 6° Básico**:
-  ```bash
-  python main.py --ciencias6
-  ```
-- **Solo Planilla de Entrevistas**:
-  ```bash
-  python main.py --excel
-  ```
-- **Regenerar Gráficos y Símbolos**:
-  ```bash
-  python main.py --assets
-  ```
+### 2. Instalar dependencias
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-## 🗂️ Despliegue Automático
+## 💻 Modos de Uso
 
-Cada vez que se ejecutan los scripts, los archivos no solo se guardan en la carpeta local `output/`, sino que también se actualizan automáticamente en la estructura ordenada de la Profesora Margarita en su carpeta de Descargas:
+### Opción 1: Asistente Interactivo de Creación (Wizard)
+Permite construir una evaluación desde cero guiado por preguntas en la terminal:
+```bash
+python wizard.py
+```
 
-`C:\Users\Jack\Downloads\Evaluaciones Finales Profesora Margarita\`
-- `01 - Ciencias Naturales\`
-  - `5° Básico (5°A y 5°B)\`: Prueba, Pauta y Temario de 5° Básico.
-  - `6° Básico (6°A y 6°B)\`: Prueba, Pauta y Temario de 6° Básico.
-- `03 - Registro y Gestión Docente\`
-  - `Nóminas y Listas\`: Cronograma de Entrevistas a Apoderados 2026.
+### Opción 2: Compilación Declarativa desde JSON
+Define tus preguntas, alternativas, oraciones V/F y actividades en un archivo `.json`:
+```python
+from engine import DocenteEngine
+
+engine = DocenteEngine("examples/evaluacion_modelo.json")
+prueba, pauta = engine.build_all()
+```
+
+### Opción 3: Orquestador General del Colegio
+Genera cualquier evaluación preconfigurada o todas las materias en lote:
+```bash
+# Menú interactivo en pantalla
+python main.py
+
+# O mediante banderas directas por consola
+python main.py --all            # Genera todo el material docente
+python main.py --ciencias8      # Genera evaluación y pauta de Ciencias 8° Básico
+python main.py --musica         # Genera rúbricas prácticas de Música 1° y 2° Básico
+python main.py --orientacion    # Genera prueba y pauta de Orientación 5° Básico
+python main.py --temarios       # Genera los 6 temarios para enviar a apoderados
+python main.py --excel          # Genera la planilla Excel de entrevistas
+```
 
 ---
 
-## ✍️ Información de Autoría y Contacto Docente
+## 📋 Estructura de Configuración Declarativa (JSON)
 
-- **Docente:** Profesora Margarita Miranda B.
-- **Institución:** C.E.P. Luis Pasteur Anexo
-- **Correo Institucional:** `profesora.margaritamiranda@cepluispasteur.cl`
+```json
+{
+  "colegio": "COLEGIO LUIS PASTEUR ANEXO",
+  "asignatura": "CIENCIAS NATURALES",
+  "curso": "7° Básico A",
+  "titulo": "EVALUACIÓN FINAL: MICROORGANISMOS Y BACTERIAS",
+  "oa": "OA 7 — Investigar y explicar las características de virus y bacterias.",
+  "contenidos": "Microorganismos patógenos y benéficos, estructura y prevención.",
+  "puntaje_total": 25,
+  
+  "item1_seleccion_multiple": [
+    {
+      "pregunta": "1. ¿Qué estructura celular es propia de las bacterias?",
+      "alternativas": [
+        ["A", "Pared celular y material genético libre en el citoplasma."],
+        ["B", "Núcleo delimitado por membrana carioteca."],
+        ["C", "Cápsula de cristal inorgánico."],
+        ["D", "Ausencia total de ribosomas."]
+      ],
+      "correcta": "A) Pared celular y material genético libre en el citoplasma.",
+      "justificacion": "Las bacterias son organismos procariontes sin núcleo organizado."
+    }
+  ],
+
+  "item2_verdadero_falso": [
+    {
+      "oracion": "Los virus son considerados células vivas con metabolismo independiente.",
+      "resp": "F",
+      "justificacion": "Los virus son agentes acelulares que requieren una célula hospedera para replicarse."
+    }
+  ],
+
+  "item3_aplicacion": {
+    "titulo": "ÍTEM III: DIBUJO Y EXPLICACIÓN DE MEDIDAS PREVENTIVAS",
+    "puntaje": 5,
+    "tipo": "drawing_boxes",
+    "instruccion": "Dibuja en el recuadro una medida de prevención sanitaria y descríbela:",
+    "cajas": [
+      {
+        "titulo": "Medida: Lavado adecuado de manos con jabón",
+        "ejemplo_pauta": "Estudiante lavando manos con agua y jabón disolviendo la cubierta viral."
+      }
+    ]
+  }
+}
+```
+
+---
+
+## 🏆 Materiales Docentes Listos para Producción
+
+El proyecto incluye casos reales listos para aula generados para el **Colegio Luis Pasteur Anexo**:
+
+| Asignatura | Curso | Instrumento Evaluativo | Puntaje | Entregables |
+| :--- | :--- | :--- | :---: | :--- |
+| **Ciencias Naturales** | 5° Básico A-B | Energía eléctrica y circuitos | 28 pts | Prueba, Pauta y Temario |
+| **Ciencias Naturales** | 6° Básico A-B | Cambios de estado y partículas | 26 pts | Prueba, Pauta y Temario |
+| **Ciencias Naturales** | 8° Básico A | Teoría atómica de Dalton y átomo | 25 pts | Prueba, Pauta con modelo resuelto y Temario |
+| **Música** | 1° Básico A | Canto al unísono y percusión (*Estrellita*) | 25 pts | Rúbrica práctica de aula y Temario |
+| **Música** | 2° Básico A | Interpretación coral y metalófono | 25 pts | Rúbrica práctica de aula y Temario |
+| **Orientación** | 5° Básico A | Prevención de drogas y autocuidado | 25 pts | Prueba, Pauta con justificaciones y Temario |
+| **Gestión Docente** | Jefatura / Asignatura | Cronograma de entrevistas a apoderados | — | Planilla Excel automatizada (16 apoderados) |
+
+---
+
+## 👨‍💻 Autor y Reconocimientos
+
+- **Desarrollo y Arquitectura de Software:** Jack ([GitHub Profile](https://github.com))
+- **Asesoría y Validación Pedagógica:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
+- **Contacto:** `profesora.margaritamiranda@cepluispasteur.cl`
+
+---
+
+## 📄 Licencia
+
+Este proyecto está liberado bajo la [Licencia MIT](LICENSE). Siéntete libre de utilizarlo, bifurcarlo y adaptarlo para tu propia institución educativa.

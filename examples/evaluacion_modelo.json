@@ -1,0 +1,73 @@
+{
+  "colegio": "COLEGIO LUIS PASTEUR ANEXO",
+  "asignatura": "CIENCIAS NATURALES",
+  "curso": "7° Básico A",
+  "titulo": "EVALUACIÓN FINAL: MICROORGANISMOS Y BACTERIAS",
+  "oa": "OA 7 — Investigar y explicar las características de virus, bacterias y hongos.",
+  "contenidos": "Microorganismos benéficos y patógenos, estructura celular, medidas de prevención y vacunas.",
+  "puntaje_total": 25,
+  "docente": "Profesora Margarita Miranda B.",
+  "email_docente": "profesora.margaritamiranda@cepluispasteur.cl",
+
+  "item1_pts_cada_una": 2,
+  "item1_seleccion_multiple": [
+    {
+      "pregunta": "1. ¿Qué característica fundamental distingue a las bacterias de los virus?",
+      "alternativas": [
+        ["A", "Las bacterias son células vivas con metabolismo propio, mientras que los virus necesitan infectar una célula hospedera."],
+        ["B", "Las bacterias son siempre visibles a simple vista y los virus no."],
+        ["C", "Los virus poseen membrana celular y núcleo organizado."],
+        ["D", "Las bacterias solo viven dentro del cuerpo humano."]
+      ],
+      "correcta": "A) Las bacterias son células vivas con metabolismo propio, mientras que los virus necesitan infectar una célula hospedera.",
+      "justificacion": "Las bacterias son microorganismos procariontes capaces de reproducirse por sí mismos; los virus son agregados moleculares acelulares que requieren de una célula huésped para replicarse."
+    },
+    {
+      "pregunta": "2. ¿Cuál de los siguientes es un ejemplo de microorganismo benéfico para el ser humano?",
+      "alternativas": [
+        ["A", "Virus de la gripe."],
+        ["B", "Lactobacilos presentes en el yogur y la flora intestinal."],
+        ["C", "Bacteria del cólera."],
+        ["D", "Hongo productor de la tiña."]
+      ],
+      "correcta": "B) Lactobacilos presentes en el yogur y la flora intestinal.",
+      "justificacion": "Los lactobacilos forman parte de la microbiota humana benéfica, protegen el sistema digestivo y se utilizan en la producción láctea."
+    }
+  ],
+
+  "item2_pts_cada_una": 1,
+  "item2_verdadero_falso": [
+    {
+      "oracion": "El lavado frecuente de manos con agua y jabón destruye la capa lipídica de muchos virus y bacterias.",
+      "resp": "V",
+      "justificacion": "El jabón descompone la bicapa lipídica de microorganismos patógenos y los remueve por arrastre mecánico."
+    },
+    {
+      "oracion": "Los antibióticos son medicamentos eficaces para eliminar infecciones provocadas por virus como el resfriado común.",
+      "resp": "F",
+      "justificacion": "Los antibióticos solo atacan bacterias; no tienen ningún efecto frente a infecciones virales como el resfriado o la gripe."
+    },
+    {
+      "oracion": "Las vacunas estimulan la producción de anticuerpos y generan memoria inmunológica protectora.",
+      "resp": "V",
+      "justificacion": "Las vacunas entrenan al sistema inmunológico para reaccionar rápidamente ante futuros contagios reales."
+    }
+  ],
+
+  "item3_aplicacion": {
+    "titulo": "ÍTEM III: DIBUJO Y EXPLICACIÓN DE MEDIDAS DE PREVENCIÓN",
+    "puntaje": 6,
+    "tipo": "drawing_boxes",
+    "instruccion": "Dibuja en cada recuadro una medida concreta de higiene o prevención que impida el contagio de enfermedades infecciosas y describe tu dibujo:",
+    "cajas": [
+      {
+        "titulo": "Medida 1: Higiene y lavado de manos",
+        "ejemplo_pauta": "Estudiante lavándose las manos con agua y jabón durante 30 segundos antes de comer o manipular alimentos."
+      },
+      {
+        "titulo": "Medida 2: Ventilación y uso de mascarilla al estar resfriado",
+        "ejemplo_pauta": "Estudiante ventilando la sala de clases o utilizando mascarilla para no dispersar gotas al toser."
+      }
+    ]
+  }
+}
