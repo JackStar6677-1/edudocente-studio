@@ -34,7 +34,8 @@ evaluaciones_pasteur/
 ├── assets/                               # Recursos gráficos institucionales
 │   ├── logo_colegio.png                  # Escudo oficial del colegio
 │   ├── circuit_components/               # Símbolos vectoriales de circuitos (5° Básico)
-│   └── matter_states/                    # Modelos corpusculares de partículas (6° Básico)
+│   ├── matter_states/                    # Modelos corpusculares de partículas (6° Básico)
+│   └── atom_model/                       # Modelos atómicos y esqueleto para rotular (8° Básico)
 │
 ├── output/                               # Salida local de documentos generados
 │   ├── temarios/                         # Temarios oficiales por curso (.docx)
@@ -48,21 +49,32 @@ evaluaciones_pasteur/
 │   ├── Pauta_Correccion_Ciencias_5Basico.docx
 │   ├── Evaluacion_Final_Ciencias_6Basico.docx
 │   ├── Pauta_Correccion_Ciencias_6Basico.docx
+│   ├── Evaluacion_Final_Ciencias_8Basico.docx
+│   ├── Pauta_Correccion_Ciencias_8Basico.docx
+│   ├── Rubrica_Evaluacion_Final_Musica_1Basico.docx
+│   ├── Rubrica_Evaluacion_Final_Musica_2Basico.docx
+│   ├── Evaluacion_Final_Orientacion_5Basico.docx
+│   ├── Pauta_Correccion_Orientacion_5Basico.docx
 │   └── Cronograma_Entrevistas_Apoderados_2026.xlsx
 │
 ├── main.py                               # Menú interactivo y orquestador CLI
 ├── generator_core.py                     # Motor base de estilos Word (python-docx)
 ├── build_temarios.py                     # Generador unificado de los 6 temarios para apoderados
 │
-├── build_student_test.py                 # Generador Evaluación 5° Básico (OA 11 - 28 pts)
-├── build_teacher_answer_key.py           # Generador Pauta 5° Básico
+├── build_student_test.py                 # Generador Evaluación 5° Básico Ciencias (OA 11 - 28 pts)
+├── build_teacher_answer_key.py           # Generador Pauta 5° Básico Ciencias
 │
-├── build_student_test_6basico.py         # Generador Evaluación 6° Básico (OA 13 - 26 pts)
-├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico
+├── build_student_test_6basico.py         # Generador Evaluación 6° Básico Ciencias (OA 13 - 26 pts)
+├── build_teacher_answer_key_6basico.py   # Generador Pauta 6° Básico Ciencias
+│
+├── build_ciencias_8basico.py             # Generador Evaluación y Pauta 8° Básico Ciencias (OA 3 - 25 pts)
+├── build_rubricas_musica.py              # Generador Rúbricas Música 1°A y 2°A (25 pts c/u)
+├── build_orientacion_5basico.py          # Generador Evaluación y Pauta Orientación 5°A (OA 5 - 25 pts)
 │
 ├── crear_excel_entrevistas.py            # Generador Planilla Excel de Entrevistas
 ├── perfect_symbols.py                    # Generador de símbolos eléctricos con matplotlib
 ├── generate_matter_states.py             # Generador de estados de la materia con matplotlib
+├── generate_atom_assets.py               # Generador de modelo y esqueleto del átomo con matplotlib
 ├── organizar_descargas.py                # Script de organización de carpetas
 │
 ├── requirements.txt                      # Dependencias de Python
