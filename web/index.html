@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduDocente-Studio — Generador de Evaluaciones, Nóminas y Multi-Branding</title>
-  <!-- Tailwind CSS & Fonts -->
+  <title>EduDocente-Studio — Plataforma Integral de Evaluación y Gestión Escolar</title>
+  <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -25,6 +25,12 @@
               700: '#173F73',
               800: '#0F2B52',
               900: '#0A1C36'
+            },
+            accent: {
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              indigo: '#6366F1',
+              rose: '#F43F5E'
             }
           }
         }
@@ -33,56 +39,79 @@
   </script>
   <style>
     .glass-card {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
       border: 1px solid #E2E8F0;
     }
     .dark-header {
-      background: radial-gradient(circle at 20% 20%, #173F73 0%, #0A1C36 100%);
+      background: radial-gradient(circle at 15% 20%, #173F73 0%, #0A1C36 100%);
     }
     .tab-active {
-      border-bottom: 2px solid #38BDF8;
+      border-bottom: 2.5px solid #38BDF8;
       color: #FFFFFF;
       font-weight: 700;
     }
+    .sheet-preview {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+    .pulse-glow {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-sky-500 selection:text-white">
 
-  <!-- TOP HEADER -->
-  <header class="dark-header text-white border-b border-brand-800 shadow-lg sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+  <!-- TOP INSTITUTIONAL BAR -->
+  <header class="dark-header text-white border-b border-brand-800 shadow-xl sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between">
       <div class="flex items-center space-x-3.5">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-400 to-indigo-600 flex items-center justify-center shadow-md">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-          </svg>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-400 via-indigo-500 to-brand-700 flex items-center justify-center shadow-lg border border-white/20">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+            </svg>
+          </div>
+          <span class="absolute -top-1 -right-1 flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-xl font-bold tracking-tight text-white">EduDocente-Studio</h1>
-            <span class="px-2 py-0.5 text-xs font-semibold rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">v1.1.0</span>
+            <h1 class="text-xl font-extrabold tracking-tight text-white">EduDocente-Studio</h1>
+            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">v1.1.0 PRO</span>
           </div>
-          <p class="text-[11px] text-slate-300 font-medium">Evaluaciones con IA, Nóminas en Excel y Memoria Multi-Colegio</p>
+          <p class="text-[11px] text-slate-300 font-medium">Plataforma Pedagógica Multi-IA, Nóminas y Memoria de Branding</p>
         </div>
       </div>
 
-      <!-- ACTIVE INSTITUTION SELECTOR & OAUTH -->
-      <div class="flex items-center space-x-2.5">
+      <!-- ACTIVE CONTROLS & OAUTH -->
+      <div class="flex items-center space-x-3">
         <!-- Institution Selector Pill -->
         <div class="relative">
-          <button onclick="toggleInstDropdown()" class="flex items-center space-x-2 bg-white/10 hover:bg-white/15 border border-white/15 px-3 py-1.5 rounded-xl text-xs font-semibold text-white transition">
-            <span id="header-inst-dot" class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
-            <span id="header-inst-name" class="max-w-[170px] truncate">Colegio Luis Pasteur</span>
+          <button onclick="toggleInstDropdown()" class="flex items-center space-x-2.5 bg-white/10 hover:bg-white/20 border border-white/20 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white transition shadow-sm">
+            <span id="header-inst-dot" class="w-2.5 h-2.5 rounded-full bg-blue-400 shadow"></span>
+            <span id="header-inst-name" class="max-w-[180px] truncate">Colegio Luis Pasteur</span>
             <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
-          <div id="inst-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-slate-800">
-            <div class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Institución Activa</div>
-            <div id="inst-dropdown-list"></div>
-            <div class="border-t border-slate-100 mt-1 pt-1 px-2">
-              <button onclick="switchTab('tab-institutions'); toggleInstDropdown();" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold text-brand-700 hover:bg-brand-50 rounded-lg transition flex items-center justify-between">
-                <span>⚙️ Gestionar Colegios y Logos</span>
+          <div id="inst-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 text-slate-800 animate-in fade-in zoom-in duration-100">
+            <div class="px-3.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+              <span>Institución Seleccionada</span>
+              <span class="text-[9px] text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">Memoria Activa</span>
+            </div>
+            <div id="inst-dropdown-list" class="py-1"></div>
+            <div class="border-t border-slate-100 mt-1 pt-1.5 px-2">
+              <button onclick="switchTab('tab-institutions'); toggleInstDropdown();" class="w-full text-left px-3 py-2 text-xs font-semibold text-brand-700 hover:bg-brand-50 rounded-xl transition flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                  Gestionar Colegios, Logos y Colores
+                </span>
                 <span>→</span>
               </button>
             </div>
@@ -90,198 +119,343 @@
         </div>
 
         <!-- OAuth Button -->
-        <button onclick="openOAuthModal()" class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-500 hover:bg-sky-400 text-slate-900 transition shadow">
-          <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-          OAuth 2.0
+        <button onclick="openOAuthModal()" class="inline-flex items-center px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-slate-900 transition shadow-md">
+          <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          Cuenta Docente (OAuth)
         </button>
       </div>
     </div>
 
-    <!-- TABS NAVBAR -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 text-xs font-medium text-slate-300 border-t border-white/10">
-      <button onclick="switchTab('tab-assessments')" id="tab-btn-assessments" class="py-2.5 tab-active transition flex items-center gap-1.5">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    <!-- TABS NAVIGATION BAR -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-8 text-xs font-semibold text-slate-300 border-t border-white/10 overflow-x-auto">
+      <button onclick="switchTab('tab-assessments')" id="tab-btn-assessments" class="py-3 tab-active transition flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         1. Evaluaciones con IA & Word
       </button>
-      <button onclick="switchTab('tab-roster')" id="tab-btn-roster" class="py-2.5 hover:text-white transition flex items-center gap-1.5">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 4h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <button onclick="switchTab('tab-roster')" id="tab-btn-roster" class="py-3 hover:text-white transition flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 4h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         2. Nóminas & Entrevistas Excel
       </button>
-      <button onclick="switchTab('tab-institutions')" id="tab-btn-institutions" class="py-2.5 hover:text-white transition flex items-center gap-1.5">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+      <button onclick="switchTab('tab-institutions')" id="tab-btn-institutions" class="py-3 hover:text-white transition flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
         3. Memoria Multi-Colegio & Branding
+      </button>
+      <button onclick="switchTab('tab-roadmap')" id="tab-btn-roadmap" class="py-3 hover:text-white transition flex items-center gap-2 whitespace-nowrap text-purple-300">
+        <span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-bold border border-purple-400/30">Beta</span>
+        4. Próximamente (En Desarrollo)
       </button>
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <!-- COLLAPSIBLE ANIMATED BANNER HERO -->
+  <div class="bg-slate-900 border-b border-slate-800 shadow-inner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex items-center justify-between text-xs text-slate-300 mb-2">
+        <div class="flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="font-bold text-white uppercase tracking-wider text-[11px]">Motor de Orquestación Curricular Activo</span>
+          <span class="text-slate-500">|</span>
+          <span id="hero-badge-school" class="text-sky-400 font-semibold">Colegio Luis Pasteur Anexo</span>
+        </div>
+        <button onclick="toggleBanner()" id="btn-toggle-banner" class="text-slate-400 hover:text-white flex items-center gap-1 transition text-[11px]">
+          <span>Ocultar Banner</span>
+          <svg id="banner-arrow" class="w-3.5 h-3.5 transform transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Animated SVG Frame -->
+      <div id="banner-container" class="rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl relative transition-all duration-300 max-h-[300px]">
+        <img src="/assets/banner_animated.svg" alt="EduDocente-Studio Animated Banner" class="w-full h-auto object-cover max-h-[280px]">
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
     <!-- ============================================================== -->
-    <!-- TAB 1: EVALUACIONES & IA GENERATION                            -->
+    <!-- TAB 1: EVALUACIONES CON IA & HOJA DE PRUEBA EN VIVO            -->
     <!-- ============================================================== -->
     <div id="tab-assessments" class="space-y-6">
-      <!-- Quick Presets -->
+
+      <!-- PRESETS BAR WITH HOVER CARDS -->
       <div class="glass-card rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-2.5">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Cargar Contenidos Oficiales Mineduc</h3>
-          <span class="text-xs text-slate-400">1 clic para completar los campos</span>
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-bold text-[10px] uppercase border border-brand-200">Currículo Escolar 2026</span>
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Cargar Contenidos Oficiales en 1 Clic</h3>
+          </div>
+          <span class="text-[11px] text-slate-400">Páginas de texto Mineduc y OAs precargados</span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
-          <button onclick="applyPreset('ciencias5')" class="p-2.5 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/50 transition text-left group">
-            <div class="text-base mb-0.5">⚡</div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          <button onclick="applyPreset('ciencias5')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">⚡</span>
+              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">28 pts</span>
+            </div>
             <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">5° Ciencias</div>
             <div class="text-[10px] text-slate-500 truncate">Circuitos y Energía (OA 11)</div>
           </button>
-          <button onclick="applyPreset('ciencias6')" class="p-2.5 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/50 transition text-left group">
-            <div class="text-base mb-0.5">🧊</div>
+          <button onclick="applyPreset('ciencias6')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🧊</span>
+              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">26 pts</span>
+            </div>
             <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">6° Ciencias</div>
-            <div class="text-[10px] text-slate-500 truncate">Estados Materia (OA 13)</div>
+            <div class="text-[10px] text-slate-500 truncate">Estados de la Materia (OA 13)</div>
           </button>
-          <button onclick="applyPreset('ciencias8')" class="p-2.5 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/50 transition text-left group">
-            <div class="text-base mb-0.5">⚛️</div>
+          <button onclick="applyPreset('ciencias8')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">⚛️</span>
+              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+            </div>
             <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">8° Ciencias</div>
             <div class="text-[10px] text-slate-500 truncate">Dalton y Átomo (OA 3)</div>
           </button>
-          <button onclick="applyPreset('musica1')" class="p-2.5 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/50 transition text-left group">
-            <div class="text-base mb-0.5">🎵</div>
+          <button onclick="applyPreset('musica1')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🎵</span>
+              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+            </div>
             <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">1° Música</div>
             <div class="text-[10px] text-slate-500 truncate">Percusión Estrellita</div>
           </button>
-          <button onclick="applyPreset('orientacion5')" class="p-2.5 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/50 transition text-left group">
-            <div class="text-base mb-0.5">🤝</div>
+          <button onclick="applyPreset('orientacion5')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🤝</span>
+              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+            </div>
             <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">5° Orientación</div>
             <div class="text-[10px] text-slate-500 truncate">Autocuidado (OA 5)</div>
           </button>
         </div>
       </div>
 
-      <!-- Main Form & Realtime Console Grid -->
+      <!-- WORKSPACE: CONFIGURATION & LIVE EXAM SIMULATOR -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Form -->
-        <div class="lg:col-span-7 glass-card rounded-2xl p-6 shadow-sm space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div>
-              <h3 class="text-sm font-bold text-slate-800">Parámetros Curriculares</h3>
-              <p class="text-[11px] text-slate-500">Se aplicará el membrete, logo y colores de la institución activa</p>
-            </div>
-            <span id="badge-active-school" class="text-xs px-2.5 py-1 bg-brand-50 text-brand-700 font-semibold rounded-lg border border-brand-100 truncate max-w-[200px]">Pasteur Anexo</span>
-          </div>
 
-          <!-- AI Model Choice -->
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Motor de IA (AI Connector)</label>
-            <div class="grid grid-cols-3 gap-2">
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-brand-500 bg-brand-50/50">
-                <input type="radio" name="ai_provider" value="gemini" checked class="mr-1.5">
-                <span>♊ Gemini 2.0</span>
-              </label>
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-slate-200">
-                <input type="radio" name="ai_provider" value="claude" class="mr-1.5">
-                <span>🧠 Claude 3.5</span>
-              </label>
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-slate-200">
-                <input type="radio" name="ai_provider" value="openai" class="mr-1.5">
-                <span>⚡ GPT-4o</span>
-              </label>
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-slate-200">
-                <input type="radio" name="ai_provider" value="deepseek" class="mr-1.5">
-                <span>🐋 DeepSeek R1</span>
-              </label>
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-slate-200">
-                <input type="radio" name="ai_provider" value="kimi" class="mr-1.5">
-                <span>🌙 Kimi AI</span>
-              </label>
-              <label class="flex items-center p-2 border rounded-xl cursor-pointer text-xs font-medium border-slate-200">
-                <input type="radio" name="ai_provider" value="grok" class="mr-1.5">
-                <span>🚀 xAI Grok</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Asignatura</label>
-              <input type="text" id="inp-subject" value="CIENCIAS NATURALES" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Curso</label>
-              <input type="text" id="inp-grade" value="6° Básico A" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Contenidos a Evaluar</label>
-            <textarea id="inp-topic" rows="2" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">Cambios de estado de la materia (fusión, evaporación, ebullición, condensación, solidificación y sublimación)</textarea>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Objetivo de Aprendizaje (OA)</label>
-            <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Páginas Texto Mineduc</label>
-              <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Puntaje Total</label>
-              <input type="number" id="inp-points" value="26" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 bg-white">
-            </div>
-          </div>
-
-          <button id="btn-generate" onclick="generateWithAI()" class="w-full py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-700 to-indigo-700 hover:from-brand-800 hover:to-indigo-800 shadow transition flex items-center justify-center gap-2">
-            <svg class="w-5 h-5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>Generar Evaluación y Pauta Oficial con IA</span>
-          </button>
-        </div>
-
-        <!-- Log & Downloads -->
+        <!-- LEFT COLUMN: AI & CONFIG FORM (5 cols) -->
         <div class="lg:col-span-5 space-y-5">
+          <div class="glass-card rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h3 class="text-sm font-bold text-slate-800">Parámetros Curriculares</h3>
+                <p class="text-[11px] text-slate-500">Define los temas que la IA investigará y estructurará</p>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-emerald-200">3 Ítems Oficiales</span>
+            </div>
+
+            <!-- AI Model Selector with Badges -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">Motor de Inteligencia Artificial</label>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-brand-500 bg-brand-50/60 transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>♊ Gemini</span>
+                    <input type="radio" name="ai_provider" value="gemini" checked class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">Antigravity / Google</span>
+                </label>
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>🧠 Claude</span>
+                    <input type="radio" name="ai_provider" value="claude" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">Sonnet 3.5 Anthropic</span>
+                </label>
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>⚡ GPT-4o</span>
+                    <input type="radio" name="ai_provider" value="openai" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">OpenAI / Codex</span>
+                </label>
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>🐋 DeepSeek</span>
+                    <input type="radio" name="ai_provider" value="deepseek" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">Reasoner R1 / V3</span>
+                </label>
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>🌙 Kimi AI</span>
+                    <input type="radio" name="ai_provider" value="kimi" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">Moonshot Escolar</span>
+                </label>
+                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span>🚀 Grok</span>
+                    <input type="radio" name="ai_provider" value="grok" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-slate-500 font-normal">xAI Grok-Beta</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Fields -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Asignatura</label>
+                <input type="text" id="inp-subject" value="CIENCIAS NATURALES" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Curso</label>
+                <input type="text" id="inp-grade" value="6° Básico A" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Contenidos a Evaluar</label>
+              <textarea id="inp-topic" rows="2" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white leading-relaxed">Cambios de estado de la materia (fusión, evaporación, ebullición, condensación, solidificación y sublimación)</textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Objetivo de Aprendizaje (OA)</label>
+              <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Páginas Texto Mineduc</label>
+                <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Puntaje Total</label>
+                <input type="number" id="inp-points" value="26" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+              </div>
+            </div>
+
+            <button id="btn-generate" onclick="generateWithAI()" class="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-700 via-indigo-700 to-brand-800 hover:from-brand-800 hover:to-indigo-800 shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 group">
+              <svg class="w-5 h-5 text-sky-300 group-hover:rotate-12 transition transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Generar Evaluación Oficial con IA</span>
+            </button>
+          </div>
+
+          <!-- Realtime Compiler Console -->
           <div class="glass-card rounded-2xl p-4 shadow-sm space-y-2">
             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-              <span class="text-xs font-bold text-slate-700">Bitácora de IA y Compilación</span>
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Bitácora de IA y Compilación
+              </span>
               <span id="gen-status-badge" class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">En espera</span>
             </div>
-            <div id="console-log" class="bg-slate-900 rounded-xl p-3 text-slate-300 font-mono text-[11px] h-44 overflow-y-auto space-y-1">
+            <div id="console-log" class="bg-slate-900 rounded-xl p-3 text-slate-300 font-mono text-[11px] h-36 overflow-y-auto space-y-1">
               <p class="text-slate-400">> Sistema EduDocente listo.</p>
-              <p class="text-emerald-400">> Memoria multi-institución sincronizada.</p>
-            </div>
-          </div>
-
-          <!-- Download Card -->
-          <div class="glass-card rounded-2xl p-5 shadow-sm space-y-3 border-2 border-brand-500/20">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-brand-800">Descarga de Instrumentos (.docx)</h4>
-              <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Word Oficial</span>
-            </div>
-            <div class="space-y-2">
-              <a id="btn-dl-student" href="/download/Evaluacion_Final_Ciencias_6Basico.docx" class="flex items-center justify-between p-3 rounded-xl bg-brand-50/70 hover:bg-brand-100 border border-brand-200 transition text-brand-900">
-                <div class="flex items-center space-x-2.5">
-                  <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">W</div>
-                  <div class="text-left">
-                    <div class="text-xs font-bold">Prueba del Estudiante (.docx)</div>
-                    <div class="text-[10px] text-slate-500">Formato limpio con marco institucional</div>
-                  </div>
-                </div>
-                <span class="text-xs font-bold text-brand-600">Descargar ↓</span>
-              </a>
-
-              <a id="btn-dl-teacher" href="/download/Pauta_Correccion_Ciencias_6Basico.docx" class="flex items-center justify-between p-3 rounded-xl bg-emerald-50/70 hover:bg-emerald-100 border border-emerald-200 transition text-emerald-950">
-                <div class="flex items-center space-x-2.5">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">P</div>
-                  <div class="text-left">
-                    <div class="text-xs font-bold">Pauta Docente con Solucionario (.docx)</div>
-                    <div class="text-[10px] text-slate-500">Respuestas destacadas y justificaciones</div>
-                  </div>
-                </div>
-                <span class="text-xs font-bold text-emerald-700">Descargar ↓</span>
-              </a>
+              <p class="text-emerald-400">> Identidad de colegio y paleta cargadas.</p>
             </div>
           </div>
         </div>
+
+        <!-- RIGHT COLUMN: LIVE EXAM SHEET PREVIEW & DIRECT DOWNLOADS (7 cols) -->
+        <div class="lg:col-span-7 space-y-5">
+
+          <!-- DOWNLOADS ACTION BAR -->
+          <div class="glass-card rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 border-2 border-brand-500/20">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-brand-700 tracking-wider">Entregables Oficiales Listos</span>
+              <h4 class="text-xs font-bold text-slate-800">Descarga Directa en Microsoft Word (.docx)</h4>
+            </div>
+            <div class="flex items-center space-x-2 w-full sm:w-auto">
+              <a id="btn-dl-student" href="/download/Evaluacion_Final_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow transition flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
+                <span>Prueba Alumno</span>
+              </a>
+              <a id="btn-dl-teacher" href="/download/Pauta_Correccion_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow transition flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Pauta Docente</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- SIMULATED EXAM SHEET IN BROWSER (A4 / LETTER PAPER) -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-300 sheet-preview space-y-4">
+            <!-- Simulated Sheet Header -->
+            <div class="flex items-center justify-between border rounded-lg overflow-hidden" id="sheet-header-box" style="border-color: #173F73;">
+              <div class="w-16 h-14 bg-white flex items-center justify-center p-1.5 border-r" style="border-color: #B0C4DE;">
+                <img id="sheet-logo" src="/assets/logo_colegio.png" alt="Logo Colegio" class="max-h-full max-w-full object-contain">
+              </div>
+              <div class="flex-1 px-4 py-2 text-white" id="sheet-header-text" style="background-color: #173F73;">
+                <div id="sheet-school-name" class="font-bold text-xs tracking-wide">COLEGIO LUIS PASTEUR ANEXO</div>
+                <div id="sheet-subject-title" class="text-[11px] font-semibold text-slate-100">CIENCIAS NATURALES — 6° BÁSICO A</div>
+              </div>
+            </div>
+
+            <!-- Title Banner -->
+            <div class="text-center py-1.5 px-3 rounded-md font-bold text-xs uppercase" id="sheet-banner-box" style="background-color: #EAF3FB; color: #173F73; border: 1px solid #B0C4DE;">
+              <span id="sheet-eval-title">EVALUACIÓN FINAL: CAMBIOS DEL ESTADO DE LA MATERIA</span>
+            </div>
+
+            <!-- Student Metadata Table -->
+            <div class="border rounded-md text-[11px] divide-y overflow-hidden" style="border-color: #B0C4DE;">
+              <div class="grid grid-cols-3 divide-x" style="border-color: #B0C4DE; background-color: #F6FAFE;">
+                <div class="p-1.5 font-medium text-slate-700"><b>Nombre:</b> ___________________________</div>
+                <div class="p-1.5 font-medium text-slate-700 text-center"><b>Curso:</b> <span id="sheet-field-grade">6° Básico A</span></div>
+                <div class="p-1.5 font-medium text-slate-700 text-center"><b>Fecha:</b> ___/___/2026</div>
+              </div>
+              <div class="grid grid-cols-2 divide-x" style="border-color: #B0C4DE; background-color: #FFFFFF;">
+                <div class="p-1.5 text-slate-600 truncate"><b>Objetivo:</b> <span id="sheet-field-oa">OA 13 — Cambios de estado</span></div>
+                <div class="p-1.5 font-semibold text-slate-800 text-center">Puntaje Total: <span id="sheet-field-pts">26</span> pts  |  Puntaje Obtenido: _____</div>
+              </div>
+            </div>
+
+            <!-- Live Items Accordion -->
+            <div class="space-y-3 pt-2 text-xs">
+              <!-- Item 1 -->
+              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+                <div class="flex items-center justify-between font-bold text-brand-700">
+                  <span>ÍTEM I: SELECCIÓN MÚLTIPLE (2 pts c/u)</span>
+                  <span class="text-[10px] font-normal text-slate-500">Alternativas directas A, B, C, D</span>
+                </div>
+                <div id="sheet-item1-preview" class="space-y-2 text-[11px] text-slate-700">
+                  <p class="font-semibold text-slate-900">1. ¿Qué cambio de estado ocurre cuando un sólido pasa a líquido al absorber calor?</p>
+                  <div class="grid grid-cols-2 gap-1.5 pl-3 text-slate-600">
+                    <div>A) Fusión</div>
+                    <div>B) Condensación</div>
+                    <div>C) Solidificación</div>
+                    <div>D) Sublimación inversa</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+                <div class="flex items-center justify-between font-bold text-brand-700">
+                  <span>ÍTEM II: VERDADERO O FALSO (1 pto c/u)</span>
+                  <span class="text-[10px] font-normal text-slate-500">Casillas limpias para el alumno</span>
+                </div>
+                <div id="sheet-item2-preview" class="space-y-1.5 text-[11px] text-slate-700">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-slate-400 font-bold">( &nbsp; )</span>
+                    <span>1. La evaporación y la ebullición son procesos donde la materia libera calor al entorno.</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-slate-400 font-bold">( &nbsp; )</span>
+                    <span>2. Durante la fusión, las partículas adquieren mayor energía cinética y movimiento.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+                <div class="flex items-center justify-between font-bold text-brand-700">
+                  <span>ÍTEM III: DIBUJO Y APLICACIÓN PRÁCTICA</span>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Marco de Dibujo</span>
+                </div>
+                <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-400 text-[11px] bg-white">
+                  <span>[ Espacio delimitado para dibujo del estudiante y líneas de descripción guiadas ]</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
 
     <!-- ============================================================== -->
@@ -289,39 +463,54 @@
     <!-- ============================================================== -->
     <div id="tab-roster" class="hidden space-y-6">
       <div class="glass-card rounded-2xl p-6 shadow-sm space-y-4">
+        <!-- Controls Header -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
-            <h3 class="text-base font-bold text-slate-800">Cronograma y Nómina de Entrevistas a Apoderados 2026</h3>
-            <p class="text-xs text-slate-500">Planilla Excel (.xlsx) configurable con identidad institucional, filtros y validación de estados</p>
+            <h3 class="text-base font-bold text-slate-800">Cronograma de Entrevistas y Nómina Escolar 2026</h3>
+            <p class="text-xs text-slate-500">Matriz Excel (.xlsx) con validación de estados, anchos de columna automáticos y membrete de colegio</p>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="openAddInterviewModal()" class="px-3 py-1.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-semibold shadow transition flex items-center gap-1.5">
-              <span>+ Agregar Citación</span>
+          <div class="flex items-center space-x-2 w-full sm:w-auto">
+            <button onclick="openAddInterviewModal()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
+              <span>+ Nueva Citación</span>
             </button>
-            <a href="/download/Cronograma_Entrevistas_Apoderados_2026.xlsx" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow transition flex items-center gap-1.5">
+            <a href="/download/Cronograma_Entrevistas_Apoderados_2026.xlsx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
-              <span>Descargar Excel (.xlsx)</span>
+              <span>Exportar Excel (.xlsx)</span>
             </a>
           </div>
         </div>
 
-        <!-- Roster Table -->
-        <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <!-- Filter bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-1">
+          <div class="relative w-full sm:w-72">
+            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Buscar por apoderado, alumno o curso..." class="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-500 bg-white">
+            <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <div class="flex items-center space-x-2 text-xs">
+            <span class="text-slate-500">Filtrar estado:</span>
+            <button onclick="setRosterFilter('all')" id="btn-filt-all" class="px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-200">Todos</button>
+            <button onclick="setRosterFilter('Confirmado')" id="btn-filt-conf" class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100">Confirmados</button>
+            <button onclick="setRosterFilter('Pendiente')" id="btn-filt-pend" class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100">Pendientes</button>
+          </div>
+        </div>
+
+        <!-- Interactive Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
           <table class="min-w-full divide-y divide-slate-200 text-xs">
             <thead class="bg-slate-50 text-slate-600 font-bold">
               <tr>
-                <th class="px-3 py-2 text-center">N°</th>
-                <th class="px-3 py-2 text-left">Apoderado/a</th>
-                <th class="px-3 py-2 text-left">Correo Electrónico</th>
-                <th class="px-3 py-2 text-left">Estudiante</th>
-                <th class="px-3 py-2 text-center">Curso</th>
-                <th class="px-3 py-2 text-center">Día y Fecha</th>
-                <th class="px-3 py-2 text-center">Horario</th>
-                <th class="px-3 py-2 text-center">Estado</th>
+                <th class="px-3 py-2.5 text-center">N°</th>
+                <th class="px-3 py-2.5 text-left">Apoderado/a</th>
+                <th class="px-3 py-2.5 text-left">Correo Electrónico</th>
+                <th class="px-3 py-2.5 text-left">Estudiante</th>
+                <th class="px-3 py-2.5 text-center">Curso</th>
+                <th class="px-3 py-2.5 text-center">Día y Fecha</th>
+                <th class="px-3 py-2.5 text-center">Horario</th>
+                <th class="px-3 py-2.5 text-center">Estado (Clic para alternar)</th>
               </tr>
             </thead>
             <tbody id="roster-table-body" class="divide-y divide-slate-100 bg-white">
-              <tr><td colspan="8" class="p-4 text-center text-slate-400">Cargando nómina de entrevistas...</td></tr>
+              <tr><td colspan="8" class="p-6 text-center text-slate-400">Cargando nómina...</td></tr>
             </tbody>
           </table>
         </div>
@@ -333,45 +522,120 @@
     <!-- ============================================================== -->
     <div id="tab-institutions" class="hidden space-y-6">
       <div class="glass-card rounded-2xl p-6 shadow-sm space-y-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
           <div>
-            <h3 class="text-base font-bold text-slate-800">Memoria de Identidad Institucional Multi-Colegio</h3>
-            <p class="text-xs text-slate-500">Guarda los nombres, logos de alta resolución y paletas de color de cada establecimiento en el que trabajas</p>
+            <h3 class="text-base font-bold text-slate-800">Memoria de Identidad Multi-Colegio & Paleta Cromática</h3>
+            <p class="text-xs text-slate-500">Configura los establecimientos donde trabajas. Cada uno guarda su logo en alta resolución y sus colores institucionales.</p>
           </div>
-          <button onclick="openNewInstitutionModal()" class="px-3 py-1.5 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-semibold shadow transition">
-            + Registrar Nuevo Colegio
+          <button onclick="openNewInstitutionModal()" class="px-3.5 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+            <span>+ Registrar Nuevo Colegio</span>
           </button>
         </div>
 
-        <!-- Institutions Grid -->
-        <div id="institutions-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Populated dynamically -->
+        <!-- School Cards Grid -->
+        <div id="institutions-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 4: PRÓXIMAMENTE / ROADMAP EN DESARROLLO                    -->
+    <!-- ============================================================== -->
+    <div id="tab-roadmap" class="hidden space-y-6">
+      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 text-white shadow-xl border border-indigo-500/20 space-y-6">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/30 text-purple-300 text-xs font-bold border border-purple-400/30 uppercase tracking-wider">Laboratorio EduDocente</span>
+              <span class="text-xs text-slate-400">Roadmap 2026 - 2027</span>
+            </div>
+            <h3 class="text-xl font-black text-white mt-1">Módulos Avanzados en Desarrollo Activo</h3>
+          </div>
+          <span class="text-2xl">⚡</span>
+        </div>
+
+        <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+          Estas funcionalidades se encuentran en etapa experimental de investigación y arquitectura para futuras versiones de EduDocente-Studio. Su interfaz está desacoplada del flujo de producción escolar actual para preservar la estabilidad de tus documentos Word y Excel.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Feature 1 -->
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">📷</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">Próximamente</span>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Corrector Automático por Cámara (OMR & Visión AI)</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Escaneo instantáneo de las hojas de respuesta de los estudiantes mediante la cámara web de tu laptop o teléfono. Detección de círculos marcados y cálculo automático del puntaje según la pauta institucional.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">🔗</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-400/20 text-blue-300 border border-blue-400/30">En Integración</span>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Sincronización Bidireccional con Google Classroom & Canvas</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Publicación automática de los temarios de estudio directamente en el tablón de anuncios de Google Classroom y sincronización de rúbricas con las tareas del LMS sin necesidad de descarga manual.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">🖨️</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">En Arquitectura</span>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Generador de Cuadernillos con Código QR y Foliado Único</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Foliado individual por estudiante con código QR de seguridad para evitar copias y automatizar la identificación en la corrección masiva de exámenes escolares.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">📊</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-400/20 text-rose-300 border border-rose-400/30">Planificado</span>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Matriz de Análisis Psicométrico & Diagnóstico SIMCE/PAES</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Cálculo del índice de discriminación de preguntas, porcentaje de logro de cada Objetivo de Aprendizaje (OA) y emisión automática del informe de retroalimentación pedagógica para la UTP.
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
   </main>
 
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <div id="toast-box" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
   <!-- MODAL: AGREGAR CITACIÓN -->
   <div id="modal-interview" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
       <div class="dark-header p-4 text-white flex items-center justify-between">
-        <h3 class="text-sm font-bold">Agregar Nueva Citación de Apoderado</h3>
+        <h3 class="text-sm font-bold">Registrar Nueva Citación de Apoderado</h3>
         <button onclick="closeAddInterviewModal()" class="text-slate-300 hover:text-white">✕</button>
       </div>
       <div class="p-5 space-y-3 text-xs">
         <div>
           <label class="block font-semibold mb-1">Nombre del Apoderado/a</label>
-          <input type="text" id="add-apo" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="text" id="add-apo" placeholder="Ej: Patricia Morales González" class="w-full px-3 py-2 rounded-xl border border-slate-200">
         </div>
         <div>
           <label class="block font-semibold mb-1">Correo Electrónico</label>
-          <input type="email" id="add-email" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="email" id="add-email" placeholder="ejemplo@correo.com" class="w-full px-3 py-2 rounded-xl border border-slate-200">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-semibold mb-1">Nombre Estudiante</label>
-            <input type="text" id="add-est" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+            <input type="text" id="add-est" placeholder="Estudiante" class="w-full px-3 py-2 rounded-xl border border-slate-200">
           </div>
           <div>
             <label class="block font-semibold mb-1">Curso</label>
@@ -390,15 +654,15 @@
         </div>
         <div>
           <label class="block font-semibold mb-1">Estado</label>
-          <select id="add-estado" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <select id="add-estado" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white">
             <option value="Confirmado">Confirmado</option>
             <option value="Pendiente" selected>Pendiente</option>
             <option value="Reprogramado">Reprogramado</option>
           </select>
         </div>
         <div class="pt-2 flex justify-end space-x-2">
-          <button onclick="closeAddInterviewModal()" class="px-3 py-2 border rounded-xl">Cancelar</button>
-          <button onclick="saveNewInterview()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold">Guardar en Excel</button>
+          <button onclick="closeAddInterviewModal()" class="px-3.5 py-2 border rounded-xl font-medium">Cancelar</button>
+          <button onclick="saveNewInterview()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition">Guardar en Excel</button>
         </div>
       </div>
     </div>
@@ -422,33 +686,33 @@
           <input type="text" id="inst-subheader" placeholder="Ej: UNIDAD TÉCNICO PEDAGÓGICA (UTP)" class="w-full px-3 py-2 rounded-xl border border-slate-200">
         </div>
         <div>
-          <label class="block font-semibold mb-1">Lema o Misión (Opcional)</label>
+          <label class="block font-semibold mb-1">Lema o Misión</label>
           <input type="text" id="inst-motto" placeholder="Ej: Excelencia, Vocación y Futuro" class="w-full px-3 py-2 rounded-xl border border-slate-200">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold mb-1">Color Primario (Hex)</label>
             <div class="flex items-center space-x-2">
-              <input type="color" id="inst-color-p" value="#173F73" class="w-8 h-8 rounded border">
-              <input type="text" id="inst-hex-p" value="173F73" class="w-20 px-2 py-1 border rounded text-xs">
+              <input type="color" id="inst-color-p" value="#173F73" class="w-8 h-8 rounded border cursor-pointer">
+              <input type="text" id="inst-hex-p" value="173F73" class="w-20 px-2 py-1 border rounded text-xs font-mono">
             </div>
           </div>
           <div>
             <label class="block font-semibold mb-1">Color Secundario (Hex)</label>
             <div class="flex items-center space-x-2">
-              <input type="color" id="inst-color-s" value="#EAF3FB" class="w-8 h-8 rounded border">
-              <input type="text" id="inst-hex-s" value="EAF3FB" class="w-20 px-2 py-1 border rounded text-xs">
+              <input type="color" id="inst-color-s" value="#EAF3FB" class="w-8 h-8 rounded border cursor-pointer">
+              <input type="text" id="inst-hex-s" value="EAF3FB" class="w-20 px-2 py-1 border rounded text-xs font-mono">
             </div>
           </div>
         </div>
         <div>
-          <label class="block font-semibold mb-1">Ruta del Logo de Alta Resolución</label>
-          <input type="text" id="inst-logo" value="assets/logo_colegio.png" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-600">
+          <label class="block font-semibold mb-1">Ruta del Logo con Fondo Transparente</label>
+          <input type="text" id="inst-logo" value="assets/logo_colegio.png" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-600 font-mono text-[11px]">
           <p class="text-[10px] text-slate-400 mt-1">Coloca tu archivo PNG transparente en la carpeta 'assets/'</p>
         </div>
         <div class="pt-2 flex justify-end space-x-2">
-          <button onclick="closeInstModal()" class="px-3 py-2 border rounded-xl">Cancelar</button>
-          <button onclick="saveInstitution()" class="px-4 py-2 bg-brand-700 text-white rounded-xl font-bold">Guardar Memoria</button>
+          <button onclick="closeInstModal()" class="px-3.5 py-2 border rounded-xl font-medium">Cancelar</button>
+          <button onclick="saveInstitution()" class="px-4 py-2 bg-brand-700 text-white rounded-xl font-bold hover:bg-brand-800 transition">Guardar en Memoria</button>
         </div>
       </div>
     </div>
@@ -462,23 +726,23 @@
         <button onclick="closeOAuthModal()" class="text-slate-300 hover:text-white">✕</button>
       </div>
       <div class="p-5 space-y-3 text-xs">
-        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-blue-500 hover:bg-blue-50 transition">
+        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-blue-500 hover:bg-blue-50/50 transition">
           <div class="flex items-center space-x-2.5">
-            <span class="text-base">🔵</span>
+            <span class="text-lg">🔵</span>
             <div class="text-left font-bold text-slate-800">Google Workspace / Classroom</div>
           </div>
           <span class="text-blue-600 font-semibold">Conectar →</span>
         </button>
         <button onclick="triggerOAuth('github')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-slate-800 hover:bg-slate-50 transition">
           <div class="flex items-center space-x-2.5">
-            <span class="text-base">🐙</span>
+            <span class="text-lg">🐙</span>
             <div class="text-left font-bold text-slate-800">GitHub Academic (@JackStar6677-1)</div>
           </div>
           <span class="text-slate-800 font-semibold">Conectar →</span>
         </button>
-        <button onclick="triggerOAuth('microsoft')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-amber-500 hover:bg-amber-50 transition">
+        <button onclick="triggerOAuth('microsoft')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-amber-500 hover:bg-amber-50/50 transition">
           <div class="flex items-center space-x-2.5">
-            <span class="text-base">🟧</span>
+            <span class="text-lg">🟧</span>
             <div class="text-left font-bold text-slate-800">Microsoft 365 Educación</div>
           </div>
           <span class="text-amber-700 font-semibold">Conectar →</span>
@@ -487,64 +751,115 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT APPLICATION CORE -->
   <script>
     let globalInstitutions = [];
     let globalActiveInst = null;
+    let rosterDataList = [];
+    let currentRosterFilter = 'all';
 
-    // Tab Switching
-    function switchTab(tabId) {
-      document.getElementById('tab-assessments').classList.add('hidden');
-      document.getElementById('tab-roster').classList.add('hidden');
-      document.getElementById('tab-institutions').classList.add('hidden');
-
-      document.getElementById('tab-btn-assessments').classList.remove('tab-active');
-      document.getElementById('tab-btn-roster').classList.remove('tab-active');
-      document.getElementById('tab-btn-institutions').classList.remove('tab-active');
-
-      document.getElementById(tabId).classList.remove('hidden');
-      if (tabId === 'tab-assessments') document.getElementById('tab-btn-assessments').classList.add('tab-active');
-      if (tabId === 'tab-roster') {
-        document.getElementById('tab-btn-roster').classList.add('tab-active');
-        loadRosterTable();
-      }
-      if (tabId === 'tab-institutions') {
-        document.getElementById('tab-btn-institutions').classList.add('tab-active');
-        renderInstitutionsCards();
+    // Banner toggle
+    function toggleBanner() {
+      const container = document.getElementById('banner-container');
+      const arrow = document.getElementById('banner-arrow');
+      const btn = document.getElementById('btn-toggle-banner');
+      if (container.classList.contains('hidden')) {
+        container.classList.remove('hidden');
+        arrow.classList.remove('rotate-180');
+        btn.querySelector('span').textContent = 'Ocultar Banner';
+      } else {
+        container.classList.add('hidden');
+        arrow.classList.add('rotate-180');
+        btn.querySelector('span').textContent = 'Mostrar Banner';
       }
     }
 
-    // Institution Manager Integration
+    // Toast system
+    function showToast(msg, type = 'success') {
+      const box = document.getElementById('toast-box');
+      const toast = document.createElement('div');
+      toast.className = 'px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center space-x-2 pointer-events-auto transform transition duration-300 ease-out translate-y-2 opacity-0 ' + 
+        (type === 'success' ? 'bg-emerald-800 text-white' : 'bg-slate-900 text-white');
+      toast.innerHTML = `<span>✓</span> <span>${msg}</span>`;
+      box.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 20);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      ['tab-assessments', 'tab-roster', 'tab-institutions', 'tab-roadmap'].forEach(t => {
+        document.getElementById(t).classList.add('hidden');
+        document.getElementById('tab-btn-' + t.replace('tab-', '')).classList.remove('tab-active');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('tab-btn-' + tabId.replace('tab-', '')).classList.add('tab-active');
+
+      if (tabId === 'tab-roster') loadRosterTable();
+      if (tabId === 'tab-institutions') renderInstitutionsCards();
+    }
+
+    // Institution Branding
     async function loadInstitutions() {
       try {
         const res = await fetch('/api/institutions');
         const data = await res.json();
         globalInstitutions = data.institutions;
         globalActiveInst = data.active;
-
-        document.getElementById('header-inst-name').textContent = globalActiveInst.name;
-        document.getElementById('header-inst-dot').style.backgroundColor = '#' + globalActiveInst.colors.primary_hex;
-        document.getElementById('badge-active-school').textContent = globalActiveInst.name;
-
-        // Render dropdown
-        const list = document.getElementById('inst-dropdown-list');
-        list.innerHTML = '';
-        globalInstitutions.forEach(inst => {
-          const btn = document.createElement('button');
-          btn.className = 'w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between ' + (inst.is_active ? 'font-bold text-brand-700 bg-brand-50/50' : 'text-slate-700');
-          btn.innerHTML = `
-            <div class="flex items-center space-x-2 truncate">
-              <span class="w-2.5 h-2.5 rounded-full" style="background-color: #${inst.colors.primary_hex}"></span>
-              <span class="truncate">${inst.name}</span>
-            </div>
-            ${inst.is_active ? '<span class="text-emerald-600 text-[10px]">Activo</span>' : ''}
-          `;
-          btn.onclick = () => selectInstitution(inst.id);
-          list.appendChild(btn);
-        });
+        applyActiveThemeToUI();
       } catch (e) {
         console.warn('Error loading institutions:', e);
       }
+    }
+
+    function applyActiveThemeToUI() {
+      if (!globalActiveInst) return;
+      document.getElementById('header-inst-name').textContent = globalActiveInst.name;
+      document.getElementById('header-inst-dot').style.backgroundColor = '#' + globalActiveInst.colors.primary_hex;
+      document.getElementById('hero-badge-school').textContent = globalActiveInst.name;
+
+      // Update Live Exam Sheet Preview Header
+      const headerBox = document.getElementById('sheet-header-box');
+      const headerText = document.getElementById('sheet-header-text');
+      const bannerBox = document.getElementById('sheet-banner-box');
+      const schoolNameEl = document.getElementById('sheet-school-name');
+      const logoEl = document.getElementById('sheet-logo');
+
+      headerBox.style.borderColor = '#' + globalActiveInst.colors.primary_hex;
+      headerText.style.backgroundColor = '#' + globalActiveInst.colors.primary_hex;
+      schoolNameEl.textContent = globalActiveInst.name.toUpperCase();
+      bannerBox.style.backgroundColor = '#' + globalActiveInst.colors.secondary_hex;
+      bannerBox.style.color = '#' + globalActiveInst.colors.primary_hex;
+      bannerBox.style.borderColor = '#' + globalActiveInst.colors.border_hex;
+
+      if (globalActiveInst.logo_path) {
+        logoEl.src = '/' + globalActiveInst.logo_path.replace(/\\/g, '/');
+      }
+
+      // Populate Dropdown
+      const list = document.getElementById('inst-dropdown-list');
+      list.innerHTML = '';
+      globalInstitutions.forEach(inst => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left px-3.5 py-2 text-xs hover:bg-slate-50 flex items-center justify-between ' + (inst.is_active ? 'font-bold text-brand-700 bg-brand-50/50' : 'text-slate-700');
+        btn.innerHTML = `
+          <div class="flex items-center space-x-2 truncate">
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: #${inst.colors.primary_hex}"></span>
+            <span class="truncate">${inst.name}</span>
+          </div>
+          ${inst.is_active ? '<span class="text-emerald-600 text-[10px]">Activo</span>' : ''}
+        `;
+        btn.onclick = () => selectInstitution(inst.id);
+        list.appendChild(btn);
+      });
     }
 
     async function selectInstitution(instId) {
@@ -555,7 +870,8 @@
       });
       toggleInstDropdown();
       await loadInstitutions();
-      logConsole(`> Institución activa cambiada a: ${globalActiveInst.name}`, 'text-emerald-400');
+      showToast(`Colegio activo: ${globalActiveInst.name}`);
+      logConsole(`> Institución activa: ${globalActiveInst.name}`, 'text-emerald-400');
     }
 
     function toggleInstDropdown() {
@@ -567,22 +883,25 @@
       grid.innerHTML = '';
       globalInstitutions.forEach(inst => {
         const card = document.createElement('div');
-        card.className = 'p-5 rounded-2xl border transition ' + (inst.is_active ? 'border-2 border-brand-600 bg-brand-50/20 shadow-md' : 'border-slate-200 bg-white hover:border-slate-300');
+        card.className = 'p-5 rounded-2xl border transition relative ' + (inst.is_active ? 'border-2 border-brand-600 bg-brand-50/30 shadow-md' : 'border-slate-200 bg-white hover:border-slate-300');
         card.innerHTML = `
           <div class="flex items-center justify-between mb-3">
-            <span class="w-4 h-4 rounded-full" style="background-color: #${inst.colors.primary_hex}"></span>
-            ${inst.is_active ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-700 text-white">Colegio Activo</span>' : ''}
+            <div class="flex items-center space-x-2">
+              <span class="w-4 h-4 rounded-full shadow" style="background-color: #${inst.colors.primary_hex}"></span>
+              <span class="w-3 h-3 rounded-full" style="background-color: #${inst.colors.secondary_hex}"></span>
+            </div>
+            ${inst.is_active ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-brand-700 text-white">Activo en Todo el Sistema</span>' : ''}
           </div>
           <h4 class="font-bold text-xs text-slate-900 mb-1 leading-snug">${inst.name}</h4>
-          <p class="text-[11px] text-slate-500 mb-3">${inst.sub_header || 'Sin sub-encabezado'}</p>
-          <div class="flex items-center space-x-2 text-[10px] text-slate-500 mb-4">
-            <span>Color: #${inst.colors.primary_hex}</span>
+          <p class="text-[11px] text-slate-500 mb-3">${inst.sub_header || 'Departamento de Asignatura'}</p>
+          <div class="flex items-center space-x-2 text-[10px] text-slate-500 mb-4 font-mono">
+            <span>#${inst.colors.primary_hex}</span>
             <span>•</span>
-            <span>Tipografía: ${inst.font_family || 'Arial'}</span>
+            <span>${inst.font_family || 'Arial'}</span>
           </div>
           <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-            ${!inst.is_active ? `<button onclick="selectInstitution('${inst.id}')" class="text-xs font-semibold text-brand-700 hover:underline">Habilitar Colegio</button>` : '<span class="text-xs text-slate-400">Seleccionado</span>'}
-            <button onclick="editInstitution('${inst.id}')" class="text-xs text-slate-500 hover:text-slate-800">Editar ✏️</button>
+            ${!inst.is_active ? `<button onclick="selectInstitution('${inst.id}')" class="text-xs font-bold text-brand-700 hover:underline">Habilitar Memoria</button>` : '<span class="text-xs text-slate-400 font-medium">Seleccionado</span>'}
+            <button onclick="editInstitution('${inst.id}')" class="text-xs text-slate-500 hover:text-slate-800 font-medium">Editar ✏️</button>
           </div>
         `;
         grid.appendChild(card);
@@ -596,7 +915,9 @@
       document.getElementById('inst-motto').value = '';
       document.getElementById('inst-color-p').value = '#173F73';
       document.getElementById('inst-hex-p').value = '173F73';
-      document.getElementById('inst-modal-edit').classList.remove('hidden');
+      document.getElementById('inst-color-s').value = '#EAF3FB';
+      document.getElementById('inst-hex-s').value = 'EAF3FB';
+      document.getElementById('modal-inst-edit').classList.remove('hidden');
     }
 
     function editInstitution(id) {
@@ -608,12 +929,12 @@
       document.getElementById('inst-motto').value = inst.motto || '';
       document.getElementById('inst-color-p').value = '#' + inst.colors.primary_hex;
       document.getElementById('inst-hex-p').value = inst.colors.primary_hex;
+      document.getElementById('inst-color-s').value = '#' + inst.colors.secondary_hex;
+      document.getElementById('inst-hex-s').value = inst.colors.secondary_hex;
       document.getElementById('modal-inst-edit').classList.remove('hidden');
     }
 
-    function closeInstModal() {
-      document.getElementById('modal-inst-edit').classList.add('hidden');
-    }
+    function closeInstModal() { document.getElementById('modal-inst-edit').classList.add('hidden'); }
 
     async function saveInstitution() {
       const id = document.getElementById('inst-id').value;
@@ -624,7 +945,7 @@
       const s_hex = document.getElementById('inst-hex-s').value.trim();
       const logo = document.getElementById('inst-logo').value.trim();
 
-      if (!name) return alert('Por favor ingresa el nombre del colegio');
+      if (!name) return alert('Por favor ingresa el nombre oficial del colegio');
 
       const payload = {
         id: id || name.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 20),
@@ -650,49 +971,97 @@
       closeInstModal();
       await loadInstitutions();
       renderInstitutionsCards();
+      showToast('Identidad del colegio guardada en memoria');
     }
 
-    // Color Pickers sync
     document.getElementById('inst-color-p').addEventListener('input', e => {
       document.getElementById('inst-hex-p').value = e.target.value.replace('#', '').toUpperCase();
     });
+    document.getElementById('inst-color-s').addEventListener('input', e => {
+      document.getElementById('inst-hex-s').value = e.target.value.replace('#', '').toUpperCase();
+    });
 
-    // Roster Management Integration
+    // Roster Management
     async function loadRosterTable() {
       try {
         const res = await fetch('/api/roster');
         const data = await res.json();
-        const tbody = document.getElementById('roster-table-body');
-        tbody.innerHTML = '';
-        data.interviews.forEach(it => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-slate-50 transition';
-          const isConfirmed = it.estado === 'Confirmado';
-          tr.innerHTML = `
-            <td class="px-3 py-2 text-center font-bold text-slate-500">${it.id}</td>
-            <td class="px-3 py-2 font-semibold text-slate-900">${it.apoderado}</td>
-            <td class="px-3 py-2 text-slate-500 font-mono text-[10px]">${it.email}</td>
-            <td class="px-3 py-2 text-slate-800">${it.estudiante}</td>
-            <td class="px-3 py-2 text-center text-slate-600">${it.curso}</td>
-            <td class="px-3 py-2 text-center text-slate-600">${it.dia} ${it.fecha}</td>
-            <td class="px-3 py-2 text-center text-slate-600">${it.hora}</td>
-            <td class="px-3 py-2 text-center">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isConfirmed ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${it.estado}</span>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
+        rosterDataList = data.interviews;
+        renderRosterRows();
       } catch (e) {
         console.warn('Error loading roster:', e);
       }
     }
 
-    function openAddInterviewModal() {
-      document.getElementById('modal-interview').classList.remove('hidden');
+    function setRosterFilter(f) {
+      currentRosterFilter = f;
+      ['btn-filt-all', 'btn-filt-conf', 'btn-filt-pend'].forEach(b => {
+        document.getElementById(b).className = 'px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100';
+      });
+      if (f === 'all') document.getElementById('btn-filt-all').className = 'px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-200';
+      if (f === 'Confirmado') document.getElementById('btn-filt-conf').className = 'px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold border border-emerald-200';
+      if (f === 'Pendiente') document.getElementById('btn-filt-pend').className = 'px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 font-bold border border-amber-200';
+      renderRosterRows();
     }
-    function closeAddInterviewModal() {
-      document.getElementById('modal-interview').classList.add('hidden');
+
+    function filterRoster() { renderRosterRows(); }
+
+    function renderRosterRows() {
+      const q = document.getElementById('roster-search').value.toLowerCase();
+      const tbody = document.getElementById('roster-table-body');
+      tbody.innerHTML = '';
+
+      const filtered = rosterDataList.filter(it => {
+        const matchesFilter = (currentRosterFilter === 'all') || (it.estado === currentRosterFilter);
+        const matchesQuery = !q || (it.apoderado.toLowerCase().includes(q) || it.estudiante.toLowerCase().includes(q) || it.curso.toLowerCase().includes(q));
+        return matchesFilter && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-slate-400">No se encontraron citaciones para los filtros seleccionados.</td></tr>';
+        return;
+      }
+
+      filtered.forEach(it => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/80 transition';
+        const isConfirmed = it.estado === 'Confirmado';
+        tr.innerHTML = `
+          <td class="px-3 py-2.5 text-center font-bold text-slate-400">${it.id}</td>
+          <td class="px-3 py-2.5 font-semibold text-slate-900">${it.apoderado}</td>
+          <td class="px-3 py-2.5 text-slate-500 font-mono text-[10px]">${it.email}</td>
+          <td class="px-3 py-2.5 text-slate-800 font-medium">${it.estudiante}</td>
+          <td class="px-3 py-2.5 text-center text-slate-600">${it.curso}</td>
+          <td class="px-3 py-2.5 text-center text-slate-600">${it.dia} ${it.fecha}</td>
+          <td class="px-3 py-2.5 text-center text-slate-600">${it.hora}</td>
+          <td class="px-3 py-2.5 text-center">
+            <button onclick="toggleInterviewStatus(${it.id})" title="Haz clic para cambiar estado" class="px-2.5 py-1 rounded-full text-[10px] font-bold shadow-sm transition hover:scale-105 ${isConfirmed ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
+              ${it.estado} ⇄
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
+
+    async function toggleInterviewStatus(id) {
+      const it = rosterDataList.find(x => x.id === id);
+      if (!it) return;
+      const nextState = it.estado === 'Confirmado' ? 'Pendiente' : 'Confirmado';
+      it.estado = nextState;
+
+      await fetch('/api/roster/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, estado: nextState })
+      });
+
+      renderRosterRows();
+      showToast(`Citación ${id} actualizada a: ${nextState}`);
+    }
+
+    function openAddInterviewModal() { document.getElementById('modal-interview').classList.remove('hidden'); }
+    function closeAddInterviewModal() { document.getElementById('modal-interview').classList.add('hidden'); }
 
     async function saveNewInterview() {
       const payload = {
@@ -704,10 +1073,10 @@
         fecha: document.getElementById('add-fecha').value.trim(),
         hora: document.getElementById('add-hora').value.trim(),
         estado: document.getElementById('add-estado').value,
-        obs: "Agregado desde EduDocente-Studio"
+        obs: "Registrado en EduDocente-Studio"
       };
 
-      if (!payload.apoderado) return alert('Por favor ingresa nombre del apoderado');
+      if (!payload.apoderado) return alert('Por favor indica el nombre del apoderado');
 
       await fetch('/api/roster/add', {
         method: 'POST',
@@ -716,10 +1085,11 @@
       });
 
       closeAddInterviewModal();
-      loadRosterTable();
+      await loadRosterTable();
+      showToast('Nueva citación agregada al Excel');
     }
 
-    // AI Generation & Presets
+    // AI Generation
     const PRESETS = {
       ciencias5: {
         subject: "CIENCIAS NATURALES", grade: "5° Básico A",
@@ -762,6 +1132,15 @@
       document.getElementById('inp-oa').value = p.oa;
       document.getElementById('inp-pages').value = p.pages;
       document.getElementById('inp-points').value = p.points;
+
+      // Update Live Sheet Simulator
+      document.getElementById('sheet-subject-title').textContent = `${p.subject} — ${p.grade}`;
+      document.getElementById('sheet-eval-title').textContent = `EVALUACIÓN FINAL: ${p.topic.slice(0, 40).toUpperCase()}...`;
+      document.getElementById('sheet-field-grade').textContent = p.grade;
+      document.getElementById('sheet-field-oa').textContent = p.oa.slice(0, 45) + '...';
+      document.getElementById('sheet-field-pts').textContent = p.points;
+
+      showToast(`Plantilla cargada: ${p.subject} (${p.grade})`);
       logConsole(`> Plantilla seleccionada: ${p.subject} - ${p.grade}`);
     }
 
@@ -785,10 +1164,11 @@
       const pages = document.getElementById('inp-pages').value.trim();
 
       btn.disabled = true;
+      btn.classList.add('opacity-75');
       badge.textContent = 'Procesando IA...';
       badge.className = 'text-[10px] font-semibold text-amber-600 bg-amber-100 px-2 py-0.5 rounded';
 
-      logConsole(`\n[INICIANDO GENERACIÓN] Proveedor: ${prov.toUpperCase()} | Colegio: ${globalActiveInst ? globalActiveInst.name : 'Pasteur'}`);
+      logConsole(`\n[INICIANDO GENERACIÓN] Motor: ${prov.toUpperCase()} | Colegio: ${globalActiveInst ? globalActiveInst.name : 'Pasteur'}`);
       logConsole(`>>> La IA buscará información en internet sobre los contenidos indicados...`);
       logConsole(`>>> Comparando con los archivos y textos de referencia curriculares...`);
 
@@ -803,22 +1183,38 @@
         });
         const d = await res.json();
         if (d.success) {
-          logConsole(`✓ Evaluación y Pauta generadas exitosamente`, 'text-emerald-400');
+          logConsole(`✓ Evaluación y Pauta generadas exitosamente en Word (.docx)`, 'text-emerald-400');
           logConsole(`  • Alumno: ${d.student_file}`);
           logConsole(`  • Docente: ${d.teacher_file}`);
           document.getElementById('btn-dl-student').href = `/download/${d.student_file}`;
           document.getElementById('btn-dl-teacher').href = `/download/${d.teacher_file}`;
+
+          // Update Simulator with generated questions if available
+          if (d.assessment && d.assessment.item1_seleccion_multiple && d.assessment.item1_seleccion_multiple.length > 0) {
+            const q1 = d.assessment.item1_seleccion_multiple[0];
+            const pBox = document.getElementById('sheet-item1-preview');
+            pBox.innerHTML = `
+              <p class="font-semibold text-slate-900">${q1.pregunta}</p>
+              <div class="grid grid-cols-2 gap-1.5 pl-3 text-slate-600">
+                ${q1.alternativas.map(alt => `<div><b>${alt[0]})</b> ${alt[1]}</div>`).join('')}
+              </div>
+            `;
+          }
+
           badge.textContent = 'Completado ✓';
           badge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
+          showToast('Evaluación generada con éxito');
         } else {
           throw new Error(d.error || 'Fallo de compilación');
         }
       } catch (err) {
-        logConsole(`! ERROR: ${err.message}`, 'text-rose-400');
+        logConsole(`! ERROR: ${err.message}`, 'text-rose-400 font-bold');
         badge.textContent = 'Error';
         badge.className = 'text-[10px] font-semibold text-rose-700 bg-rose-100 px-2 py-0.5 rounded';
+        showToast('Error al generar evaluación', 'error');
       } finally {
         btn.disabled = false;
+        btn.classList.remove('opacity-75');
       }
     }
 
@@ -831,6 +1227,7 @@
       const cb = await fetch(`/api/auth/${p}/callback?code=sandbox`);
       const u = await cb.json();
       logConsole(`✓ Autenticado como: ${u.name} (${u.email})`, 'text-emerald-400');
+      showToast(`Conectado como: ${u.name}`);
     }
 
     // Startup

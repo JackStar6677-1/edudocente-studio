@@ -70,7 +70,32 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                 self.send_error(404, "web/index.html no encontrado")
                 return
 
-        # 2. Descargas de documentos generados
+        # 2. Servir recursos gráficos estáticos (/assets/)
+        if path.startswith("/assets/"):
+            rel_path = urllib.parse.unquote(path[8:])
+            asset_file = os.path.join(BASE_DIR, "assets", rel_path)
+            if os.path.exists(asset_file) and os.path.isfile(asset_file):
+                with open(asset_file, "rb") as f:
+                    asset_data = f.read()
+                self.send_response(200)
+                if asset_file.endswith(".svg"):
+                    self.send_header("Content-Type", "image/svg+xml")
+                elif asset_file.endswith(".png"):
+                    self.send_header("Content-Type", "image/png")
+                elif asset_file.endswith(".jpg") or asset_file.endswith(".jpeg"):
+                    self.send_header("Content-Type", "image/jpeg")
+                else:
+                    self.send_header("Content-Type", "application/octet-stream")
+                self.send_header("Content-Length", str(len(asset_data)))
+                self.send_header("Cache-Control", "public, max-age=3600")
+                self.end_headers()
+                self.wfile.write(asset_data)
+                return
+            else:
+                self.send_error(404, "Recurso gráfico no encontrado")
+                return
+
+        # 3. Descargas de documentos generados
         if path.startswith("/download/"):
             filename = os.path.basename(urllib.parse.unquote(path[10:]))
             filepath = os.path.join(OUTPUT_DIR, filename)
