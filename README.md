@@ -1,277 +1,301 @@
 <div align="center">
 
+[🇺🇸 **English (Active)**](README.md) · [🇪🇸 **Leer en Español**](README.es.md)
+
 ![EduDocente-Studio Banner](assets/banner_animated.svg)
 
-# 🎓 EduDocente-Studio
-### *Automated Pedagogical Assessment, Multi-AI Engine & Institutional Memory*
+# ✦ EduDocente-Studio ✦
+### *Autonomous Multi-AI Pedagogical Assessment & Global Curriculum Engine*
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Multi-AI Support](https://img.shields.io/badge/AI_Engine-Claude%20%7C%20Gemini%20%7C%20GPT--4o%20%7C%20DeepSeek%20%7C%20Kimi%20%7C%20Grok-8A2BE2?style=for-the-badge&logo=openai&logoColor=white)](#-conector-universal-multi-ia)
-[![Multi-Branding](https://img.shields.io/badge/Branding-Multi--Colegio%20%26%20Logos-0D5C3A?style=for-the-badge&logo=materialdesign&logoColor=white)](#-memoria-de-identidad-multi-colegio--branding)
-[![OAuth 2.0 Ready](https://img.shields.io/badge/Auth-Google%20Workspace%20%7C%20GitHub%20%7C%20M365-blue?style=for-the-badge&logo=googlecloud&logoColor=white)](#-autenticación-y-single-sign-on-oauth-20)
+[![Multi-AI Support](https://img.shields.io/badge/AI_Engine-Claude%20%7C%20Gemini%20%7C%20GPT--4o%20%7C%20DeepSeek%20%7C%20Kimi%20%7C%20Grok-8A2BE2?style=for-the-badge&logo=openai&logoColor=white)](#-multi-ai-universal-connector)
+[![Curriculum Standards](https://img.shields.io/badge/Curriculum-Global%20K--12%20%7C%20IB%20%7C%20NGSS%20%7C%20Cambridge-0D5C3A?style=for-the-badge&logo=book&logoColor=white)](#-global-curriculum-readiness)
+[![Multi-Branding](https://img.shields.io/badge/Branding-Multi--School%20Memory-blue?style=for-the-badge&logo=materialdesign&logoColor=white)](#-multi-school-institutional-branding-memory)
 [![License: MIT](https://img.shields.io/badge/License-MIT-F5A623?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>Motor declarativo y asistido por IA de evaluaciones escolares, pautas de corrección con justificación pedagógica, temarios oficiales para apoderados, planillas dinámicas de nóminas en Excel (.xlsx) y memoria de identidad para docentes multicolegio.</b>
+  <b>A declarative, AI-orchestrated curriculum platform that transforms textbook chapters, learning standards, and pedagogical requirements into publication-grade, print-ready student examinations, justified teacher answer keys, family study guides, and dynamic student rosters in Microsoft Word (.docx) and Excel (.xlsx).</b>
 </p>
 
-[✨ Características](#-características-principales) •
-[🤖 Conector Multi-IA](#-conector-universal-multi-ia) •
-[🏛️ Memoria Multi-Colegio](#-memoria-de-identidad-multi-colegio--branding) •
-[📊 Nóminas Excel](#-gestor-especializado-de-nóminas-y-entrevistas-excel) •
-[🔐 OAuth 2.0](#-autenticación-y-single-sign-on-oauth-20) •
-[🏭 Despliegue Industrial](#-despliegue-en-entornos-de-producción-e-industria) •
-[💻 Modos de Uso](#-modos-de-uso) •
-[📄 Licencia](#-licencia)
+[✨ Core Features](#-core-features) •
+[🌍 Global Curriculum](#-global-curriculum-readiness) •
+[🤖 Multi-AI Connector](#-multi-ai-universal-connector) •
+[🏛️ Multi-School Branding](#-multi-school-institutional-branding-memory) •
+[📊 Excel Roster Manager](#-dynamic-excel-student-roster--conference-manager) •
+[🔐 OAuth 2.0](#-enterprise-authentication--sso-oauth-20) •
+[🚀 Quick Start](#-quick-start--installation) •
+[📄 License](#-license)
 
 </div>
 
 ---
 
-## 💡 El Problema y la Solución
+## 💡 The Problem & The Solution
 
-### El Desafío
-Los docentes dedican decenas de horas semanales a diseñar pruebas, redactar solucionarios con retroalimentación explicada, elaborar temarios informativos para apoderados y cuadrar planillas de entrevistas. En procesadores de texto manuales, esto conlleva:
-* **Desalineaciones de diseño e imagen:** Muchos profesores imparten clases en 2 o más colegios distintos y deben rehacer manualmente encabezados, logos y colores.
-* **Filtración involuntaria:** Pistas o respuestas dejadas por descuido en la copia del estudiante.
-* **Falta de fundamentación pedagógica:** Solucionarios escuetos sin citas directas a las páginas del texto de estudio.
-* **Desorden en planillas:** Nóminas de apoderados desactualizadas y sin formato condicional estándar.
+### The Challenge
+Educators spend over 15 hours each week authoring tests, writing feedback keys, preparing parent syllabus notices, and organizing student conference spreadsheets. In manual word processors, this creates severe pain points:
+* **Branding Friction:** Teachers working across multiple academies or school districts must manually re-create headers, color palettes, and logos.
+* **Leakage of Answer Clues:** Unintentional formatting hints or distractor imbalances left in the student copy.
+* **Lack of Pedagogical Rationale:** Bare-minimum answer keys without direct citations to textbook pages or curricular competencies.
+* **Spreadsheet Chaos:** Outdated, manually formatted parent contact lists with inconsistent attendance data.
 
-### Nuestra Solución
-**EduDocente-Studio** estandariza este flujo de trabajo mediante:
-1. **Memoria Multi-Colegio:** Guarda perfiles de instituciones (logos en alta resolución sin fondo, colores corporativos primarios y secundarios, lemas y departamentos) que se aplican automáticamente a cualquier documento generado.
-2. **Arquitectura Pedagógica de 3 Ítems:**
-   - **Ítem I (Selección Múltiple):** Alternativas directas `A)`, `B)`, `C)`, `D)` sin casillas distractoras, con clave y justificación formal en la pauta.
-   - **Ítem II (Verdadero o Falso):** Casillas limpias `(   )` para el alumno y tabla de justificaciones pedagógicas con respuestas destacadas en verde institucional (`#1E7E34`) para el profesor.
-   - **Ítem III (Aplicación Práctica / Dibujo / Esquema Técnico):** Marcos delimitados para dibujar con líneas de explicación, o láminas vectoriales tipo esqueleto para rotular y pintar.
-3. **Gestor de Nóminas Excel Dinámicas:** Planillas openpyxl configurables para citación de apoderados con validación desplegable de asistencia y formato institucional automático.
+### Our Solution
+**EduDocente-Studio** standardizes the entire assessment engineering lifecycle through an autonomous, declarative pipeline:
+1. **Universal 3-Tier Pedagogical Architecture:**
+   - **Tier I (Multiple Choice):** Clean direct options `A)`, `B)`, `C)`, `D)` without distractor boxes, complete with pedagogical rationales citing source materials in the teacher answer key.
+   - **Tier II (True/False):** Clean `(   )` answer slots for students and clear validation matrices highlighted in institutional green (`#1E7E34`) for educators.
+   - **Tier III (Technical Drawing & Schematic Application):** Bounded drawing frames with guided prompt lines and vector diagram skeletons (electric circuits, kinetic matter particles, atomic models).
+2. **Multi-School Identity Memory:** Persistently stores high-resolution transparent logos, 5-color corporate palettes, and institutional department headers in `config/institutions.json`.
+3. **Dynamic Excel Roster & Conference Engine:** Generates styled `.xlsx` spreadsheets with auto-adjusted columns and native cell data validation dropdowns.
 
 ---
 
-## 🤖 Conector Universal Multi-IA (Pedagogical AI Agent)
+## 🌍 Global Curriculum Readiness
 
-EduDocente-Studio integra un **agente de inteligencia artificial agnóstico a proveedores** (`ai_connector.py`). Al indicar únicamente los contenidos o el Objetivo de Aprendizaje (OA), el sistema:
+EduDocente-Studio is **curriculum-agnostic** and built to adapt to any educational framework worldwide:
 
-1. **Investiga y sintetiza:** Explora los conceptos clave del currículo escolar y las referencias del texto Mineduc.
-2. **Compara y valida:** Contrasta con las directrices pedagógicas oficiales para evitar preguntas ambiguas o sesgadas.
-3. **Estructura y envía:** Emite el esquema JSON estandarizado directamente al motor de renderizado Word institucional.
+| Curriculum Framework | Region | Key Support & Integration |
+| :--- | :--- | :--- |
+| **US NGSS & Common Core** | United States / International | Performance expectations, disciplinary core ideas, science and engineering practices. |
+| **International Baccalaureate (IB)** | Global (MYP & DP) | Criterion-referenced assessment rubrics, inquiry-based prompts, and command terms. |
+| **Cambridge IGCSE & A-Levels** | UK / Commonwealth | Structured knowledge recall, analytical multiple-choice, and practical paper frameworks. |
+| **Mineduc K-12 Standards** | Chile / Latin America | Learning Objectives (OA), prioritized curriculum, and official textbook page citations. |
+| **SEP Framework** | Mexico / LATAM | Formative assessment competencies, learning fields (*Campos Formativos*), and contextual projects. |
+| **Higher Ed & STEM Academies** | Worldwide | Physics circuits, atomic theories, microbiology, music theory, and health sciences. |
+
+> [!TIP]
+> The engine accepts inputs in English, Spanish, Portuguese, or any language. While tests and rubrics can be generated in any target tongue, the developer interface and repository follow international English conventions.
+
+---
+
+## 🤖 Multi-AI Universal Connector
+
+EduDocente-Studio integrates a vendor-agnostic AI orchestration router (`ai_connector.py`):
 
 ```mermaid
 flowchart LR
-    subgraph USER_INPUT ["Entrada Docente"]
-        TOPIC["Tema Curricular / OA / Páginas del Libro"]
-        INST["Institución Seleccionada (Branding Activo)"]
+    subgraph INPUT ["Teacher Requirements"]
+        TOPIC["Subject, Grade & Learning Objectives (OA / NGSS)"]
+        INST["Active School Brand (Colors, Logo & Header)"]
     end
 
-    subgraph AI_ROUTER ["AI Universal Connector (ai_connector.py)"]
+    subgraph ROUTER ["AI Universal Connector (ai_connector.py)"]
         direction TB
-        G["Google Gemini / Antigravity"]
-        C["Anthropic Claude 3.5"]
+        G["Google Gemini 2.0 / Antigravity"]
+        C["Anthropic Claude 3.5 Sonnet"]
         O["OpenAI GPT-4o / Codex"]
-        D["DeepSeek V3 / R1"]
+        D["DeepSeek R1 / V3"]
         K["Moonshot Kimi AI"]
-        X["xAI Grok"]
-        L["Ollama / Local LLM"]
-        MOCK["Smart Pedagogical Synthesizer (Sin API Key)"]
+        X["xAI Grok-Beta"]
+        L["Local Ollama (Llama 3.2)"]
+        MOCK["Zero-Crash Smart Synthesizer (Offline Fallback)"]
     end
 
-    subgraph ENGINE_RENDER ["DocenteEngine & Core"]
-        W_EST["Prueba Alumno (.docx)"]
-        W_PAU["Pauta Docente (.docx)"]
-        XLS["Planilla Nómina (.xlsx)"]
+    subgraph COMPILE ["DocenteEngine Core"]
+        W_EST["Student Test (.docx)\n- Clean layout & drawing frames"]
+        W_PAU["Teacher Answer Key (.docx)\n- Justifications & solved models"]
+        XLS["Roster Spreadsheet (.xlsx)\n- Data validation & conference slots"]
     end
 
-    TOPIC --> AI_ROUTER
-    INST --> ENGINE_RENDER
-    G & C & O & D & K & X & L & MOCK --> ENGINE_RENDER
-    ENGINE_RENDER --> W_EST
-    ENGINE_RENDER --> W_PAU
-    ENGINE_RENDER --> XLS
+    TOPIC --> ROUTER
+    INST --> COMPILE
+    G & C & O & D & K & X & L & MOCK --> COMPILE
+    COMPILE --> W_EST
+    COMPILE --> W_PAU
+    COMPILE --> XLS
 ```
 
-### Proveedores Soportados:
-* ♊ **Google Gemini / Antigravity** (`gemini-1.5-pro` / `gemini-2.0-flash`)
-* 🧠 **Anthropic Claude** (`claude-3-5-sonnet`)
-* ⚡ **OpenAI / Codex** (`gpt-4o`)
-* 🐋 **DeepSeek** (`deepseek-chat` / `deepseek-reasoner` V3 / R1)
-* 🌙 **Moonshot Kimi AI** (`moonshot-v1-8k`)
-* 🚀 **xAI Grok** (`grok-beta`)
-* 💻 **Local / Ollama** (`llama3.2`, etc.)
-* 🛡️ **Smart Pedagogical Synthesizer:** Fallback heurístico local **Zero-Crash** que funciona sin claves de API para pruebas inmediatas.
+### Supported AI Providers:
+* ♊ **Google Gemini 2.0 & Antigravity** (`gemini-1.5-pro` / `gemini-2.0-flash`) — Native curriculum grounding.
+* 🧠 **Anthropic Claude 3.5** (`claude-3-5-sonnet`) — Rigorous pedagogical rationales and nuanced distractors.
+* ⚡ **OpenAI GPT-4o / Codex** (`gpt-4o`) — High-throughput JSON schema compilation.
+* 🐋 **DeepSeek R1 & V3** (`deepseek-chat` / `deepseek-reasoner`) — Deep deductive reasoning for STEM tests.
+* 🌙 **Moonshot Kimi AI** (`moonshot-v1-8k`) — Long-context textbook processing.
+* 🚀 **xAI Grok** (`grok-beta`) — Concise, direct instructional synthesis.
+* 💻 **Local / Ollama** (`llama3.2`, etc.) — 100% private, offline execution on your workstation.
+* 🛡️ **Zero-Crash Smart Pedagogical Synthesizer:** Built-in heuristic fallback allowing full end-to-end testing without external API keys.
 
 ---
 
-## 🏛️ Memoria de Identidad Multi-Colegio & Branding
+## 🏛️ Multi-School Institutional Branding Memory
 
-Si un profesor trabaja en varias escuelas o liceos, puede almacenar sus perfiles en `config/institutions.json`:
+For teachers instructing at more than one school, university, or academy, EduDocente-Studio maintains persistent branding profiles in `config/institutions.json`:
 
 ```json
 {
-  "id": "liceo_bicentenario",
-  "name": "LICEO BICENTENARIO DE EXCELENCIA",
-  "sub_header": "UNIDAD TÉCNICO PEDAGÓGICA (UTP)",
-  "motto": "Compromiso, Mérito y Superación",
-  "logo_path": "assets/logos/logo_bicentenario.png",
+  "id": "cambridge_academy",
+  "name": "CAMBRIDGE INTERNATIONAL ACADEMY",
+  "sub_header": "DEPARTMENT OF NATURAL SCIENCES & MATHEMATICS",
+  "motto": "Veritas, Scientia et Excellentia",
+  "logo_path": "assets/logos/cambridge_crest.png",
   "font_family": "Arial",
   "colors": {
-    "primary_hex": "0D5C3A",
-    "secondary_hex": "E8F5E9",
-    "card_bg_hex": "F1F8E9",
-    "border_hex": "A5D6A7",
+    "primary_hex": "0A2540",
+    "secondary_hex": "EAF3FB",
+    "card_bg_hex": "F6FAFE",
+    "border_hex": "B0C4DE",
     "teacher_correct_hex": "1E7E34"
   },
   "is_active": true
 }
 ```
 
-* **Cambio Dinámico:** Al alternar el colegio activo en la barra superior de la Interfaz Web o mediante `institution_manager.set_active("id")`, todas las pruebas, pautas y planillas Excel adoptan de inmediato el logo de alta resolución, membrete y paleta cromática de dicho colegio.
-* **Soporte de Logos:** Permite logos transparentes en formatos PNG, SVG o WEBP de hasta 4K de resolución.
+* **Instant Dynamic Theme Switching:** Changing schools in the Web UI or via `institution_manager.set_active("id")` immediately re-themes all generated Word examinations, teacher keys, and Excel sheets with the chosen school's transparent logo, typography, and palette.
+* **Transparent Logo Support:** Handles ultra-high-resolution PNG, SVG, and WEBP image assets.
 
 ---
 
-## 📊 Gestor Especializado de Nóminas y Entrevistas Excel
+## 📊 Dynamic Excel Student Roster & Conference Manager
 
-El módulo `roster_manager.py` automatiza la citación mensual de apoderados y gestión de cursos:
+The `roster_manager.py` module automates parent-teacher conferences and academic follow-up:
 
-* **Columnas Configurables:** `N°`, `Nombre del apoderado/a`, `Correo electrónico`, `Nombre del/la estudiante`, `Curso`, `Día`, `Fecha entrevista`, `Hora de entrevista`, `Estado` y `Observaciones`.
-* **Validación de Datos en Celda:** Menú desplegable nativo en Excel para estados: `Confirmado`, `Pendiente`, `Reprogramado`, `Inasistencia`.
-* **Estilo Institucional:** Cabecera con el color corporativo del colegio, bordes suaves, alternancia zebra (`#F6FAFE` / `#FFFFFF`) y anchos de columna auto-ajustados.
-* **Actualizable en Vivo:** Agrega nuevas entrevistas desde la pestaña **"2. Nóminas & Entrevistas Excel"** de la Web UI o vía API REST (`POST /api/roster/add`).
+* **Configurable Columns:** `ID`, `Parent Name`, `Email`, `Student Name`, `Grade/Class`, `Day`, `Conference Date`, `Time Slot`, `Status`, and `Notes`.
+* **In-Cell Data Validation:** Native dropdowns for status management: `Confirmed`, `Pending`, `Rescheduled`, `Absent`.
+* **Automatic Institutional Styling:** Applies the active school's brand color to column headers, gentle borders, zebra fills (`#F6FAFE` / `#FFFFFF`), and auto-fitted column widths.
+* **Real-Time Live Updates:** Modify conference attendance directly from the **"2. Nóminas & Entrevistas Excel"** web tab with 1-click status toggling and instant `.xlsx` export.
 
 ---
 
-## 🔐 Autenticación y Single Sign-On (OAuth 2.0)
+## 🔐 Enterprise Authentication & SSO (OAuth 2.0)
 
-El módulo `oauth_manager.py` permite vincular credenciales institucionales:
+The `oauth_manager.py` layer provides out-of-the-box Single Sign-On readiness:
 
 1. **Google Workspace for Education / Google Classroom:**
-   - Permisos de lectura de cursos y nóminas de alumnos (`classroom.courses.readonly`, `classroom.rosters.readonly`).
+   - Scopes: `classroom.courses.readonly`, `classroom.rosters.readonly`, `userinfo.email`.
 2. **GitHub Academic (`@JackStar6677-1`):**
-   - Sincronización con repositorios de aula y código didáctico.
-3. **Microsoft 365 Educación (Entra ID):**
-   - Integración con cuentas escolares de Microsoft Teams y Outlook institucional.
-4. **Modo Sandbox Educativo:**
-   - Permite probar el flujo de autenticación de forma inmediata en entornos locales sin requerir aprobación previa en Google Cloud Console.
+   - Classroom repository and curriculum versioning.
+3. **Microsoft 365 Education (Entra ID):**
+   - Microsoft Teams for Education and institutional Active Directory rosters.
+4. **Built-In Sandbox Mode:**
+   - Instant 1-click demonstration without needing prior OAuth app registration in Google Cloud Console.
 
 ---
 
-## 🏭 Despliegue en Entornos de Producción e Industria
+## 🚀 Quick Start & Installation
 
-### Opción 1: Instalación Rápida con 1 Clic (Recomendada para Profesores)
-* **En Windows:** Haz doble clic en `install.bat` para instalar las dependencias y luego en `start.bat` para iniciar la interfaz gráfica.
-* **En Linux / macOS:**
-  ```bash
-  chmod +x install.sh
-  ./install.sh
-  python3 app.py
-  ```
+### 1. One-Click Windows Launch (Recommended for Educators)
+Double-click `install.bat` to prepare dependencies, then double-click `start.bat` to launch the local web app and open your browser at `http://localhost:8080`.
 
-### Opción 2: Despliegue con Contenedores Docker (Para Departamentos de TI Escolar)
+### 2. Manual Installation
 ```bash
-# Construir y levantar el contenedor en segundo plano
-docker-compose up -d
+# Clone repository
+git clone https://github.com/JackStar6677-1/edudocente-studio.git
+cd edudocente-studio
 
-# Acceder a la plataforma en:
-# http://localhost:8080
+# Install dependencies
+pip install -r requirements.txt
+
+# Launch interactive Web UI
+python app.py
 ```
 
-### Opción 3: Variables de Entorno de Producción (`.env`)
-Copia la plantilla `.env.example` a `.env` y configura tus credenciales:
-```env
-GOOGLE_CLIENT_ID=tu_cliente_google.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=tu_secreto_google
-GEMINI_API_KEY=tu_clave_gemini
+### 3. Docker Container Deployment (For School IT Departments)
+```bash
+docker-compose up -d
+# Access web dashboard at http://localhost:8080
+```
+
+### 4. Environment Variables Setup (`.env`)
+```bash
+# Copy template
+cp .env.example .env
+
+# Configure API keys (optional)
+GEMINI_API_KEY="your_gemini_key"
+ANTHROPIC_API_KEY="your_claude_key"
+OPENAI_API_KEY="your_openai_key"
 PORT=8080
 ```
 
 ---
 
-## 💻 Modos de Uso
+## 💻 CLI & Interactive Modes
 
-### 1. Interfaz Web Gráfica (Web UI)
-Inicia el servidor local y abre la aplicación en tu navegador predeterminado:
 ```bash
+# Web Interface (Single-Page Application)
 python app.py
-# o también:
-python main.py --web
-```
 
-### 2. Generación Asistida por IA por Consola
-```bash
+# Interactive AI Session via Console
 python ai_connector.py
-# o también:
+# or:
 python main.py --ai
-```
 
-### 3. Asistente Manual Paso a Paso (Wizard CLI)
-```bash
+# Step-by-Step Manual Question Wizard
 python wizard.py
-# o también:
+# or:
 python main.py --wizard
-```
 
-### 4. Orquestador en Lote del Colegio
-```bash
-python main.py --all            # Genera todo el material institucional
-python main.py --excel          # Regenera el cronograma de entrevistas en Excel
+# Batch Compilation of Included Case Studies
+python main.py --all
 ```
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Repository Structure
 
 ```text
-evaluaciones_pasteur/
+edudocente-studio/
 │
-├── assets/                               # Recursos gráficos y logos
-│   ├── banner_animated.svg               # Banner interactivo para GitHub
-│   ├── logo_colegio.png                  # Escudo oficial de alta resolución
-│   ├── circuit_components/               # Símbolos esquemáticos vectoriales
-│   ├── matter_states/                    # Modelos corpusculares
-│   └── atom_model/                       # Modelo atómico de Dalton
+├── assets/                               # Vector assets, animated banners & logos
+│   ├── banner_animated.svg               # Cybernetic GitHub & UI banner
+│   ├── logo_colegio.png                  # Transparent school crest
+│   ├── circuit_components/               # Schematic electrical symbols
+│   ├── matter_states/                    # Kinetic matter particle diagrams
+│   └── atom_model/                       # Vector atomic model skeletons
 │
-├── config/                               # Memoria persistente del sistema
-│   ├── institutions.json                 # Perfiles, logos y colores de colegios
-│   └── roster_data.json                  # Nómina configurable de apoderados y citas
+├── config/                               # Persistent memory storage
+│   ├── institutions.json                 # Multi-school profiles, logos & color hexes
+│   └── roster_data.json                  # Configurable student conference database
 │
-├── web/                                  # Interfaz gráfica de usuario (SPA)
-│   └── index.html                        # Panel interactivo moderno (Tailwind CSS)
+├── web/                                  # Frontend Web Dashboard (Tailwind CSS SPA)
+│   └── index.html                        # 4-Tab interface with live exam sheet preview
 │
-├── output/                               # Entregables oficiales compilados
-│   ├── temarios/                         # Temarios oficiales para apoderados
+├── output/                               # Compiled publication deliverables
+│   ├── temarios/                         # Official parent notices
 │   ├── Evaluacion_Final_Ciencias_6Basico.docx
 │   ├── Pauta_Correccion_Ciencias_6Basico.docx
 │   └── Cronograma_Entrevistas_Apoderados_2026.xlsx
 │
-├── app.py                                # Servidor Web local y API REST multi-hilo
-├── oauth_manager.py                      # Gestor de autenticación OAuth 2.0 (Google/GitHub/M365)
-├── institution_manager.py                # Memoria de Identidad Multi-Colegio y Branding
-├── roster_manager.py                     # Gestor de Nóminas y Cronogramas en Excel
-├── ai_connector.py                       # Conector Universal Multi-IA (Claude, Gemini, GPT, DeepSeek)
-├── engine.py                             # Motor declarativo central (DocenteEngine)
-├── generator_core.py                     # Motor base de renderizado XML y estilos dinámicos
-├── wizard.py                             # Asistente CLI interactivo
-├── main.py                               # Orquestador del sistema con flags y menú
+├── app.py                                # Local multi-threaded HTTP server & REST API
+├── oauth_manager.py                      # OAuth 2.0 manager (Google, GitHub, Microsoft)
+├── institution_manager.py                # Multi-school branding memory
+├── roster_manager.py                     # Excel roster and interview manager
+├── ai_connector.py                       # Universal Multi-AI router (Claude, Gemini, GPT-4o, DeepSeek)
+├── engine.py                             # Declarative core compiler (DocenteEngine)
+├── generator_core.py                     # Word XML typography and dynamic styling
+├── wizard.py                             # Interactive CLI creation assistant
+├── main.py                               # Master CLI orchestrator with flags
 │
-├── install.bat / install.sh              # Instaladores de 1 clic para Windows y Linux/Mac
-├── start.bat                             # Lanzador directo de la interfaz web
-├── Dockerfile / docker-compose.yml       # Contenedores para despliegue industrial
-├── .env.example                          # Plantilla de credenciales OAuth e IA
-├── requirements.txt                      # Dependencias de Python
-├── LICENSE                               # Licencia MIT
-└── README.md                             # Documentación del proyecto
+├── install.bat / install.sh              # 1-Click installers for Windows & Linux/macOS
+├── start.bat                             # 1-Click double-click web launcher
+├── Dockerfile / docker-compose.yml       # Production containerization
+├── .env.example                          # Environment variables template
+├── requirements.txt                      # Official Python dependencies
+├── LICENSE                               # MIT License
+├── README.es.md                          # Spanish documentation
+└── README.md                             # English documentation (Primary)
 ```
 
 ---
 
-## 👨‍💻 Autor y Reconocimientos
+## 🔮 Future Roadmap (Beta Lab)
 
-- **Desarrollo y Arquitectura de Software:** Jack ([@Jackstar6677-1](https://github.com/Jackstar6677-1))
-- **Asesoría y Validación Pedagógica:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
-- **Contacto:** `profesora.margaritamiranda@cepluispasteur.cl`
+Explore tab **"4. Próximamente (En Desarrollo)"** in the Web UI:
+* 📷 **Mobile & Webcam OMR Scanner:** Instant automated scoring of bubble sheets using computer vision.
+* 🔗 **Bi-Directional LMS Sync:** Direct publishing to Google Classroom announcements and Canvas assignments.
+* 🖨️ **QR-Serialized Exam Booklets:** Unique security serialization per student to eliminate copying.
+* 📊 **Psychometric Item Discrimination:** Difficulty index calculation and formative learning recommendations.
 
 ---
 
-## 📄 Licencia
+## 👨‍💻 Author & Acknowledgments
 
-Este proyecto está liberado bajo la [Licencia MIT](LICENSE). Siéntete libre de utilizarlo, bifurcarlo y adaptarlo para tu propia institución educativa.
+- **Software Architecture & Development:** Jack ([@Jackstar6677-1](https://github.com/Jackstar6677-1))
+- **Pedagogical Consultation & Classroom Validation:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
+- **Contact:** `profesora.margaritamiranda@cepluispasteur.cl`
+
+---
+
+## 📄 License
+
+Distributed under the [MIT License](LICENSE). Feel free to fork, adapt, and deploy for your own educational institution.
