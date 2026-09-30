@@ -335,9 +335,12 @@ def start_server(port=8080, open_browser=True):
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description="Servidor Web Local EduDocente-Studio")
-    parser.add_argument("--port", type=int, default=8080, help="Puerto HTTP (predeterminado: 8080)")
+    default_port = int(os.environ.get("EDUDOCENTE_PORT", os.environ.get("PORT", 8080)))
+    parser.add_argument("--port", type=int, default=default_port, help=f"Puerto HTTP (predeterminado: {default_port})")
     parser.add_argument("--no-browser", action="store_true", help="No abrir automáticamente el navegador web")
     args = parser.parse_args()
 
-    start_server(port=args.port, open_browser=not args.no_browser)
+    # Si estamos en servidor headless/linux daemon, no intentar abrir navegador
+    is_headless = not os.environ.get("DISPLAY") and not sys.platform.startswith("win")
+    should_open_browser = not args.no_browser and not is_headless
+    start_server(port=args.port, open_browser=should_open_browser)

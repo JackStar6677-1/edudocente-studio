@@ -1,0 +1,22 @@
+[Unit]
+Description=EduDocente-Studio - Generador Inteligente de Evaluaciones Escolares (Colegio Castelgandolfo)
+After=network.target
+
+[Service]
+Type=simple
+User=admin-colegio
+Group=star-colegio-admins
+WorkingDirectory=/home/admin-colegio/edudocente
+ExecStart=/usr/bin/python3 /home/admin-colegio/edudocente/app.py --port 8086 --no-browser
+Restart=always
+RestartSec=5
+Environment=EDUDOCENTE_PORT=8086
+Environment=PYTHONUNBUFFERED=1
+
+# Hardening y Permisos de Almacenamiento en /data
+ProtectSystem=full
+ReadWritePaths=/home/admin-colegio/edudocente /data/colegio /srv/colegio
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
