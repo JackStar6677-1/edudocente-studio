@@ -170,6 +170,22 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"interviews": interviews})
             return
 
+        # 8. API: Proveedores de IA con información de cuotas gratuitas/semanales
+        if path == "/api/ai/providers":
+            from ai_connector import AI_PROVIDERS
+            providers_list = []
+            for pid, info in AI_PROVIDERS.items():
+                providers_list.append({
+                    "id": pid,
+                    "name": info.get("name", pid),
+                    "badge": info.get("badge", ""),
+                    "default_model": info.get("default_model", ""),
+                    "help_url": info.get("help_url", "#"),
+                    "free_tier_info": info.get("free_tier_info", "")
+                })
+            self._send_json(200, {"providers": providers_list})
+            return
+
         self.send_error(404, "Ruta no encontrada")
 
     def do_POST(self):
@@ -191,27 +207,33 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
 
         # 2. API: Generar evaluación completa con IA y DocenteEngine
         if path == "/api/generate":
-            provider = payload.get("provider", "gemini")
+            provider = payload.get("provider", "antigravity")
+            api_key = payload.get("api_key", None)
+            model = payload.get("model", None)
             subject = payload.get("subject", "CIENCIAS NATURALES")
             grade = payload.get("grade", "6° Básico A")
             topic = payload.get("topic", "Cambios del estado de la materia")
             oa = payload.get("oa", "OA 13 — Demostrar cambios de estado")
             textbook_pages = payload.get("textbook_pages", "Páginas 170 y 173")
+            teacher = payload.get("teacher", None)
 
             print(f"\n[GENERACIÓN WEB] Solicitud recibida:")
             print(f"  • Proveedor: {provider.upper()}")
+            print(f"  • API Key personalizada: {'Sí (Proporcionada por Docente)' if api_key else 'No (Usando Buffer/Sistema)'}")
             print(f"  • Asignatura: {subject} | Curso: {grade}")
             print(f"  • Contenidos: {topic}")
 
             try:
-                # 1. Ejecutar Conector de IA
-                connector = AIConnector(provider=provider)
+                # 1. Ejecutar Conector de IA con la clave del profesor o buffer
+                connector = AIConnector(provider=provider, api_key=api_key, model=model)
                 assessment_data = connector.generate_assessment_json(
                     topic=topic,
                     grade=grade,
                     oa=oa,
                     textbook_pages=textbook_pages
                 )
+                if teacher:
+                    assessment_data["docente"] = teacher
 
                 # 2. Compilar documentos con DocenteEngine
                 engine = DocenteEngine(assessment_data)

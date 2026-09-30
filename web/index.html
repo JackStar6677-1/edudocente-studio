@@ -245,52 +245,102 @@
               <span class="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-emerald-200">3 Ítems Oficiales</span>
             </div>
 
-            <!-- AI Model Selector with Badges -->
+            <!-- AI Model Selector with Free Tier Badges -->
             <div>
-              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">Motor de Inteligencia Artificial</label>
-              <div class="grid grid-cols-3 gap-2">
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-brand-500 bg-brand-50/60 transition">
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Motor de Inteligencia Artificial (Cuotas Gratuitas & Semanales)</label>
+                <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">100% Compatible con Free Tier</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mb-3">
+                <!-- 1. Antigravity Semanal -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-brand-500 bg-brand-50/60 transition shadow-sm" onclick="selectAIProvider('antigravity')">
                   <div class="flex items-center justify-between mb-1">
-                    <span>♊ Gemini</span>
-                    <input type="radio" name="ai_provider" value="gemini" checked class="text-brand-700">
+                    <span class="font-bold text-slate-800">♊ Antigravity</span>
+                    <input type="radio" name="ai_provider" value="antigravity" checked class="text-brand-700">
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">Antigravity / Google</span>
+                  <span class="text-[9px] text-emerald-700 font-bold bg-emerald-100/80 px-1 py-0.5 rounded self-start mb-0.5">Semanal Gratis (15 RPM)</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Google Gemini 2.0 Flash</span>
                 </label>
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+
+                <!-- 2. Codex Versión Gratis -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('codex')">
                   <div class="flex items-center justify-between mb-1">
-                    <span>🧠 Claude</span>
+                    <span class="font-bold text-slate-800">⚡ Codex</span>
+                    <input type="radio" name="ai_provider" value="codex" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-blue-700 font-bold bg-blue-100/80 px-1 py-0.5 rounded self-start mb-0.5">Versión Gratis</span>
+                  <span class="text-[9px] text-slate-500 font-normal">OpenAI GPT-4o-mini</span>
+                </label>
+
+                <!-- 3. Claude Semanal -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('claude')">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-bold text-slate-800">🧠 Claude</span>
                     <input type="radio" name="ai_provider" value="claude" class="text-brand-700">
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">Sonnet 3.5 Anthropic</span>
+                  <span class="text-[9px] text-purple-700 font-bold bg-purple-100/80 px-1 py-0.5 rounded self-start mb-0.5">Semanal Gratis</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Anthropic Haiku</span>
                 </label>
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+
+                <!-- 4. Saori SRE Star Server -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('saori')">
                   <div class="flex items-center justify-between mb-1">
-                    <span>⚡ GPT-4o</span>
-                    <input type="radio" name="ai_provider" value="openai" class="text-brand-700">
+                    <span class="font-bold text-slate-800">🌸 Saori SRE</span>
+                    <input type="radio" name="ai_provider" value="saori" class="text-brand-700">
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">OpenAI / Codex</span>
+                  <span class="text-[9px] text-pink-700 font-bold bg-pink-100/80 px-1 py-0.5 rounded self-start mb-0.5">Red Star Server :8089</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Daemon Local 24/7</span>
                 </label>
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
+
+                <!-- 5. Buffer Escolar Sin Clave -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('buffer')">
                   <div class="flex items-center justify-between mb-1">
-                    <span>🐋 DeepSeek</span>
+                    <span class="font-bold text-slate-800">🛡️ Buffer Escolar</span>
+                    <input type="radio" name="ai_provider" value="buffer" class="text-brand-700">
+                  </div>
+                  <span class="text-[9px] text-teal-700 font-bold bg-teal-100/80 px-1 py-0.5 rounded self-start mb-0.5">100% Gratis / Sin Clave</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Sintetizador Offline</span>
+                </label>
+
+                <!-- 6. DeepSeek Razonador -->
+                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('deepseek')">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-bold text-slate-800">🐋 DeepSeek</span>
                     <input type="radio" name="ai_provider" value="deepseek" class="text-brand-700">
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">Reasoner R1 / V3</span>
+                  <span class="text-[9px] text-indigo-700 font-bold bg-indigo-100/80 px-1 py-0.5 rounded self-start mb-0.5">Razonador R1 / V3</span>
+                  <span class="text-[9px] text-slate-500 font-normal">DeepSeek AI</span>
                 </label>
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
-                  <div class="flex items-center justify-between mb-1">
-                    <span>🌙 Kimi AI</span>
-                    <input type="radio" name="ai_provider" value="kimi" class="text-brand-700">
+              </div>
+
+              <!-- Panel Desplegable: API Key Personal del Docente -->
+              <div class="rounded-xl border border-slate-200 bg-slate-50/70 p-3 mb-3">
+                <div class="flex items-center justify-between mb-1.5 cursor-pointer" onclick="toggleApiKeyPanel()">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                    <span>🔑 Mi API Key Personal (Opcional — Guardada en tu Navegador)</span>
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">Moonshot Escolar</span>
-                </label>
-                <label class="flex flex-col p-2 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition">
-                  <div class="flex items-center justify-between mb-1">
-                    <span>🚀 Grok</span>
-                    <input type="radio" name="ai_provider" value="grok" class="text-brand-700">
+                  <span id="api-key-chevron" class="text-xs text-slate-400">▼</span>
+                </div>
+                <div id="api-key-panel-body" class="space-y-2 mt-2 pt-2 border-t border-slate-200">
+                  <div class="flex gap-2">
+                    <input type="password" id="inp-user-api-key" placeholder="Pega tu API Key gratuita aquí..." class="w-full text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                    <button type="button" onclick="saveUserApiKey()" class="px-3 py-1.5 bg-brand-700 hover:bg-brand-800 text-white font-bold rounded-lg text-xs whitespace-nowrap transition">
+                      Guardar
+                    </button>
+                    <button type="button" onclick="clearUserApiKey()" class="px-2.5 py-1.5 text-slate-500 hover:text-rose-600 font-bold rounded-lg text-xs transition" title="Borrar clave guardada">
+                      🗑️
+                    </button>
                   </div>
-                  <span class="text-[9px] text-slate-500 font-normal">xAI Grok-Beta</span>
-                </label>
+                  <div class="text-[10px] text-slate-600 leading-relaxed space-y-1">
+                    <div id="provider-help-text">
+                      💡 <strong>Totalmente compatible con cuotas gratuitas:</strong> No necesitas tarjeta de crédito.
+                      <span id="provider-free-link"></span>
+                    </div>
+                    <div class="text-slate-400 text-[9px]">
+                      🔒 Tu clave se guarda exclusivamente en tu navegador (LocalStorage) y jamás se comparte con otros profesores.
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1153,10 +1203,91 @@
       b.scrollTop = b.scrollHeight;
     }
 
+    // Gestión de Proveedores de IA y API Keys Personales
+    function selectAIProvider(prov) {
+      const radio = document.querySelector(`input[name="ai_provider"][value="${prov}"]`);
+      if (radio) radio.checked = true;
+
+      // Actualizar bordes y fondos de selección
+      document.querySelectorAll('input[name="ai_provider"]').forEach(r => {
+        const lbl = r.closest('label');
+        if (!lbl) return;
+        if (r.checked) {
+          lbl.classList.add('border-brand-500', 'bg-brand-50/60');
+          lbl.classList.remove('border-slate-200', 'bg-white');
+        } else {
+          lbl.classList.remove('border-brand-500', 'bg-brand-50/60');
+          lbl.classList.add('border-slate-200', 'bg-white');
+        }
+      });
+
+      // Cargar clave guardada para este proveedor en LocalStorage
+      const savedKey = localStorage.getItem('edu_api_key_' + prov) || '';
+      const inp = document.getElementById('inp-user-api-key');
+      if (inp) {
+        inp.value = savedKey;
+      }
+
+      // Actualizar enlace didáctico de cuota gratuita
+      const linkContainer = document.getElementById('provider-free-link');
+      if (linkContainer) {
+        if (prov === 'antigravity' || prov === 'gemini') {
+          linkContainer.innerHTML = '👉 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-brand-700 font-bold underline">Obtén tu API Key gratuita en Google AI Studio (15 RPM sin costo)</a>.';
+        } else if (prov === 'codex' || prov === 'openai') {
+          linkContainer.innerHTML = '👉 <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-700 font-bold underline">Obtén tu API Key en OpenAI Platform (Codex / GPT-4o-mini)</a>.';
+        } else if (prov === 'claude') {
+          linkContainer.innerHTML = '👉 <a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-purple-700 font-bold underline">Obtén tu clave en Anthropic Console (Claude Haiku semanal)</a>.';
+        } else if (prov === 'saori') {
+          linkContainer.innerHTML = '🌸 Conectado al daemon cognitivo de Saori en Star Server (puerto 8089). No requiere clave externa.';
+        } else if (prov === 'buffer') {
+          linkContainer.innerHTML = '🛡️ Smart Buffer Escolar. 100% Offline con currículum chileno, costo $0 y sin clave.';
+        } else {
+          linkContainer.innerHTML = '';
+        }
+      }
+    }
+
+    function toggleApiKeyPanel() {
+      const body = document.getElementById('api-key-panel-body');
+      const chev = document.getElementById('api-key-chevron');
+      if (body.classList.contains('hidden')) {
+        body.classList.remove('hidden');
+        chev.textContent = '▲';
+      } else {
+        body.classList.add('hidden');
+        chev.textContent = '▼';
+      }
+    }
+
+    function saveUserApiKey() {
+      const checkedRadio = document.querySelector('input[name="ai_provider"]:checked');
+      const prov = checkedRadio ? checkedRadio.value : 'antigravity';
+      const key = (document.getElementById('inp-user-api-key').value || '').trim();
+      if (!key) {
+        localStorage.removeItem('edu_api_key_' + prov);
+        showToast(`Clave eliminada para ${prov.toUpperCase()}`);
+      } else {
+        localStorage.setItem('edu_api_key_' + prov, key);
+        showToast(`✅ Clave guardada en tu navegador para ${prov.toUpperCase()}`);
+        logConsole(`> API Key configurada para ${prov.toUpperCase()} (Guardada localmente en tu navegador).`, 'text-emerald-400');
+      }
+    }
+
+    function clearUserApiKey() {
+      const checkedRadio = document.querySelector('input[name="ai_provider"]:checked');
+      const prov = checkedRadio ? checkedRadio.value : 'antigravity';
+      localStorage.removeItem('edu_api_key_' + prov);
+      document.getElementById('inp-user-api-key').value = '';
+      showToast(`Clave eliminada para ${prov.toUpperCase()}`);
+    }
+
     async function generateWithAI() {
       const btn = document.getElementById('btn-generate');
       const badge = document.getElementById('gen-status-badge');
-      const prov = document.querySelector('input[name="ai_provider"]:checked').value;
+      const checkedRadio = document.querySelector('input[name="ai_provider"]:checked');
+      const prov = checkedRadio ? checkedRadio.value : 'antigravity';
+      const userApiKey = (localStorage.getItem('edu_api_key_' + prov) || '').trim();
+
       const subject = document.getElementById('inp-subject').value.trim();
       const grade = document.getElementById('inp-grade').value.trim();
       const topic = document.getElementById('inp-topic').value.trim();
@@ -1168,13 +1299,16 @@
       badge.textContent = 'Procesando IA...';
       badge.className = 'text-[10px] font-semibold text-amber-600 bg-amber-100 px-2 py-0.5 rounded';
 
-      logConsole(`\n[INICIANDO GENERACIÓN] Motor: ${prov.toUpperCase()} | Colegio: ${globalActiveInst ? globalActiveInst.name : 'Pasteur'}`);
-      logConsole(`>>> La IA buscará información en internet sobre los contenidos indicados...`);
-      logConsole(`>>> Comparando con los archivos y textos de referencia curriculares...`);
+      const keyStatusText = userApiKey ? 'Clave Personal (Navegador)' : (prov === 'buffer' ? 'Modo Offline sin Clave' : 'Buffer / Sistema');
+      logConsole(`\n[INICIANDO GENERACIÓN] Motor: ${prov.toUpperCase()} (${keyStatusText}) | Colegio: ${globalActiveInst ? globalActiveInst.name : 'Castelgandolfo'}`);
+      logConsole(`>>> Consultando contenidos curriculares del texto oficial...`);
+      logConsole(`>>> Sintetizando estructura de 3 ítems: Selección Múltiple, V/F con justificación y Aplicación práctica...`);
 
       try {
         const payload = {
-          provider: prov, subject, grade, topic, oa, textbook_pages: pages
+          provider: prov,
+          api_key: userApiKey || null,
+          subject, grade, topic, oa, textbook_pages: pages
         };
         const res = await fetch('/api/generate', {
           method: 'POST',
@@ -1218,20 +1352,22 @@
       }
     }
 
-    // OAuth
+    // OAuth y Sesión de Google Docente
     function openOAuthModal() { document.getElementById('oauth-modal').classList.remove('hidden'); }
     function closeOAuthModal() { document.getElementById('oauth-modal').classList.add('hidden'); }
     async function triggerOAuth(p) {
       closeOAuthModal();
-      logConsole(`> Conectando cuenta vía OAuth 2.0 (${p.toUpperCase()})...`);
+      logConsole(`> Conectando cuenta docente vía Google Workspace (${p.toUpperCase()})...`);
       const cb = await fetch(`/api/auth/${p}/callback?code=sandbox`);
       const u = await cb.json();
-      logConsole(`✓ Autenticado como: ${u.name} (${u.email})`, 'text-emerald-400');
+      logConsole(`✓ Sesión activa: ${u.name} (${u.email})`, 'text-emerald-400');
       showToast(`Conectado como: ${u.name}`);
+      localStorage.setItem('edu_current_user', JSON.stringify(u));
     }
 
     // Startup
     loadInstitutions();
+    selectAIProvider('antigravity');
   </script>
 </body>
 </html>

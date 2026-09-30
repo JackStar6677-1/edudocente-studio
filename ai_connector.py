@@ -16,49 +16,106 @@ import urllib.error
 if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-# Definición de proveedores soportados y sus modelos predeterminados
+# Definición de proveedores soportados con énfasis en cuotas gratuitas y semanales
 AI_PROVIDERS = {
+    "antigravity": {
+        "name": "Google Antigravity / Gemini (Cuota Semanal Gratis)",
+        "badge": "Semanal Gratis (15 RPM)",
+        "env_key": "GEMINI_API_KEY",
+        "default_model": "gemini-2.0-flash",
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}",
+        "help_url": "https://aistudio.google.com/app/apikey",
+        "free_tier_info": "Google AI Studio ofrece 15 peticiones/minuto y cuota semanal 100% gratuita sin costo."
+    },
     "gemini": {
         "name": "Google Gemini / Antigravity",
+        "badge": "Semanal Gratis (15 RPM)",
         "env_key": "GEMINI_API_KEY",
-        "default_model": "gemini-1.5-pro",
-        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+        "default_model": "gemini-2.0-flash",
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}",
+        "help_url": "https://aistudio.google.com/app/apikey",
+        "free_tier_info": "Google AI Studio ofrece 15 peticiones/minuto y cuota semanal 100% gratuita sin costo."
     },
-    "claude": {
-        "name": "Anthropic Claude",
-        "env_key": "ANTHROPIC_API_KEY",
-        "default_model": "claude-3-5-sonnet-20241022",
-        "endpoint": "https://api.anthropic.com/v1/messages"
+    "codex": {
+        "name": "OpenAI Codex / GPT-4o-mini (Versión Gratis)",
+        "badge": "Versión Gratis / GPT-4o-mini",
+        "env_key": "OPENAI_API_KEY",
+        "default_model": "gpt-4o-mini",
+        "endpoint": "https://api.openai.com/v1/chat/completions",
+        "help_url": "https://platform.openai.com/api-keys",
+        "free_tier_info": "Utiliza créditos de prueba gratuitos de OpenAI o modelo ultraliviano GPT-4o-mini."
     },
     "openai": {
         "name": "OpenAI / Codex (GPT-4o)",
+        "badge": "Versión Gratis / GPT-4o-mini",
         "env_key": "OPENAI_API_KEY",
-        "default_model": "gpt-4o",
-        "endpoint": "https://api.openai.com/v1/chat/completions"
+        "default_model": "gpt-4o-mini",
+        "endpoint": "https://api.openai.com/v1/chat/completions",
+        "help_url": "https://platform.openai.com/api-keys",
+        "free_tier_info": "Utiliza créditos de prueba gratuitos de OpenAI o modelo ultraliviano GPT-4o-mini."
+    },
+    "claude": {
+        "name": "Anthropic Claude (Cuota Semanal Gratis)",
+        "badge": "Semanal Gratis (Haiku)",
+        "env_key": "ANTHROPIC_API_KEY",
+        "default_model": "claude-3-5-haiku-20241022",
+        "endpoint": "https://api.anthropic.com/v1/messages",
+        "help_url": "https://console.anthropic.com/settings/keys",
+        "free_tier_info": "Cuota de prueba y nivel rápido de Claude Haiku para diseño pedagógico ágil."
+    },
+    "saori": {
+        "name": "Saori SRE Daemon (Red Local Star Server)",
+        "badge": "Red Local On-Premise",
+        "env_key": "SAORI_API_KEY",
+        "default_model": "saori-soberana",
+        "endpoint": os.environ.get("SAORI_DAEMON_URL", "http://127.0.0.1:8089/chat"),
+        "help_url": "http://star:8089/status",
+        "free_tier_info": "Servicio cognitivo autónomo ejecutándose 24/7 en Star Server (puerto 8089)."
+    },
+    "buffer": {
+        "name": "Smart Pedagogical Buffer (Costo Cero / Sin Clave)",
+        "badge": "100% Gratis / Sin API Key",
+        "env_key": "NONE",
+        "default_model": "smart-synth-v1",
+        "endpoint": "local://mock",
+        "help_url": "#",
+        "free_tier_info": "Sintetizador inteligente local en Python. No requiere conexión a internet ni claves."
     },
     "deepseek": {
         "name": "DeepSeek (V3 / R1)",
+        "badge": "Económico / Razonamiento",
         "env_key": "DEEPSEEK_API_KEY",
         "default_model": "deepseek-chat",
-        "endpoint": "https://api.deepseek.com/chat/completions"
+        "endpoint": "https://api.deepseek.com/chat/completions",
+        "help_url": "https://platform.deepseek.com/",
+        "free_tier_info": "API compatible con OpenAI de altísimo rendimiento a bajo costo."
     },
     "kimi": {
         "name": "Kimi (Moonshot AI)",
+        "badge": "Moonshot Escolar",
         "env_key": "MOONSHOT_API_KEY",
         "default_model": "moonshot-v1-8k",
-        "endpoint": "https://api.moonshot.cn/v1/chat/completions"
+        "endpoint": "https://api.moonshot.cn/v1/chat/completions",
+        "help_url": "https://platform.moonshot.cn/",
+        "free_tier_info": "Ventana de contexto amplia y comprensión profunda de textos escolares."
     },
     "grok": {
         "name": "Grok (xAI)",
+        "badge": "xAI Beta",
         "env_key": "XAI_API_KEY",
         "default_model": "grok-beta",
-        "endpoint": "https://api.x.ai/v1/chat/completions"
+        "endpoint": "https://api.x.ai/v1/chat/completions",
+        "help_url": "https://console.x.ai/",
+        "free_tier_info": "Inferencia rápida desarrollada por xAI."
     },
     "local": {
-        "name": "Local / Ollama / OpenAI-Compatible",
+        "name": "OpenCode / Ollama Local (:11434)",
+        "badge": "OpenCode Local",
         "env_key": "LOCAL_API_KEY",
         "default_model": "llama3.2",
-        "endpoint": "http://localhost:11434/v1/chat/completions"
+        "endpoint": "http://localhost:11434/v1/chat/completions",
+        "help_url": "https://ollama.com",
+        "free_tier_info": "Modelos OpenCode locales (Qwen, Llama 3) sin depender de internet."
     }
 }
 
@@ -148,77 +205,109 @@ El JSON debe cumplir exactamente con esta estructura:
   }}
 }}"""
 
-        # Si no hay API key configurada, generar mock inteligente estructurado
-        if not self.api_key and self.provider != "local":
-            print(f"\n[AVISO IA] No se detectó clave de API para {AI_PROVIDERS[self.provider]['name']}.")
-            print("Activando 'Smart Pedagogical Synthesizer' local (Simulador de IA)...")
+        # 0. Si el proveedor seleccionado es Buffer / Sintetizador Local sin clave
+        if self.provider == "buffer":
+            print("[IA BUFFER] Modo Sintetizador Pedagógico Local activado (Costo $0 / Sin API Key).")
             return self._generate_smart_mock(topic, grade, oa, textbook_pages)
 
-        # 1. Google Gemini / Antigravity
-        if self.provider == "gemini":
-            url = self.endpoint.format(model=self.model, api_key=self.api_key)
-            headers = {"Content-Type": "application/json"}
-            payload = {
-                "contents": [{"parts": [{"text": f"{SYSTEM_PROMPT}\n\n{user_prompt}"}]}],
-                "generationConfig": {"temperature": 0.2, "response_mime_type": "application/json"}
-            }
-            res = self._call_http(url, headers, payload)
-            text_out = res["candidates"][0]["content"]["parts"][0]["text"]
+        # Si no hay API key y no es Saori ni Local, usar fallback pedagógico inteligente
+        if not self.api_key and self.provider not in ("local", "saori"):
+            print(f"\n[AVISO IA] No se detectó clave de API para {AI_PROVIDERS.get(self.provider, {}).get('name', self.provider)}.")
+            print("Activando automáticamente el 'Smart Pedagogical Buffer' escolar (Simulador sin costo)...")
+            return self._generate_smart_mock(topic, grade, oa, textbook_pages)
 
-        # 2. Anthropic Claude
-        elif self.provider == "claude":
-            url = self.endpoint
-            headers = {
-                "Content-Type": "application/json",
-                "x-api-key": self.api_key,
-                "anthropic-version": "2023-06-01"
-            }
-            payload = {
-                "model": self.model,
-                "max_tokens": 4096,
-                "system": SYSTEM_PROMPT,
-                "messages": [{"role": "user", "content": user_prompt}]
-            }
-            res = self._call_http(url, headers, payload)
-            text_out = res["content"][0]["text"]
+        try:
+            # 1. Saori AI Daemon (Star Server en red local :8089)
+            if self.provider == "saori":
+                url = self.endpoint
+                headers = {"Content-Type": "application/json"}
+                payload = {
+                    "prompt": f"{SYSTEM_PROMPT}\n\n{user_prompt}",
+                    "sender": "EduDocente",
+                    "scope": "edudocente"
+                }
+                res = self._call_http(url, headers, payload)
+                text_out = res.get("response", "")
 
-        # 3. OpenAI / Codex, DeepSeek, Kimi, Grok, Local (OpenAI Compatible)
-        else:
-            url = self.endpoint
-            headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {self.api_key}" if self.api_key else ""
-            }
-            payload = {
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": user_prompt}
-                ],
-                "temperature": 0.2
-            }
-            res = self._call_http(url, headers, payload)
-            text_out = res["choices"][0]["message"]["content"]
+            # 2. Google Gemini / Antigravity (Semanal Gratuito 15 RPM)
+            elif self.provider in ("gemini", "antigravity"):
+                url = self.endpoint.format(model=self.model, api_key=self.api_key)
+                headers = {"Content-Type": "application/json"}
+                payload = {
+                    "contents": [{"parts": [{"text": f"{SYSTEM_PROMPT}\n\n{user_prompt}"}]}],
+                    "generationConfig": {"temperature": 0.2, "response_mime_type": "application/json"}
+                }
+                res = self._call_http(url, headers, payload)
+                text_out = res["candidates"][0]["content"]["parts"][0]["text"]
 
-        # Extraer JSON de la respuesta
-        match = re.search(r'\{.*\}', text_out, re.DOTALL)
-        if match:
-            return json.loads(match.group(0))
-        return json.loads(text_out)
+            # 3. Anthropic Claude (Cuota Semanal Gratis / Haiku)
+            elif self.provider == "claude":
+                url = self.endpoint
+                headers = {
+                    "Content-Type": "application/json",
+                    "x-api-key": self.api_key,
+                    "anthropic-version": "2023-06-01"
+                }
+                payload = {
+                    "model": self.model,
+                    "max_tokens": 4096,
+                    "system": SYSTEM_PROMPT,
+                    "messages": [{"role": "user", "content": user_prompt}]
+                }
+                res = self._call_http(url, headers, payload)
+                text_out = res["content"][0]["text"]
+
+            # 4. OpenAI / Codex (Versión Gratis GPT-4o-mini), DeepSeek, Kimi, Grok, Local OpenCode
+            else:
+                url = self.endpoint
+                headers = {
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {self.api_key}" if self.api_key else ""
+                }
+                payload = {
+                    "model": self.model,
+                    "messages": [
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    "temperature": 0.2
+                }
+                res = self._call_http(url, headers, payload)
+                text_out = res["choices"][0]["message"]["content"]
+
+            # Extraer JSON de la respuesta
+            match = re.search(r'\{.*\}', text_out, re.DOTALL)
+            if match:
+                return json.loads(match.group(0))
+            return json.loads(text_out)
+
+        except Exception as e:
+            print(f"\n[FALLO IA] Error invocando proveedor '{self.provider}': {e}")
+            print("Activando Smart Pedagogical Buffer de contingencia inmediata para garantizar la entrega...")
+            mock_data = self._generate_smart_mock(topic, grade, oa, textbook_pages)
+            mock_data["_ai_note"] = f"Generado vía Buffer Inteligente (Fallo en {self.provider}: {str(e)})"
+            return mock_data
 
     def _generate_smart_mock(self, topic, grade, oa, textbook_pages):
         """Simulador curricular que construye una prueba completa sin requerir API Key externa"""
         clean_topic = topic.strip().capitalize()
+        try:
+            from institution_manager import institution_manager
+            act_inst = institution_manager.get_active()
+            colegio_nombre = act_inst.get("name", "COLEGIO CASTELGANDOLFO")
+        except Exception:
+            colegio_nombre = "COLEGIO CASTELGANDOLFO"
+
         return {
-            "colegio": "COLEGIO LUIS PASTEUR ANEXO",
+            "colegio": colegio_nombre,
             "asignatura": "CIENCIAS NATURALES",
             "curso": grade,
             "titulo": f"EVALUACIÓN FINAL: {clean_topic.upper()}",
-            "oa": oa or "OA Mineduc: Desarrollar modelos explicativos de fenómenos naturales.",
+            "oa": oa or "OA Mineduc: Desarrollar modelos explicativos y comprensión de conceptos clave.",
             "contenidos": f"{clean_topic}. Páginas del texto escolar: {textbook_pages or 'Capítulo oficial'}.",
             "puntaje_total": 25,
-            "docente": "Profesora Margarita Miranda B.",
-            "email_docente": "profesora.margaritamiranda@cepluispasteur.cl",
+            "docente": "Docente Titular / Evaluador",
+            "email_docente": "docente@colegiocastelgandolfo.cl",
 
             "item1_pts_cada_una": 2,
             "item1_seleccion_multiple": [

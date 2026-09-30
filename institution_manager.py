@@ -22,6 +22,22 @@ INSTITUTIONS_FILE = os.path.join(CONFIG_DIR, "institutions.json")
 # Perfiles de referencia predeterminados
 DEFAULT_INSTITUTIONS = [
     {
+        "id": "castelgandolfo",
+        "name": "COLEGIO CASTELGANDOLFO",
+        "sub_header": "DEPARTAMENTO DE INFORMÁTICA & EVALUACIÓN PEDAGÓGICA",
+        "motto": "Excelencia, Tecnología y Formación Integral",
+        "logo_path": "assets/logo_castel.png",
+        "font_family": "Calibri",
+        "colors": {
+            "primary_hex": "1E3A5F",
+            "secondary_hex": "F8FAFC",
+            "card_bg_hex": "F1F5F9",
+            "border_hex": "CBD5E1",
+            "teacher_correct_hex": "1E7E34"
+        },
+        "is_active": True
+    },
+    {
         "id": "pasteur",
         "name": "COLEGIO LUIS PASTEUR ANEXO",
         "sub_header": "DEPARTAMENTO DE CIENCIAS Y EVALUACIÓN DOCENTE",
@@ -35,7 +51,7 @@ DEFAULT_INSTITUTIONS = [
             "border_hex": "B0C4DE",       # Borde Azul Acero
             "teacher_correct_hex": "1E7E34" # Verde Pauta Docente
         },
-        "is_active": True
+        "is_active": False
     },
     {
         "id": "liceo_bicentenario",
