@@ -91,13 +91,16 @@
         </div>
       </div>
 
-      <!-- ACTIVE CONTROLS & OAUTH -->
-      <div class="flex items-center space-x-3">
+        <!-- Enlace a CastelBoard -->
+        <a href="http://castelboard.castelgandolfo" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition">
+          ← Volver a CastelBoard
+        </a>
+
         <!-- Institution Selector Pill -->
         <div class="relative">
           <button onclick="toggleInstDropdown()" class="flex items-center space-x-2.5 bg-white/10 hover:bg-white/20 border border-white/20 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white transition shadow-sm">
             <span id="header-inst-dot" class="w-2.5 h-2.5 rounded-full bg-blue-400 shadow"></span>
-            <span id="header-inst-name" class="max-w-[180px] truncate">Colegio Luis Pasteur</span>
+            <span id="header-inst-name" class="max-w-[180px] truncate">Colegio Castelgandolfo</span>
             <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
           <div id="inst-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 text-slate-800 animate-in fade-in zoom-in duration-100">
@@ -121,7 +124,7 @@
         <!-- OAuth Button -->
         <button onclick="openOAuthModal()" class="inline-flex items-center px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-slate-900 transition shadow-md">
           <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-          Cuenta Docente (OAuth)
+          <span id="header-user-btn-text">Sesión Docente</span>
         </button>
       </div>
     </div>
@@ -428,7 +431,7 @@
                 <img id="sheet-logo" src="/assets/logo_colegio.png" alt="Logo Colegio" class="max-h-full max-w-full object-contain">
               </div>
               <div class="flex-1 px-4 py-2 text-white" id="sheet-header-text" style="background-color: #173F73;">
-                <div id="sheet-school-name" class="font-bold text-xs tracking-wide">COLEGIO LUIS PASTEUR ANEXO</div>
+                <div id="sheet-school-name" class="font-bold text-xs tracking-wide">COLEGIO CASTELGANDOLFO</div>
                 <div id="sheet-subject-title" class="text-[11px] font-semibold text-slate-100">CIENCIAS NATURALES — 6° BÁSICO A</div>
               </div>
             </div>
@@ -772,31 +775,50 @@
   <div id="oauth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
       <div class="dark-header p-5 text-white flex items-center justify-between">
-        <h3 class="text-sm font-bold">Conectar Cuenta Docente (OAuth 2.0)</h3>
-        <button onclick="closeOAuthModal()" class="text-slate-300 hover:text-white">✕</button>
+        <div>
+          <h3 class="text-sm font-bold">Identificación Docente (Google / Institucional)</h3>
+          <p class="text-[11px] text-slate-300">Tus datos aparecerán automáticamente en el membrete de cada prueba</p>
+        </div>
+        <button onclick="closeOAuthModal()" class="text-slate-300 hover:text-white text-base">✕</button>
       </div>
-      <div class="p-5 space-y-3 text-xs">
-        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-blue-500 hover:bg-blue-50/50 transition">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-lg">🔵</span>
-            <div class="text-left font-bold text-slate-800">Google Workspace / Classroom</div>
+      <div class="p-5 space-y-3.5 text-xs">
+        <!-- Botón Google Workspace -->
+        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3.5 rounded-xl border-2 border-blue-200 bg-blue-50/40 hover:bg-blue-50 hover:border-blue-500 transition shadow-sm">
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">🔵</span>
+            <div class="text-left">
+              <div class="font-bold text-slate-900 text-[13px]">Google Workspace (@colegiocastelgandolfo.cl)</div>
+              <div class="text-[11px] text-blue-700">Acceso institucional / Google Classroom</div>
+            </div>
           </div>
-          <span class="text-blue-600 font-semibold">Conectar →</span>
+          <span class="text-blue-600 font-bold text-xs">Conectar →</span>
         </button>
-        <button onclick="triggerOAuth('github')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-slate-800 hover:bg-slate-50 transition">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-lg">🐙</span>
-            <div class="text-left font-bold text-slate-800">GitHub Academic (@JackStar6677-1)</div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-200"></div>
+          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">o ingresa tus datos directamente</span>
+          <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <!-- Formulario Manual Rápido -->
+        <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nombre Completo del/la Docente:</label>
+            <input type="text" id="manual-teacher-name" placeholder="Ej: Profesor Pablo Avendaño" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
-          <span class="text-slate-800 font-semibold">Conectar →</span>
-        </button>
-        <button onclick="triggerOAuth('microsoft')" class="w-full flex items-center justify-between p-3 rounded-xl border hover:border-amber-500 hover:bg-amber-50/50 transition">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-lg">🟧</span>
-            <div class="text-left font-bold text-slate-800">Microsoft 365 Educación</div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Correo Institucional:</label>
+            <input type="email" id="manual-teacher-email" placeholder="docente@colegiocastelgandolfo.cl" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
-          <span class="text-amber-700 font-semibold">Conectar →</span>
-        </button>
+          <button onclick="saveManualTeacher()" class="w-full mt-2 py-2 px-3 rounded-lg bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition shadow">
+            Guardar y Usar en Membretes
+          </button>
+        </div>
+
+        <div class="pt-1 flex items-center justify-between text-[11px] text-slate-400">
+          <span>🔒 Los datos se guardan en tu navegador</span>
+          <button onclick="logoutTeacher()" class="text-rose-600 hover:underline font-semibold" id="btn-logout-teacher">Cerrar Sesión</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1305,10 +1327,13 @@
       logConsole(`>>> Sintetizando estructura de 3 ítems: Selección Múltiple, V/F con justificación y Aplicación práctica...`);
 
       try {
+        const curTeacher = getActiveTeacher();
         const payload = {
           provider: prov,
           api_key: userApiKey || null,
-          subject, grade, topic, oa, textbook_pages: pages
+          subject, grade, topic, oa, textbook_pages: pages,
+          teacher: curTeacher ? curTeacher.name : null,
+          teacher_email: curTeacher ? curTeacher.email : null
         };
         const res = await fetch('/api/generate', {
           method: 'POST',
@@ -1352,22 +1377,112 @@
       }
     }
 
-    // OAuth y Sesión de Google Docente
-    function openOAuthModal() { document.getElementById('oauth-modal').classList.remove('hidden'); }
-    function closeOAuthModal() { document.getElementById('oauth-modal').classList.add('hidden'); }
+    // Gestión Integral de Sesión Docente (Google Workspace / Institucional)
+    function openOAuthModal() {
+      const u = getActiveTeacher();
+      if (u) {
+        document.getElementById('manual-teacher-name').value = u.name || '';
+        document.getElementById('manual-teacher-email').value = u.email || '';
+      }
+      document.getElementById('oauth-modal').classList.remove('hidden');
+    }
+
+    function closeOAuthModal() {
+      document.getElementById('oauth-modal').classList.add('hidden');
+    }
+
+    function getActiveTeacher() {
+      try {
+        const raw = localStorage.getItem('edu_current_user');
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function updateTeacherUI(u) {
+      const btnText = document.getElementById('header-user-btn-text');
+      if (u && u.name) {
+        btnText.textContent = u.name.length > 20 ? u.name.substring(0, 18) + '...' : u.name;
+        btnText.parentElement.classList.remove('from-sky-400', 'to-blue-500');
+        btnText.parentElement.classList.add('from-emerald-400', 'to-teal-500');
+      } else {
+        btnText.textContent = 'Sesión Docente';
+        btnText.parentElement.classList.add('from-sky-400', 'to-blue-500');
+        btnText.parentElement.classList.remove('from-emerald-400', 'to-teal-500');
+      }
+    }
+
     async function triggerOAuth(p) {
       closeOAuthModal();
       logConsole(`> Conectando cuenta docente vía Google Workspace (${p.toUpperCase()})...`);
-      const cb = await fetch(`/api/auth/${p}/callback?code=sandbox`);
-      const u = await cb.json();
-      logConsole(`✓ Sesión activa: ${u.name} (${u.email})`, 'text-emerald-400');
-      showToast(`Conectado como: ${u.name}`);
-      localStorage.setItem('edu_current_user', JSON.stringify(u));
+      try {
+        const cb = await fetch(`/api/auth/${p}/callback?code=sandbox`);
+        const u = await cb.json();
+        logConsole(`✓ Sesión institucional activa: ${u.name} (${u.email})`, 'text-emerald-400');
+        showToast(`Conectado como: ${u.name}`);
+        localStorage.setItem('edu_current_user', JSON.stringify(u));
+        updateTeacherUI(u);
+      } catch (err) {
+        logConsole(`! Error conectando OAuth: ${err.message}`, 'text-rose-400');
+      }
+    }
+
+    async function saveManualTeacher() {
+      const name = document.getElementById('manual-teacher-name').value.trim();
+      const email = document.getElementById('manual-teacher-email').value.trim();
+      if (!name) {
+        showToast('Por favor ingresa tu nombre de docente', 'error');
+        return;
+      }
+      closeOAuthModal();
+      const encName = encodeURIComponent(name);
+      const encEmail = encodeURIComponent(email || 'docente@colegiocastelgandolfo.cl');
+      try {
+        const cb = await fetch(`/api/auth/google/callback?code=sandbox&name=${encName}&email=${encEmail}`);
+        const u = await cb.json();
+        localStorage.setItem('edu_current_user', JSON.stringify(u));
+        updateTeacherUI(u);
+        logConsole(`✓ Identidad docente guardada: ${u.name}`, 'text-emerald-400');
+        showToast(`Docente guardado: ${u.name}`);
+      } catch (e) {
+        const u = { name, email: email || 'docente@colegiocastelgandolfo.cl', institution: 'Colegio Castelgandolfo' };
+        localStorage.setItem('edu_current_user', JSON.stringify(u));
+        updateTeacherUI(u);
+      }
+    }
+
+    function logoutTeacher() {
+      localStorage.removeItem('edu_current_user');
+      updateTeacherUI(null);
+      closeOAuthModal();
+      showToast('Sesión de docente finalizada');
+      logConsole(`> Sesión de docente cerrada. Los membretes usarán valores por defecto.`);
+    }
+
+    function checkUrlTeacherParams() {
+      const params = new URLSearchParams(window.location.search);
+      const doc = params.get('docente') || params.get('teacher');
+      const email = params.get('email');
+      if (doc) {
+        const u = {
+          name: decodeURIComponent(doc),
+          email: email ? decodeURIComponent(email) : 'docente@colegiocastelgandolfo.cl',
+          institution: 'Colegio Castelgandolfo'
+        };
+        localStorage.setItem('edu_current_user', JSON.stringify(u));
+        updateTeacherUI(u);
+        logConsole(`✓ Identidad sincronizada desde CastelBoard: ${u.name}`, 'text-emerald-400');
+      } else {
+        const existing = getActiveTeacher();
+        if (existing) updateTeacherUI(existing);
+      }
     }
 
     // Startup
     loadInstitutions();
     selectAIProvider('antigravity');
+    checkUrlTeacherParams();
   </script>
 </body>
 </html>

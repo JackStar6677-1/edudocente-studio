@@ -146,7 +146,7 @@ def safe_save(doc, path):
 def add_header(doc, school=None, subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle=None):
     reload_active_theme()
     active_inst = institution_manager.get_active()
-    effective_school = school if school else active_inst.get("name", "COLEGIO LUIS PASTEUR ANEXO")
+    effective_school = school if school else active_inst.get("name", "COLEGIO CASTELGANDOLFO")
 
     table = doc.add_table(rows=1, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER

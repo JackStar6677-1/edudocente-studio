@@ -43,15 +43,15 @@ class DocenteEngine:
         else:
             self.cfg = config
 
-        self.school = self.cfg.get("colegio", "COLEGIO LUIS PASTEUR ANEXO")
+        self.school = self.cfg.get("colegio", "COLEGIO CASTELGANDOLFO")
         self.subject = self.cfg.get("asignatura", "CIENCIAS NATURALES").upper()
         self.course = self.cfg.get("curso", "").strip()
         self.title = self.cfg.get("titulo", "EVALUACIÓN FINAL").upper()
         self.oa = self.cfg.get("oa", "")
         self.contents = self.cfg.get("contenidos", "")
         self.total_pts = self.cfg.get("puntaje_total", 25)
-        self.teacher = self.cfg.get("docente", "Profesora Margarita Miranda B.")
-        self.teacher_email = self.cfg.get("email_docente", "profesora.margaritamiranda@cepluispasteur.cl")
+        self.teacher = self.cfg.get("docente", "Docente de Asignatura")
+        self.teacher_email = self.cfg.get("email_docente", "docente@colegiocastelgandolfo.cl")
 
     # --------------------------------------------------------------------------
     # COMPONENTE: Cuadro de Datos y OA

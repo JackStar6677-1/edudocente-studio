@@ -111,7 +111,7 @@ class RosterManager:
 
         # Encabezado 1: Nombre de la Institución y Título
         ws.merge_cells("A1:I1")
-        school_name = inst.get("name", "COLEGIO LUIS PASTEUR ANEXO")
+        school_name = inst.get("name", "COLEGIO CASTELGANDOLFO")
         ws["A1"] = f"{school_name.upper()} — CRONOGRAMA DE ENTREVISTAS DE APODERADOS 2026"
         ws["A1"].font = Font(name=inst.get("font_family", "Arial"), size=12, bold=True, color="FFFFFF")
         ws["A1"].fill = PatternFill(start_color=p_color, end_color=p_color, fill_type="solid")

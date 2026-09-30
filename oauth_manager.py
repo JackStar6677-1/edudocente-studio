@@ -70,11 +70,11 @@ class AuthManager:
         self.current_user = {
             "authenticated": True,
             "provider": "google",
-            "name": "Profesora Margarita Miranda",
-            "email": "profesora.margaritamiranda@cepluispasteur.cl",
-            "institution": "Colegio Luis Pasteur Anexo",
-            "role": "Docente Titular de Ciencias & Música",
-            "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=MargaritaPasteur",
+            "name": "Profesor(a) Castelgandolfo",
+            "email": "docente@colegiocastelgandolfo.cl",
+            "institution": "Colegio Castelgandolfo",
+            "role": "Docente de Asignatura",
+            "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=DocenteCastel",
             "classroom_connected": True,
             "connected_at": time.strftime("%Y-%m-%d %H:%M:%S")
         }
@@ -131,11 +131,11 @@ class AuthManager:
         if is_sandbox or code == "sandbox":
             # Autenticación Sandbox para demostraciones y pruebas rápidas
             names = {
-                "google": ("Profesor(a) Google Classroom", custom_email or "docente.classroom@escuela.edu.cl"),
-                "github": ("Docente GitHub Academic", custom_email or "docente@github.academic.cl"),
-                "microsoft": ("Docente Microsoft 365", custom_email or "docente@m365.edu.cl")
+                "google": ("Docente Google Workspace", custom_email or "docente@colegiocastelgandolfo.cl"),
+                "github": ("Docente GitHub Academic", custom_email or "docente@colegiocastelgandolfo.cl"),
+                "microsoft": ("Docente Microsoft 365", custom_email or "docente@colegiocastelgandolfo.cl")
             }
-            def_name, def_email = names.get(provider, ("Docente Invitado", "docente@colegio.cl"))
+            def_name, def_email = names.get(provider, ("Docente Castelgandolfo", "docente@colegiocastelgandolfo.cl"))
             name = custom_name or def_name
             email = custom_email or def_email
 
@@ -144,7 +144,7 @@ class AuthManager:
                 "provider": provider,
                 "name": name,
                 "email": email,
-                "institution": "Colegio Luis Pasteur Anexo / Red Educativa",
+                "institution": "Colegio Castelgandolfo",
                 "role": "Docente / Evaluador Institucional",
                 "avatar": f"https://api.dicebear.com/7.x/bottts/svg?seed={email}",
                 "classroom_connected": (provider == "google"),

@@ -151,9 +151,9 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
             if len(parts) >= 3:
                 provider = parts[2]
                 code = query.get("code", ["sandbox"])[0]
-                state = query.get("state", [""])[0]
-                is_sandbox = "sandbox" in query or code == "sandbox"
-                user = auth_manager.handle_callback(provider, code, state, is_sandbox=is_sandbox)
+                custom_name = query.get("name", [None])[0]
+                custom_email = query.get("email", [None])[0]
+                user = auth_manager.handle_callback(provider, code, state, is_sandbox=is_sandbox, custom_email=custom_email, custom_name=custom_name)
                 self._send_json(200, user)
                 return
 
@@ -232,8 +232,11 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                     oa=oa,
                     textbook_pages=textbook_pages
                 )
+                teacher_email = payload.get("teacher_email", None)
                 if teacher:
                     assessment_data["docente"] = teacher
+                if teacher_email:
+                    assessment_data["email_docente"] = teacher_email
 
                 # 2. Compilar documentos con DocenteEngine
                 engine = DocenteEngine(assessment_data)
