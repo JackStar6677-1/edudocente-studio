@@ -335,6 +335,7 @@ def start_server(port=8080, open_browser=True):
 
 if __name__ == "__main__":
     import argparse
+    parser = argparse.ArgumentParser(description="Servidor Web Local EduDocente-Studio")
     default_port = int(os.environ.get("EDUDOCENTE_PORT", os.environ.get("PORT", 8080)))
     parser.add_argument("--port", type=int, default=default_port, help=f"Puerto HTTP (predeterminado: {default_port})")
     parser.add_argument("--no-browser", action="store_true", help="No abrir automáticamente el navegador web")
