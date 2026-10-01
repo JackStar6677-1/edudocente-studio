@@ -21,26 +21,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 from institution_manager import institution_manager
 
-DEFAULT_INTERVIEWS = [
-    # GRUPO 1: Miércoles 07 de octubre
-    {"id": 1, "apoderado": "Luce Eliset Gajardo", "email": "luceelisetgajardo30@gmail.com", "estudiante": "Gajardo (Estudiante)", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Revisión rendimiento mensual"},
-    {"id": 2, "apoderado": "María Reyes", "email": "mariareyessanti.14@gmail.com", "estudiante": "Reyes Cabrera, Catalina Amanda", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Situación académica"},
-    {"id": 3, "apoderado": "Aurora Celin / Familia Celin", "email": "suacerfer2805.a@gmail.com", "estudiante": "Mosquera Celin, Aurora Susana", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Pendiente", "obs": "Esperando confirmación"},
-    {"id": 4, "apoderado": "Cecilia Riquelme Cartagena", "email": "ceci.riquelme.cartagena@gmail.com", "estudiante": "Segovia Riquelme, Marcelo Leonardo", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Felicitaciones por avance"},
-    {"id": 5, "apoderado": "Victoria Sepúlveda Fonseca", "email": "victoria.fonseca.7@gmail.com", "estudiante": "Sepúlveda Sepúlveda, Pedro Nahuel", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Plan de refuerzo"},
-    {"id": 6, "apoderado": "Luz Elena Guerrero", "email": "luzeg782511@gmail.com", "estudiante": "Restrepo Guerrero, Luis David", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Pendiente", "obs": "Reiterar citación"},
-    {"id": 7, "apoderado": "Paulina Encina", "email": "encinavich19@gmail.com", "estudiante": "Muñoz Encina, Simón Ignacio", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "07 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Pauta de conducta"},
-    # GRUPO 2: Miércoles 14 de octubre
-    {"id": 8, "apoderado": "Mella Navarrete (Sra. Mella)", "email": "mella.navarrete.m@gmail.com", "estudiante": "Aravena Mella, Martín Andree", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Situación conductual"},
-    {"id": 9, "apoderado": "Marcia Elizabeth Pacheco", "email": "marciaelizabethpachecopacheco@gmail.com", "estudiante": "Flores Pacheco, Hamandha Sophia", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Evaluación diferenciada"},
-    {"id": 10, "apoderado": "Osvaldo González Correa", "email": "osvaldo.gonzalez.correa@gmail.com", "estudiante": "González Ibáñez, Amanda Trinidad", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Apoyo pedagógico"},
-    {"id": 11, "apoderado": "David Ignacio Herrera Rojas", "email": "davidignacioherrerarojas@gmail.com", "estudiante": "Herrera Díaz, Paz Anaís", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Pendiente", "obs": "Contactar por teléfono"},
-    {"id": 12, "apoderado": "Valentina Constanza Aguayo", "email": "valentinacaguayo7@gmail.com", "estudiante": "Leyton Aguayo, Gabriel Andrés", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Revisión de cuadernos"},
-    {"id": 13, "apoderado": "Familia Morales Silva", "email": "clarodeluna_1980@htmail.com", "estudiante": "Morales Silva, Danilo Cristián", "curso": "5° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Informe de notas"},
-    {"id": 14, "apoderado": "Fabiola Mora C.", "email": "fabiola.mora.c@gmail.com", "estudiante": "Ibarra Oyarzún, Benjamín Ricardo", "curso": "8° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Postulación enseñanza media"},
-    {"id": 15, "apoderado": "Verónica Urrutia", "email": "veritoeleniz2013@gmail.com", "estudiante": "Lobos Urrutia, Eleniz Javiera Lía", "curso": "8° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Orientación vocacional"},
-    {"id": 16, "apoderado": "Carana M. / Familia Arana", "email": "caranamza@gmail.com", "estudiante": "Oliva Arana, Thiago Yared", "curso": "8° Básico A", "dia": "Miércoles", "fecha": "14 de octubre", "hora": "13:55 a 14:40 hrs", "estado": "Confirmado", "obs": "Asistencia y puntualidad"}
-]
+DEFAULT_INTERVIEWS = []
 
 class RosterManager:
     _instance = None
