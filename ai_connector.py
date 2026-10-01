@@ -167,7 +167,7 @@ class AIConnector:
 
 El JSON debe cumplir exactamente con esta estructura:
 {{
-  "colegio": "COLEGIO LUIS PASTEUR ANEXO",
+  "colegio": "COLEGIO CASTELGANDOLFO",
   "asignatura": "CIENCIAS NATURALES",
   "curso": "{grade}",
   "titulo": "EVALUACIÓN FINAL: {topic.upper()}",

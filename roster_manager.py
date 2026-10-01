@@ -101,7 +101,7 @@ class RosterManager:
 
         # Encabezado 2: Sub-encabezado / Profesor / Asignatura
         ws.merge_cells("A2:I2")
-        ws["A2"] = f"Gestión de Asignatura y Jefatura de Curso | Profesora Margarita Miranda B. | Sistema EduDocente"
+        ws["A2"] = f"Gestión de Asignatura y Jefatura de Curso | Docencia Institucional | Sistema EduDocente"
         ws["A2"].font = Font(name=inst.get("font_family", "Arial"), size=10, italic=True, color=p_color)
         ws["A2"].alignment = Alignment(horizontal="center", vertical="center")
         ws.row_dimensions[2].height = 22

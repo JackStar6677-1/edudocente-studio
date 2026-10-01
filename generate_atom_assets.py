@@ -1,6 +1,6 @@
 """
 Generador de Recursos Gráficos del Átomo (Esqueleto Alumno y Modelo Resuelto Docente)
-Colegio Luis Pasteur Anexo - Ciencias Naturales 8° Básico
+Colegio Castelgandolfo - Ciencias Naturales 8° Básico
 """
 
 import os

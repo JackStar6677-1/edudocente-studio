@@ -1,6 +1,6 @@
 """
 Sistema Automatizado de Generación Docente
-Colegio Luis Pasteur Anexo - Profesora Margarita Miranda B.
+Colegio Castelgandolfo - Docencia Institucional
 Repositorio Local de Evaluaciones, Pautas, Temarios y Planillas Excel.
 """
 
@@ -204,7 +204,7 @@ def run_web():
 def menu_interactivo():
     while True:
         print("\n" + "=" * 66)
-        print("     SISTEMA DOCENTE LUIS PASTEUR — PROFESORA MARGARITA       ")
+        print("          EDUDOCENTE-STUDIO — COLEGIO CASTELGANDOLFO           ")
         print("=" * 66)
         print(" 1. Generar 5° Básico (Prueba y Pauta de Ciencias Naturales)")
         print(" 2. Generar 6° Básico (Prueba y Pauta de Ciencias Naturales)")
@@ -256,7 +256,7 @@ def menu_interactivo():
             print("Opción inválida. Por favor, ingresa un número del 0 al 13.")
 
 def main():
-    parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Luis Pasteur")
+    parser = argparse.ArgumentParser(description="Generador de Material Docente Colegio Castelgandolfo")
     parser.add_argument("--all", action="store_true", help="Genera todas las evaluaciones, pautas, temarios y Excel")
     parser.add_argument("--package", action="store_true", help="Genera y empaqueta todo el material para envío a UTP")
     parser.add_argument("--ciencias5", action="store_true", help="Genera material de Ciencias 5to básico")

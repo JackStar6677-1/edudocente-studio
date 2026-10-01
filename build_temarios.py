@@ -1,6 +1,6 @@
 """
 Generador Automatizado de Temarios e Informativos por Curso
-Colegio Luis Pasteur Anexo - Profesora Margarita Miranda B.
+Colegio Castelgandolfo - Docencia Institucional
 Año Escolar 2026
 """
 
@@ -33,7 +33,7 @@ def build_temario_base(curso_header, subject_header, title_banner, datos_caja, s
     doc = create_base_doc()
 
     # Encabezado institucional con logo
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject=f"{subject_header} — {curso_header}")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject=f"{subject_header} — {curso_header}")
     add_title_banner(doc, title_banner)
 
     # Cuadro informativo de datos
@@ -178,10 +178,10 @@ def build_temario_base(curso_header, subject_header, title_banner, datos_caja, s
 
     sig_runs = [
         ("Saludos cordiales,\n", False, 8.5),
-        ("Profesora Margarita Miranda B.\n", True, 9),
-        ("Docente de Educación Básica | C.E.P. Luis Pasteur Anexo\n", False, 8),
+        ("Docencia Institucional\n", True, 9),
+        ("Docente de Educación Básica | Colegio Castelgandolfo\n", False, 8),
         ("Contacto: ", False, 8),
-        ("profesora.margaritamiranda@cepluispasteur.cl", True, 8)
+        ("docencia@colegiocastelgandolfo.cl", True, 8)
     ]
     for text, bold, sz in sig_runs:
         r = p_sig.add_run(text)
@@ -463,7 +463,7 @@ def generar_temario_5orientacion():
              "Diferenciación entre:\n"
              "• Factores de riesgo: Presión negativa de grupos de pares, desinformación, aislamiento y curiosidad sin orientación.\n"
              "• Factores protectores: Comunicación cercana con la familia, práctica regular de deportes, amistades constructivas y metas personales.",
-             "Identificación de redes de apoyo seguras en el hogar y en la comunidad escolar del Colegio Luis Pasteur."),
+             "Identificación de redes de apoyo seguras en el hogar y en la comunidad escolar del Colegio Castelgandolfo."),
             ("Habilidades para la Vida: Asertividad y Decisión",
              "Capacidad de decir con firmeza y respeto 'NO' frente a situaciones peligrosas o de presión. Toma de decisiones informadas, responsables y autónomas.",
              "Desarrollo de la autoestima, pensamiento crítico, empatía y búsqueda oportuna de ayuda con adultos significativos."),

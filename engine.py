@@ -1,6 +1,6 @@
 """
 EduDocente-Engine: Motor Declarativo de Evaluaciones y Temarios Institucionales
-Colegio Luis Pasteur Anexo - Framework Estandarizado para Evaluaciones Escolares
+Colegio Castelgandolfo - Framework Estandarizado para Evaluaciones Escolares
 
 Permite generar a partir de una estructura JSON/Dict:
   1. Evaluación del Estudiante (.docx)

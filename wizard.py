@@ -1,6 +1,6 @@
 """
 EduDocente Wizard: Asistente Interactivo de Creación de Evaluaciones
-Colegio Luis Pasteur Anexo - Framework Estandarizado
+Colegio Castelgandolfo - Framework Estandarizado
 """
 
 import os
@@ -20,7 +20,7 @@ def crear_evaluacion_interactiva():
     print("=" * 65)
 
     print("\n[1] Ingresa los datos generales de la evaluación:")
-    colegio = input("  • Nombre del Colegio [Por defecto: COLEGIO LUIS PASTEUR ANEXO]: ").strip() or "COLEGIO LUIS PASTEUR ANEXO"
+    colegio = input("  • Nombre del Colegio [Por defecto: COLEGIO CASTELGANDOLFO]: ").strip() or "COLEGIO CASTELGANDOLFO"
     asignatura = input("  • Asignatura (ej: CIENCIAS NATURALES, HISTORIA, LENGUAJE): ").strip() or "CIENCIAS NATURALES"
     curso = input("  • Curso (ej: 7° Básico A): ").strip() or "7° Básico A"
     titulo = input("  • Título de la evaluación (ej: EVALUACIÓN FINAL DE LA MATERIA): ").strip() or f"EVALUACIÓN FINAL DE {asignatura.upper()}"
@@ -35,8 +35,8 @@ def crear_evaluacion_interactiva():
         "oa": oa,
         "contenidos": contenidos,
         "puntaje_total": 25,
-        "docente": "Profesora Margarita Miranda B.",
-        "email_docente": "profesora.margaritamiranda@cepluispasteur.cl",
+        "docente": "Docente Titular",
+        "email_docente": "docencia@colegiocastelgandolfo.cl",
         "item1_seleccion_multiple": [],
         "item2_verdadero_falso": [],
         "item3_aplicacion": {}

@@ -17,7 +17,7 @@ def build_pauta_correccion():
     doc = create_base_doc()
 
     # ================== PÁGINA 1 ==================
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="DOCUMENTO DOCENTE")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="DOCUMENTO DOCENTE")
     add_title_banner(doc, "PAUTA DE CORRECCIÓN: EVALUACIÓN FINAL DE CIENCIAS NATURALES", is_pauta=True)
     add_student_info(doc, is_pauta=True)
 
@@ -82,7 +82,7 @@ def build_pauta_correccion():
     doc.add_page_break()
 
     # ================== PÁGINA 2 ==================
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="PAUTA DE CORRECCIÓN (PÁG. 2)")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="PAUTA DE CORRECCIÓN (PÁG. 2)")
 
     # SOLUCIONARIO ÍTEM II
     add_section_header(doc, "SOLUCIONARIO ÍTEM II: VERDADERO O FALSO (1 pto c/u — Total: 10 pts)")

@@ -291,8 +291,7 @@ Explore tab **"4. Próximamente (En Desarrollo)"** in the Web UI:
 ## 👨‍💻 Author & Acknowledgments
 
 - **Software Architecture & Development:** Jack ([@Jackstar6677-1](https://github.com/Jackstar6677-1))
-- **Pedagogical Consultation & Classroom Validation:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
-- **Contact:** `profesora.margaritamiranda@cepluispasteur.cl`
+- **Educational Technology & Pedagogy:** Open Institutional Framework
 
 ---
 

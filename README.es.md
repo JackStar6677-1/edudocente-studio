@@ -223,7 +223,7 @@ python main.py --excel          # Regenera el cronograma de entrevistas en Excel
 ## 📁 Estructura del Proyecto
 
 ```text
-evaluaciones_pasteur/
+edudocente_studio/
 │
 ├── assets/                               # Recursos gráficos y logos
 │   ├── banner_animated.svg               # Banner interactivo para GitHub
@@ -269,8 +269,7 @@ evaluaciones_pasteur/
 ## 👨‍💻 Autor y Reconocimientos
 
 - **Desarrollo y Arquitectura de Software:** Jack ([@Jackstar6677-1](https://github.com/Jackstar6677-1))
-- **Asesoría y Validación Pedagógica:** Profesora Margarita Miranda B. (*C.E.P. Luis Pasteur Anexo*)
-- **Contacto:** `profesora.margaritamiranda@cepluispasteur.cl`
+- **Tecnología Educativa y Pedagogía:** Framework Institucional Abierto
 
 ---
 

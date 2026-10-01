@@ -17,7 +17,7 @@ def build_evaluacion_estudiante():
     doc = create_base_doc()
 
     # ================== PÁGINA 1 ==================
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B")
     add_title_banner(doc, "EVALUACIÓN FINAL: ENERGÍA ELÉCTRICA Y CIRCUITOS")
     add_student_info(doc, is_pauta=False)
     add_instructions_box(doc)
@@ -103,7 +103,7 @@ def build_evaluacion_estudiante():
     doc.add_page_break()
 
     # ================== PÁGINA 2 ==================
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="EVALUACIÓN FINAL (PÁG. 2)")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES - 5° BÁSICO A - B", subtitle="EVALUACIÓN FINAL (PÁG. 2)")
     
     # ÍTEM II
     add_section_header(doc, "ÍTEM II: VERDADERO O FALSO (1 punto c/u — Total: 10 puntos)")

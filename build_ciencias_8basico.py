@@ -1,6 +1,6 @@
 """
 Generador de Evaluación Final y Pauta de Corrección: Ciencias Naturales 8° Básico A
-Colegio Luis Pasteur Anexo - Profesora Margarita Miranda B.
+Colegio Castelgandolfo - Docencia Institucional
 Año Escolar 2026
 """
 
@@ -115,7 +115,7 @@ def add_student_info_8b(doc, is_pauta=False):
 def build_evaluacion_estudiante_8b():
     doc = create_base_doc()
 
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES — 8° BÁSICO A")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES — 8° BÁSICO A")
     add_title_banner(doc, "EVALUACIÓN FINAL: EL ÁTOMO Y LA TEORÍA ATÓMICA DE DALTON")
     add_student_info_8b(doc, is_pauta=False)
 
@@ -357,7 +357,7 @@ def build_evaluacion_estudiante_8b():
 def build_pauta_correccion_8b():
     doc = create_base_doc()
 
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="CIENCIAS NATURALES — 8° BÁSICO A", subtitle="DOCUMENTO DOCENTE")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="CIENCIAS NATURALES — 8° BÁSICO A", subtitle="DOCUMENTO DOCENTE")
     add_title_banner(doc, "PAUTA DE CORRECCIÓN: EVALUACIÓN FINAL DE CIENCIAS NATURALES", is_pauta=True)
     add_student_info_8b(doc, is_pauta=True)
 

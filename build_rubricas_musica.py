@@ -1,6 +1,6 @@
 """
 Generador de Rúbricas de Evaluación Final de Música (1° Básico A y 2° Básico A)
-Colegio Luis Pasteur Anexo - Profesora Margarita Miranda B.
+Colegio Castelgandolfo - Docencia Institucional
 Año Escolar 2026
 """
 
@@ -32,7 +32,7 @@ def build_rubrica_doc(curso_str, curso_folder_name, oa_desc):
     doc = create_base_doc()
 
     # Encabezado institucional con logo
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject=f"MÚSICA — {curso_str}")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject=f"MÚSICA — {curso_str}")
     add_title_banner(doc, "RÚBRICA DE EVALUACIÓN FINAL: PERCUSIÓN METALÓFONO O SONAJAS")
 
     # Cuadro de datos del estudiante
@@ -281,8 +281,8 @@ def build_rubrica_doc(curso_str, curso_folder_name, oa_desc):
     p_sig.paragraph_format.space_after = Pt(0)
 
     sig_runs = [
-        ("Profesora Margarita Miranda B.\n", True, 9),
-        ("Docente de Música | C.E.P. Luis Pasteur Anexo\n", False, 8),
+        ("Docencia Institucional\n", True, 9),
+        ("Docente de Música | Colegio Castelgandolfo\n", False, 8),
         ("Firma del Docente Evaluador: ____________________________", False, 8)
     ]
     for text, bold, sz in sig_runs:

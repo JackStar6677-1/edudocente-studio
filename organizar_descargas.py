@@ -88,15 +88,11 @@ for folder_name, file_list in general_folders.items():
 # 1. Ciencias 5° Básico
 c5_dir = os.path.join(margarita_dir, "01 - Ciencias Naturales", "5° Básico (5°A y 5°B)")
 for f in ["Evaluacion_Final_Ciencias_5Basico.docx", "Pauta_Correccion_Ciencias_5Basico.docx", "Temario_Evaluacion_Final_Ciencias_5Basico.docx"]:
-    # Check in Evaluaciones_Pasteur_5Basico or scratch output
-    src_pasteur = os.path.join(downloads_dir, "Evaluaciones_Pasteur_5Basico", f)
-    src_scratch = os.path.join(r"C:\Users\Jack\.gemini\antigravity\scratch\evaluaciones_pasteur\output", f)
+    # Check in Evaluaciones_Castelgandolfo or scratch output
+    src_castel = os.path.join(downloads_dir, "Evaluaciones_Castelgandolfo", f)
     dst = os.path.join(c5_dir, f)
-    if os.path.exists(src_pasteur):
-        shutil.copyfile(src_pasteur, dst)
-        print(f"Instalado en Ciencias 5°: {f}")
-    elif os.path.exists(src_scratch):
-        shutil.copyfile(src_scratch, dst)
+    if os.path.exists(src_castel):
+        shutil.copyfile(src_castel, dst)
         print(f"Instalado en Ciencias 5°: {f}")
 
 # 2. Ciencias 6° Básico
@@ -105,11 +101,6 @@ guia_6 = os.path.join(downloads_dir, "Guia - La Energia se Transforma - 6Basico.
 if os.path.exists(guia_6):
     shutil.move(guia_6, os.path.join(c6_dir, "Guia - La Energia se Transforma - 6Basico.docx"))
     print("Movido a Ciencias 6°: Guia - La Energia se Transforma - 6Basico.docx")
-
-modelo_6 = os.path.join(r"C:\Users\Jack\.gemini\antigravity\scratch\evaluaciones_pasteur\output", "Evaluacion_Energia_6Basico_Modelo.docx")
-if os.path.exists(modelo_6):
-    shutil.copyfile(modelo_6, os.path.join(c6_dir, "Evaluacion_Energia_6Basico_Modelo.docx"))
-    print("Copiado a Ciencias 6°: Evaluacion_Energia_6Basico_Modelo.docx")
 
 # 3. Música: Copiar diagnósticos y rúbricas disponibles de la docente
 musica_1_dir = os.path.join(margarita_dir, "02 - Música", "1° Básico (1°A)")
@@ -147,11 +138,11 @@ for extra_f in ["titulos 5 copias.docx", "banner.docx"]:
         print(f"Movido: {extra_f}")
 
 # Limpiar carpeta temporal si ya fue migrada
-temp_folder = os.path.join(downloads_dir, "Evaluaciones_Pasteur_5Basico")
+temp_folder = os.path.join(downloads_dir, "Evaluaciones_Castelgandolfo")
 if os.path.exists(temp_folder):
     try:
         shutil.rmtree(temp_folder)
-        print("Carpeta temporal Evaluaciones_Pasteur_5Basico limpiada.")
+        print("Carpeta temporal Evaluaciones_Castelgandolfo limpiada.")
     except Exception as e:
         print(f"Nota limpieza: {e}")
 

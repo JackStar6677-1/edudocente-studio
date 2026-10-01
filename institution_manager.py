@@ -36,54 +36,6 @@ DEFAULT_INSTITUTIONS = [
             "teacher_correct_hex": "1E7E34"
         },
         "is_active": True
-    },
-    {
-        "id": "pasteur",
-        "name": "COLEGIO LUIS PASTEUR ANEXO",
-        "sub_header": "DEPARTAMENTO DE CIENCIAS Y EVALUACIÓN DOCENTE",
-        "motto": "Ciencia, Esfuerzo y Futuro",
-        "logo_path": "assets/logo_colegio.png",
-        "font_family": "Arial",
-        "colors": {
-            "primary_hex": "173F73",       # Azul Marino Institucional
-            "secondary_hex": "EAF3FB",     # Azul Cielo Suave
-            "card_bg_hex": "F6FAFE",      # Fondo Tarjetas/Destacados
-            "border_hex": "B0C4DE",       # Borde Azul Acero
-            "teacher_correct_hex": "1E7E34" # Verde Pauta Docente
-        },
-        "is_active": False
-    },
-    {
-        "id": "liceo_bicentenario",
-        "name": "LICEO BICENTENARIO DE EXCELENCIA",
-        "sub_header": "UNIDAD TÉCNICO PEDAGÓGICA (UTP)",
-        "motto": "Compromiso, Mérito y Superación",
-        "logo_path": "assets/logo_colegio.png",
-        "font_family": "Arial",
-        "colors": {
-            "primary_hex": "0D5C3A",       # Verde Bosque Bicentenario
-            "secondary_hex": "E8F5E9",     # Verde Claro Suave
-            "card_bg_hex": "F1F8E9",      # Fondo Tarjetas Verde
-            "border_hex": "A5D6A7",       # Borde Verde Acero
-            "teacher_correct_hex": "1E7E34"
-        },
-        "is_active": False
-    },
-    {
-        "id": "colegio_santa_maria",
-        "name": "COLEGIO SANTA MARÍA",
-        "sub_header": "COORDINACIÓN ACADÉMICA Y DE ASIGNATURA",
-        "motto": "Virtud y Sabiduría",
-        "logo_path": "assets/logo_colegio.png",
-        "font_family": "Calibri",
-        "colors": {
-            "primary_hex": "800020",       # Borgoña / Burdeos Clásico
-            "secondary_hex": "FCE4EC",     # Rosa Suave
-            "card_bg_hex": "FFF0F5",      # Lavanda Cálido
-            "border_hex": "F8BBD0",       # Borde Suave
-            "teacher_correct_hex": "1E7E34"
-        },
-        "is_active": False
     }
 ]
 

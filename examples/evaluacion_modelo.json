@@ -1,13 +1,13 @@
 {
-  "colegio": "COLEGIO LUIS PASTEUR ANEXO",
+  "colegio": "COLEGIO CASTELGANDOLFO",
   "asignatura": "CIENCIAS NATURALES",
   "curso": "7° Básico A",
   "titulo": "EVALUACIÓN FINAL: MICROORGANISMOS Y BACTERIAS",
   "oa": "OA 7 — Investigar y explicar las características de virus, bacterias y hongos.",
   "contenidos": "Microorganismos benéficos y patógenos, estructura celular, medidas de prevención y vacunas.",
   "puntaje_total": 25,
-  "docente": "Profesora Margarita Miranda B.",
-  "email_docente": "profesora.margaritamiranda@cepluispasteur.cl",
+  "docente": "Departamento de Ciencias",
+  "email_docente": "ciencias@colegiocastelgandolfo.cl",
 
   "item1_pts_cada_una": 2,
   "item1_seleccion_multiple": [

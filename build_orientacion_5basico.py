@@ -1,6 +1,6 @@
 """
 Generador de Evaluación Final y Pauta de Corrección: Orientación 5° Básico A
-Colegio Luis Pasteur Anexo - Profesora Margarita Miranda B.
+Colegio Castelgandolfo - Docencia Institucional
 Año Escolar 2026
 """
 
@@ -106,7 +106,7 @@ def add_orientacion_info(doc, is_pauta=False):
 def build_evaluacion_estudiante_orientacion():
     doc = create_base_doc()
 
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="ORIENTACIÓN — 5° BÁSICO A")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="ORIENTACIÓN — 5° BÁSICO A")
     add_title_banner(doc, "EVALUACIÓN FINAL DE ORIENTACIÓN: AUTOCUIDADO Y PREVENCIÓN")
     add_orientacion_info(doc, is_pauta=False)
 
@@ -324,7 +324,7 @@ def build_evaluacion_estudiante_orientacion():
 def build_pauta_correccion_orientacion():
     doc = create_base_doc()
 
-    add_header(doc, school="COLEGIO LUIS PASTEUR ANEXO", subject="ORIENTACIÓN — 5° BÁSICO A", subtitle="DOCUMENTO DOCENTE")
+    add_header(doc, school="COLEGIO CASTELGANDOLFO", subject="ORIENTACIÓN — 5° BÁSICO A", subtitle="DOCUMENTO DOCENTE")
     add_title_banner(doc, "PAUTA DE CORRECCIÓN: EVALUACIÓN FINAL DE ORIENTACIÓN", is_pauta=True)
     add_orientacion_info(doc, is_pauta=True)
 
