@@ -39,82 +39,69 @@
   </script>
   <style>
     .glass-card {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(16px);
-      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 2px;
     }
     .dark-header {
-      background: radial-gradient(circle at 15% 20%, #173F73 0%, #0A1C36 100%);
+      background: #0F2038;
+      border-bottom: 1px solid #1E3A5F;
     }
     .tab-active {
-      border-bottom: 2.5px solid #38BDF8;
+      border-bottom: 2px solid #38BDF8;
       color: #FFFFFF;
       font-weight: 700;
     }
     .sheet-preview {
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
       font-family: Arial, sans-serif;
-    }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.9; }
-    }
-    .pulse-glow {
-      animation: pulseGlow 3s infinite ease-in-out;
+      border-radius: 2px;
     }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-sky-500 selection:text-white">
 
   <!-- TOP INSTITUTIONAL BAR -->
-  <header class="dark-header text-white border-b border-brand-800 shadow-xl sticky top-0 z-40">
+  <header class="dark-header text-white sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between">
       <div class="flex items-center space-x-3.5">
-        <div class="relative">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-400 via-indigo-500 to-brand-700 flex items-center justify-center shadow-lg border border-white/20">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-            </svg>
-          </div>
-          <span class="absolute -top-1 -right-1 flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-          </span>
+        <div class="w-9 h-9 rounded-sm bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200">
+          <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+          </svg>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-xl font-extrabold tracking-tight text-white">EduDocente-Studio</h1>
-            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">v1.1.0 PRO</span>
+            <h1 class="text-base font-bold tracking-tight text-white uppercase">EduDocente Studio</h1>
+            <span class="px-1.5 py-0.2 text-[9px] font-bold rounded-sm bg-slate-800 text-slate-300 border border-slate-700">Edición Institucional</span>
           </div>
-          <p class="text-[11px] text-slate-300 font-medium">Plataforma Pedagógica Multi-IA, Nóminas y Memoria de Branding</p>
+          <p class="text-[11px] text-slate-400 font-normal">Sistema Curricular y Generador de Instrumentos de Evaluación</p>
         </div>
       </div>
 
+      <div class="flex items-center space-x-3">
         <!-- Enlace a CastelBoard -->
-        <a href="http://castelboard.castelgandolfo" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition">
-          ← Volver a CastelBoard
+        <a href="http://castelboard.castelgandolfo" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-sm text-xs font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 border border-slate-700 transition">
+          Volver a CastelBoard
         </a>
 
         <!-- Institution Selector Pill -->
         <div class="relative">
-          <button onclick="toggleInstDropdown()" class="flex items-center space-x-2.5 bg-white/10 hover:bg-white/20 border border-white/20 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white transition shadow-sm">
-            <span id="header-inst-dot" class="w-2.5 h-2.5 rounded-full bg-blue-400 shadow"></span>
+          <button onclick="toggleInstDropdown()" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-sm text-xs font-medium text-white transition">
+            <span id="header-inst-dot" class="w-2 h-2 rounded-full bg-blue-400"></span>
             <span id="header-inst-name" class="max-w-[180px] truncate">Colegio Castelgandolfo</span>
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
-          <div id="inst-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 text-slate-800 animate-in fade-in zoom-in duration-100">
-            <div class="px-3.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+          <div id="inst-dropdown" class="hidden absolute right-0 mt-1 w-72 bg-white rounded-sm shadow-lg border border-slate-300 py-2 z-50 text-slate-800">
+            <div class="px-3.5 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between border-b border-slate-100">
               <span>Institución Seleccionada</span>
-              <span class="text-[9px] text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">Memoria Activa</span>
+              <span class="text-[9px] text-slate-600 bg-slate-100 px-1 py-0.2 rounded-sm">Activa</span>
             </div>
             <div id="inst-dropdown-list" class="py-1"></div>
             <div class="border-t border-slate-100 mt-1 pt-1.5 px-2">
-              <button onclick="switchTab('tab-institutions'); toggleInstDropdown();" class="w-full text-left px-3 py-2 text-xs font-semibold text-brand-700 hover:bg-brand-50 rounded-xl transition flex items-center justify-between">
-                <span class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-                  Gestionar Colegios, Logos y Colores
-                </span>
+              <button onclick="switchTab('tab-institutions'); toggleInstDropdown();" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-sm transition flex items-center justify-between">
+                <span>Configurar Institución y Membrete</span>
                 <span>→</span>
               </button>
             </div>
@@ -122,8 +109,8 @@
         </div>
 
         <!-- OAuth Button -->
-        <button onclick="openOAuthModal()" class="inline-flex items-center px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-slate-900 transition shadow-md">
-          <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        <button onclick="openOAuthModal()" class="inline-flex items-center px-3 py-1.5 rounded-sm text-xs font-bold bg-slate-200 hover:bg-white text-slate-900 border border-slate-300 transition">
+          <svg class="w-3.5 h-3.5 mr-1.5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           <span id="header-user-btn-text">Sesión Docente</span>
         </button>
       </div>
@@ -167,7 +154,7 @@
       </div>
 
       <!-- Animated SVG Frame -->
-      <div id="banner-container" class="rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl relative transition-all duration-300 max-h-[300px]">
+      <div id="banner-container" class="rounded-sm overflow-hidden border border-slate-700/80 shadow-2xl relative transition-all duration-300 max-h-[300px]">
         <img src="/assets/banner_animated.svg" alt="EduDocente-Studio Animated Banner" class="w-full h-auto object-cover max-h-[280px]">
       </div>
     </div>
@@ -182,165 +169,165 @@
     <div id="tab-assessments" class="space-y-6">
 
       <!-- PRESETS BAR WITH HOVER CARDS -->
-      <div class="glass-card rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
+      <div class="glass-card rounded-sm p-4 shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
           <div class="flex items-center space-x-2">
-            <span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-bold text-[10px] uppercase border border-brand-200">Currículo Escolar 2026</span>
-            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Cargar Contenidos Oficiales en 1 Clic</h3>
+            <span class="px-2 py-0.5 rounded-sm bg-slate-100 text-slate-700 font-bold text-[10px] uppercase border border-slate-300">Currículum Mineduc</span>
+            <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Plantillas Curriculares de Acceso Rápido</h3>
           </div>
-          <span class="text-[11px] text-slate-400">Páginas de texto Mineduc y OAs precargados</span>
+          <span class="text-[11px] text-slate-500">Carga automática de OA y páginas del texto oficial</span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          <button onclick="applyPreset('ciencias5')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+          <button onclick="applyPreset('ciencias5')" class="p-2.5 rounded-sm border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition text-left group">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-lg">⚡</span>
-              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">28 pts</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-1 py-0.2 rounded-sm border border-slate-200">CN-05</span>
+              <span class="text-[10px] font-bold text-slate-600">28 pts</span>
             </div>
-            <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">5° Ciencias</div>
+            <div class="font-bold text-xs text-slate-800">5° Ciencias</div>
             <div class="text-[10px] text-slate-500 truncate">Circuitos y Energía (OA 11)</div>
           </button>
-          <button onclick="applyPreset('ciencias6')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+          <button onclick="applyPreset('ciencias6')" class="p-2.5 rounded-sm border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition text-left group">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-lg">🧊</span>
-              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">26 pts</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-1 py-0.2 rounded-sm border border-slate-200">CN-06</span>
+              <span class="text-[10px] font-bold text-slate-600">26 pts</span>
             </div>
-            <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">6° Ciencias</div>
+            <div class="font-bold text-xs text-slate-800">6° Ciencias</div>
             <div class="text-[10px] text-slate-500 truncate">Estados de la Materia (OA 13)</div>
           </button>
-          <button onclick="applyPreset('ciencias8')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+          <button onclick="applyPreset('ciencias8')" class="p-2.5 rounded-sm border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition text-left group">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-lg">⚛️</span>
-              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-1 py-0.2 rounded-sm border border-slate-200">CN-08</span>
+              <span class="text-[10px] font-bold text-slate-600">25 pts</span>
             </div>
-            <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">8° Ciencias</div>
+            <div class="font-bold text-xs text-slate-800">8° Ciencias</div>
             <div class="text-[10px] text-slate-500 truncate">Dalton y Átomo (OA 3)</div>
           </button>
-          <button onclick="applyPreset('musica1')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+          <button onclick="applyPreset('musica1')" class="p-2.5 rounded-sm border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition text-left group">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-lg">🎵</span>
-              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-1 py-0.2 rounded-sm border border-slate-200">MU-01</span>
+              <span class="text-[10px] font-bold text-slate-600">25 pts</span>
             </div>
-            <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">1° Música</div>
+            <div class="font-bold text-xs text-slate-800">1° Música</div>
             <div class="text-[10px] text-slate-500 truncate">Percusión Estrellita</div>
           </button>
-          <button onclick="applyPreset('orientacion5')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/60 transition text-left group shadow-sm">
+          <button onclick="applyPreset('orientacion5')" class="p-2.5 rounded-sm border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition text-left group">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-lg">🤝</span>
-              <span class="text-[10px] font-bold text-slate-400 group-hover:text-brand-600">25 pts</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-1 py-0.2 rounded-sm border border-slate-200">OR-05</span>
+              <span class="text-[10px] font-bold text-slate-600">25 pts</span>
             </div>
-            <div class="font-bold text-xs text-slate-800 group-hover:text-brand-700">5° Orientación</div>
+            <div class="font-bold text-xs text-slate-800">5° Orientación</div>
             <div class="text-[10px] text-slate-500 truncate">Autocuidado (OA 5)</div>
           </button>
         </div>
       </div>
 
       <!-- WORKSPACE: CONFIGURATION & LIVE EXAM SIMULATOR -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
         <!-- LEFT COLUMN: AI & CONFIG FORM (5 cols) -->
-        <div class="lg:col-span-5 space-y-5">
-          <div class="glass-card rounded-2xl p-5 shadow-sm space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="lg:col-span-5 space-y-4">
+          <div class="glass-card rounded-sm p-4 shadow-sm space-y-3.5 border border-slate-200">
+            <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
               <div>
-                <h3 class="text-sm font-bold text-slate-800">Parámetros Curriculares</h3>
-                <p class="text-[11px] text-slate-500">Define los temas que la IA investigará y estructurará</p>
+                <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Parámetros de la Evaluación</h3>
+                <p class="text-[11px] text-slate-500">Configuración curricular y estructura de la prueba</p>
               </div>
-              <span class="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-emerald-200">3 Ítems Oficiales</span>
+              <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-700 font-bold rounded-sm border border-slate-200">3 Ítems Oficiales</span>
             </div>
 
-            <!-- AI Model Selector with Free Tier Badges -->
+            <!-- AI Model Selector -->
             <div>
-              <div class="flex items-center justify-between mb-2">
-                <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Motor de Inteligencia Artificial (Cuotas Gratuitas & Semanales)</label>
-                <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">100% Compatible con Free Tier</span>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Motor de Procesamiento</label>
+                <span class="text-[10px] text-slate-600 bg-slate-100 px-1.5 py-0.2 rounded-sm font-semibold border border-slate-200">Sin costo / Cuotas gratuitas</span>
               </div>
-              <div class="grid grid-cols-3 gap-2 mb-3">
-                <!-- 1. Antigravity Semanal -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-brand-500 bg-brand-50/60 transition shadow-sm" onclick="selectAIProvider('antigravity')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">♊ Antigravity</span>
-                    <input type="radio" name="ai_provider" value="antigravity" checked class="text-brand-700">
+              <div class="grid grid-cols-3 gap-1.5 mb-2.5">
+                <!-- 1. Antigravity -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-800 bg-slate-50 transition" onclick="selectAIProvider('antigravity')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">Antigravity</span>
+                    <input type="radio" name="ai_provider" value="antigravity" checked class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-emerald-700 font-bold bg-emerald-100/80 px-1 py-0.5 rounded self-start mb-0.5">Semanal Gratis (15 RPM)</span>
-                  <span class="text-[9px] text-slate-500 font-normal">Google Gemini 2.0 Flash</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">Google Gemini 2.0</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Recomendado</span>
                 </label>
 
-                <!-- 2. Codex Versión Gratis -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('codex')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">⚡ Codex</span>
-                    <input type="radio" name="ai_provider" value="codex" class="text-brand-700">
+                <!-- 2. Codex -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-200 bg-white transition" onclick="selectAIProvider('codex')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">Codex</span>
+                    <input type="radio" name="ai_provider" value="codex" class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-blue-700 font-bold bg-blue-100/80 px-1 py-0.5 rounded self-start mb-0.5">Versión Gratis</span>
-                  <span class="text-[9px] text-slate-500 font-normal">OpenAI GPT-4o-mini</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">OpenAI GPT-4o</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Cuota estándar</span>
                 </label>
 
-                <!-- 3. Claude Semanal -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('claude')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">🧠 Claude</span>
-                    <input type="radio" name="ai_provider" value="claude" class="text-brand-700">
+                <!-- 3. Claude -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-200 bg-white transition" onclick="selectAIProvider('claude')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">Claude</span>
+                    <input type="radio" name="ai_provider" value="claude" class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-purple-700 font-bold bg-purple-100/80 px-1 py-0.5 rounded self-start mb-0.5">Semanal Gratis</span>
-                  <span class="text-[9px] text-slate-500 font-normal">Anthropic Haiku</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">Anthropic Haiku</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Cuota estándar</span>
                 </label>
 
-                <!-- 4. Saori SRE Star Server -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('saori')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">🌸 Saori SRE</span>
-                    <input type="radio" name="ai_provider" value="saori" class="text-brand-700">
+                <!-- 4. Saori Engine -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-200 bg-white transition" onclick="selectAIProvider('saori')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">Saori Engine</span>
+                    <input type="radio" name="ai_provider" value="saori" class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-pink-700 font-bold bg-pink-100/80 px-1 py-0.5 rounded self-start mb-0.5">Red Star Server :8089</span>
-                  <span class="text-[9px] text-slate-500 font-normal">Daemon Local 24/7</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">Servidor Local</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Red Star :8089</span>
                 </label>
 
-                <!-- 5. Buffer Escolar Sin Clave -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('buffer')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">🛡️ Buffer Escolar</span>
-                    <input type="radio" name="ai_provider" value="buffer" class="text-brand-700">
+                <!-- 5. Motor Local Escolar -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-200 bg-white transition" onclick="selectAIProvider('buffer')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">Motor Local</span>
+                    <input type="radio" name="ai_provider" value="buffer" class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-teal-700 font-bold bg-teal-100/80 px-1 py-0.5 rounded self-start mb-0.5">100% Gratis / Sin Clave</span>
-                  <span class="text-[9px] text-slate-500 font-normal">Sintetizador Offline</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">Sintetizador Offline</span>
+                  <span class="text-[9px] text-slate-500 font-normal">100% Sin Clave</span>
                 </label>
 
-                <!-- 6. DeepSeek Razonador -->
-                <label class="flex flex-col p-2.5 rounded-xl border cursor-pointer hover:border-brand-500 text-xs font-semibold border-slate-200 bg-white transition shadow-sm" onclick="selectAIProvider('deepseek')">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="font-bold text-slate-800">🐋 DeepSeek</span>
-                    <input type="radio" name="ai_provider" value="deepseek" class="text-brand-700">
+                <!-- 6. DeepSeek -->
+                <label class="flex flex-col p-2 rounded-sm border cursor-pointer hover:border-slate-400 text-xs font-semibold border-slate-200 bg-white transition" onclick="selectAIProvider('deepseek')">
+                  <div class="flex items-center justify-between mb-0.5">
+                    <span class="font-bold text-slate-900">DeepSeek</span>
+                    <input type="radio" name="ai_provider" value="deepseek" class="text-slate-900">
                   </div>
-                  <span class="text-[9px] text-indigo-700 font-bold bg-indigo-100/80 px-1 py-0.5 rounded self-start mb-0.5">Razonador R1 / V3</span>
-                  <span class="text-[9px] text-slate-500 font-normal">DeepSeek AI</span>
+                  <span class="text-[9px] text-slate-600 font-semibold mb-0.5">Razonador R1</span>
+                  <span class="text-[9px] text-slate-500 font-normal">Análisis profundo</span>
                 </label>
               </div>
 
               <!-- Panel Desplegable: API Key Personal del Docente -->
-              <div class="rounded-xl border border-slate-200 bg-slate-50/70 p-3 mb-3">
-                <div class="flex items-center justify-between mb-1.5 cursor-pointer" onclick="toggleApiKeyPanel()">
-                  <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-                    <span>🔑 Mi API Key Personal (Opcional — Guardada en tu Navegador)</span>
+              <div class="rounded-sm border border-slate-200 bg-slate-50 p-2.5 mb-2.5">
+                <div class="flex items-center justify-between cursor-pointer" onclick="toggleApiKeyPanel()">
+                  <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                    <span>Configuración de Clave API (Opcional — Almacenamiento Local)</span>
                   </div>
-                  <span id="api-key-chevron" class="text-xs text-slate-400">▼</span>
+                  <span id="api-key-chevron" class="text-xs text-slate-500">▼</span>
                 </div>
-                <div id="api-key-panel-body" class="space-y-2 mt-2 pt-2 border-t border-slate-200">
-                  <div class="flex gap-2">
-                    <input type="password" id="inp-user-api-key" placeholder="Pega tu API Key gratuita aquí..." class="w-full text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
-                    <button type="button" onclick="saveUserApiKey()" class="px-3 py-1.5 bg-brand-700 hover:bg-brand-800 text-white font-bold rounded-lg text-xs whitespace-nowrap transition">
+                <div id="api-key-panel-body" class="space-y-1.5 mt-2 pt-2 border-t border-slate-200">
+                  <div class="flex gap-1.5">
+                    <input type="password" id="inp-user-api-key" placeholder="Pegar clave de API aquí..." class="w-full text-xs font-mono px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
+                    <button type="button" onclick="saveUserApiKey()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-xs whitespace-nowrap transition">
                       Guardar
                     </button>
-                    <button type="button" onclick="clearUserApiKey()" class="px-2.5 py-1.5 text-slate-500 hover:text-rose-600 font-bold rounded-lg text-xs transition" title="Borrar clave guardada">
-                      🗑️
+                    <button type="button" onclick="clearUserApiKey()" class="px-2.5 py-1.5 text-slate-600 hover:text-red-700 font-semibold rounded-sm text-xs transition border border-slate-200 hover:border-red-300" title="Eliminar clave guardada">
+                      Eliminar
                     </button>
                   </div>
-                  <div class="text-[10px] text-slate-600 leading-relaxed space-y-1">
+                  <div class="text-[10px] text-slate-500 leading-relaxed space-y-0.5">
                     <div id="provider-help-text">
-                      💡 <strong>Totalmente compatible con cuotas gratuitas:</strong> No necesitas tarjeta de crédito.
+                      <strong>Compatible con cuotas gratuitas:</strong> No requiere facturación ni tarjeta de crédito.
                       <span id="provider-free-link"></span>
                     </div>
                     <div class="text-slate-400 text-[9px]">
-                      🔒 Tu clave se guarda exclusivamente en tu navegador (LocalStorage) y jamás se comparte con otros profesores.
+                      La clave se guarda localmente en el navegador y no se comparte con otros usuarios.
                     </div>
                   </div>
                 </div>
@@ -351,69 +338,69 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Asignatura</label>
-                <input type="text" id="inp-subject" value="CIENCIAS NATURALES" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                <input type="text" id="inp-subject" value="CIENCIAS NATURALES" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Curso</label>
-                <input type="text" id="inp-grade" value="6° Básico A" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                <input type="text" id="inp-grade" value="6° Básico A" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
               </div>
             </div>
 
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Contenidos a Evaluar</label>
-              <textarea id="inp-topic" rows="2" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white leading-relaxed">Cambios de estado de la materia (fusión, evaporación, ebullición, condensación, solidificación y sublimación)</textarea>
+              <textarea id="inp-topic" rows="2" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white leading-relaxed">Cambios de estado de la materia (fusión, evaporación, ebullición, condensación, solidificación y sublimación)</textarea>
             </div>
 
             <div>
               <div class="flex items-center justify-between mb-1">
                 <label class="block text-xs font-semibold text-slate-700">Objetivo de Aprendizaje (OA)</label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[9px] font-bold text-brand-700 bg-brand-50 border border-brand-200 px-1.5 py-0.5 rounded">🇨🇱 Priorización Oficial Mineduc</span>
+                  <span class="text-[9px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-1.5 py-0.2 rounded-sm">Priorización Oficial Mineduc</span>
                 </div>
               </div>
-              <div class="space-y-1.5 mb-1.5">
-                <select id="sel-oa-mineduc" onchange="onSelectMineducOA(this.value)" class="w-full text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border border-brand-300 bg-brand-50/50 text-brand-900 focus:outline-none focus:border-brand-600 focus:bg-white transition cursor-pointer">
-                  <option value="">✨ Seleccionar Objetivo Priorizado Mineduc (Autocompleta Asignatura, Contenidos y Páginas)...</option>
+              <div class="space-y-1 mb-1">
+                <select id="sel-oa-mineduc" onchange="onSelectMineducOA(this.value)" class="w-full text-[11px] font-medium px-2 py-1.5 rounded-sm border border-slate-300 bg-white text-slate-800 focus:outline-none focus:border-slate-600 transition cursor-pointer">
+                  <option value="">Seleccionar Objetivo Priorizado (Autocompleta formulario)...</option>
                 </select>
               </div>
-              <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white" placeholder="O escribe aquí un OA personalizado...">
+              <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white" placeholder="O escribe aquí un OA personalizado...">
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-2.5">
               <div>
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Páginas Texto Mineduc</label>
-                <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
               </div>
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <label class="block text-xs font-semibold text-slate-700">Puntaje Total</label>
                   <div class="flex gap-1">
-                    <button type="button" onclick="document.getElementById('inp-points').value=15" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Control corto (15 pts)">15p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=25" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Evaluación estándar (25 pts)">25p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=35" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Evaluación de unidad (35 pts)">35p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=50" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Prueba de nivel (50 pts)">50p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=15" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Control corto (15 pts)">15p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=25" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Evaluación estándar (25 pts)">25p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=35" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Evaluación de unidad (35 pts)">35p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=50" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Prueba de nivel (50 pts)">50p</button>
                   </div>
                 </div>
-                <input type="number" id="inp-points" value="25" min="10" max="100" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                <input type="number" id="inp-points" value="25" min="10" max="100" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
               </div>
             </div>
 
-            <button id="btn-generate" onclick="generateWithAI()" class="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-brand-700 via-indigo-700 to-brand-800 hover:from-brand-800 hover:to-indigo-800 shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 group">
-              <svg class="w-5 h-5 text-sky-300 group-hover:rotate-12 transition transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>Generar Evaluación Oficial con IA</span>
+            <button id="btn-generate" onclick="generateWithAI()" class="w-full py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-black border border-slate-800 transition flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Generar Instrumento de Evaluación (.docx)</span>
             </button>
           </div>
 
           <!-- Realtime Compiler Console -->
-          <div class="glass-card rounded-2xl p-4 shadow-sm space-y-2">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div class="glass-card rounded-sm p-3.5 shadow-sm space-y-2 border border-slate-200">
+            <div class="flex items-center justify-between pb-1.5 border-b border-slate-100">
               <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 Bitácora de IA y Compilación
               </span>
-              <span id="gen-status-badge" class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">En espera</span>
+              <span id="gen-status-badge" class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm">En espera</span>
             </div>
-            <div id="console-log" class="bg-slate-900 rounded-xl p-3 text-slate-300 font-mono text-[11px] h-36 overflow-y-auto space-y-1">
+            <div id="console-log" class="bg-slate-900 rounded-sm p-2.5 text-slate-300 font-mono text-[11px] h-32 overflow-y-auto space-y-1">
               <p class="text-slate-400">> Sistema EduDocente listo.</p>
               <p class="text-emerald-400">> Identidad de colegio y paleta cargadas.</p>
             </div>
@@ -421,30 +408,30 @@
         </div>
 
         <!-- RIGHT COLUMN: LIVE EXAM SHEET PREVIEW & DIRECT DOWNLOADS (7 cols) -->
-        <div class="lg:col-span-7 space-y-5">
+        <div class="lg:col-span-7 space-y-4">
 
           <!-- DOWNLOADS ACTION BAR -->
-          <div class="glass-card rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 border-2 border-brand-500/20">
+          <div class="glass-card rounded-sm p-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 border border-slate-200">
             <div>
-              <span class="text-[10px] uppercase font-bold text-brand-700 tracking-wider">Entregables Oficiales Listos</span>
-              <h4 class="text-xs font-bold text-slate-800">Descarga Directa en Microsoft Word (.docx)</h4>
+              <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Entregables Oficiales</span>
+              <h4 class="text-xs font-bold text-slate-800">Descarga en Microsoft Word (.docx)</h4>
             </div>
             <div class="flex items-center space-x-2 w-full sm:w-auto">
-              <a id="btn-dl-student" href="/download/Evaluacion_Final_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow transition flex items-center justify-center gap-1.5">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
-                <span>Prueba Alumno</span>
+              <a id="btn-dl-student" href="/download/Evaluacion_Final_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs border border-slate-700 transition flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
+                <span>Prueba Estudiante</span>
               </a>
-              <a id="btn-dl-teacher" href="/download/Pauta_Correccion_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow transition flex items-center justify-center gap-1.5">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <a id="btn-dl-teacher" href="/download/Pauta_Correccion_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs border border-slate-600 transition flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span>Pauta Docente</span>
               </a>
             </div>
           </div>
 
           <!-- SIMULATED EXAM SHEET IN BROWSER (A4 / LETTER PAPER) -->
-          <div class="bg-white rounded-2xl p-6 border border-slate-300 sheet-preview space-y-4">
+          <div class="bg-white rounded-sm p-6 border border-slate-300 sheet-preview space-y-4">
             <!-- Simulated Sheet Header -->
-            <div class="flex items-center justify-between border rounded-lg overflow-hidden" id="sheet-header-box" style="border-color: #173F73;">
+            <div class="flex items-center justify-between border rounded-sm overflow-hidden" id="sheet-header-box" style="border-color: #173F73;">
               <div class="w-16 h-14 bg-white flex items-center justify-center p-1.5 border-r" style="border-color: #B0C4DE;">
                 <img id="sheet-logo" src="/assets/logo_colegio.png" alt="Logo Colegio" class="max-h-full max-w-full object-contain">
               </div>
@@ -455,12 +442,12 @@
             </div>
 
             <!-- Title Banner -->
-            <div class="text-center py-1.5 px-3 rounded-md font-bold text-xs uppercase" id="sheet-banner-box" style="background-color: #EAF3FB; color: #173F73; border: 1px solid #B0C4DE;">
+            <div class="text-center py-1.5 px-3 rounded-sm font-bold text-xs uppercase" id="sheet-banner-box" style="background-color: #EAF3FB; color: #173F73; border: 1px solid #B0C4DE;">
               <span id="sheet-eval-title">EVALUACIÓN FINAL: CAMBIOS DEL ESTADO DE LA MATERIA</span>
             </div>
 
             <!-- Student Metadata Table -->
-            <div class="border rounded-md text-[11px] divide-y overflow-hidden" style="border-color: #B0C4DE;">
+            <div class="border rounded-sm text-[11px] divide-y overflow-hidden" style="border-color: #B0C4DE;">
               <div class="grid grid-cols-3 divide-x" style="border-color: #B0C4DE; background-color: #F6FAFE;">
                 <div class="p-1.5 font-medium text-slate-700"><b>Nombre:</b> ___________________________</div>
                 <div class="p-1.5 font-medium text-slate-700 text-center"><b>Curso:</b> <span id="sheet-field-grade">6° Básico A</span></div>
@@ -475,7 +462,7 @@
             <!-- Live Items Accordion -->
             <div class="space-y-3 pt-2 text-xs">
               <!-- Item 1 -->
-              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+              <div class="border rounded-sm p-3 bg-slate-50/50 space-y-2">
                 <div class="flex items-center justify-between font-bold text-brand-700">
                   <span>ÍTEM I: SELECCIÓN MÚLTIPLE (2 pts c/u)</span>
                   <span class="text-[10px] font-normal text-slate-500">Alternativas directas A, B, C, D</span>
@@ -492,7 +479,7 @@
               </div>
 
               <!-- Item 2 -->
-              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+              <div class="border rounded-sm p-3 bg-slate-50/50 space-y-2">
                 <div class="flex items-center justify-between font-bold text-brand-700">
                   <span>ÍTEM II: VERDADERO O FALSO (1 pto c/u)</span>
                   <span class="text-[10px] font-normal text-slate-500">Casillas limpias para el alumno</span>
@@ -510,12 +497,12 @@
               </div>
 
               <!-- Item 3 -->
-              <div class="border rounded-xl p-3 bg-slate-50/50 space-y-2">
+              <div class="border rounded-sm p-3 bg-slate-50/50 space-y-2">
                 <div class="flex items-center justify-between font-bold text-brand-700">
                   <span>ÍTEM III: DIBUJO Y APLICACIÓN PRÁCTICA</span>
-                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Marco de Dibujo</span>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm border border-emerald-200">Marco de Dibujo</span>
                 </div>
-                <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-400 text-[11px] bg-white">
+                <div class="border-2 border-dashed border-slate-300 rounded-sm p-4 text-center text-slate-400 text-[11px] bg-white">
                   <span>[ Espacio delimitado para dibujo del estudiante y líneas de descripción guiadas ]</span>
                 </div>
               </div>
@@ -533,7 +520,7 @@
     <!-- TAB 2: NÓMINAS & ENTREVISTAS EXCEL                             -->
     <!-- ============================================================== -->
     <div id="tab-roster" class="hidden space-y-6">
-      <div class="glass-card rounded-2xl p-6 shadow-sm space-y-4">
+      <div class="glass-card rounded-sm p-6 shadow-sm space-y-4">
         <!-- Controls Header -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
@@ -541,10 +528,10 @@
             <p class="text-xs text-slate-500">Matriz Excel (.xlsx) con validación de estados, anchos de columna automáticos y membrete de colegio</p>
           </div>
           <div class="flex items-center space-x-2 w-full sm:w-auto">
-            <button onclick="openAddInterviewModal()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
+            <button onclick="openAddInterviewModal()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-sm bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
               <span>+ Nueva Citación</span>
             </button>
-            <a href="/download/Cronograma_Entrevistas_Apoderados_2026.xlsx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
+            <a href="/download/Cronograma_Entrevistas_Apoderados_2026.xlsx" class="flex-1 sm:flex-none px-3.5 py-2 rounded-sm bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center justify-center gap-1.5">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
               <span>Exportar Excel (.xlsx)</span>
             </a>
@@ -554,19 +541,19 @@
         <!-- Filter bar -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 py-1">
           <div class="relative w-full sm:w-72">
-            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Buscar por apoderado, alumno o curso..." class="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-brand-500 bg-white">
+            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Buscar por apoderado, alumno o curso..." class="w-full pl-8 pr-3 py-1.5 rounded-sm border border-slate-200 text-xs focus:outline-none focus:border-brand-500 bg-white">
             <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           </div>
           <div class="flex items-center space-x-2 text-xs">
             <span class="text-slate-500">Filtrar estado:</span>
-            <button onclick="setRosterFilter('all')" id="btn-filt-all" class="px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-200">Todos</button>
-            <button onclick="setRosterFilter('Confirmado')" id="btn-filt-conf" class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100">Confirmados</button>
-            <button onclick="setRosterFilter('Pendiente')" id="btn-filt-pend" class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100">Pendientes</button>
+            <button onclick="setRosterFilter('all')" id="btn-filt-all" class="px-2.5 py-1 rounded-sm bg-brand-50 text-brand-700 font-bold border border-brand-200">Todos</button>
+            <button onclick="setRosterFilter('Confirmado')" id="btn-filt-conf" class="px-2.5 py-1 rounded-sm text-slate-600 hover:bg-slate-100">Confirmados</button>
+            <button onclick="setRosterFilter('Pendiente')" id="btn-filt-pend" class="px-2.5 py-1 rounded-sm text-slate-600 hover:bg-slate-100">Pendientes</button>
           </div>
         </div>
 
         <!-- Interactive Table -->
-        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+        <div class="overflow-x-auto rounded-sm border border-slate-200 shadow-sm">
           <table class="min-w-full divide-y divide-slate-200 text-xs">
             <thead class="bg-slate-50 text-slate-600 font-bold">
               <tr>
@@ -592,7 +579,7 @@
     <!-- TAB 3: MEMORIA MULTI-COLEGIO & BRANDING                        -->
     <!-- ============================================================== -->
     <div id="tab-institutions" class="hidden space-y-6">
-      <div class="glass-card rounded-2xl p-6 shadow-sm space-y-5">
+      <div class="glass-card rounded-sm p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
           <div>
             <h3 class="text-base font-bold text-slate-800">Identidad Institucional & Paleta Cromática</h3>
@@ -611,66 +598,66 @@
     <!-- TAB 4: PRÓXIMAMENTE / ROADMAP EN DESARROLLO                    -->
     <!-- ============================================================== -->
     <div id="tab-roadmap" class="hidden space-y-6">
-      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 text-white shadow-xl border border-indigo-500/20 space-y-6">
-        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+      <div class="bg-slate-900 rounded-sm p-6 text-white shadow-xl border border-slate-800 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
           <div>
             <div class="flex items-center space-x-2">
-              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/30 text-purple-300 text-xs font-bold border border-purple-400/30 uppercase tracking-wider">Laboratorio EduDocente</span>
+              <span class="px-2 py-0.5 rounded-sm bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 uppercase tracking-wider">Laboratorio EduDocente</span>
               <span class="text-xs text-slate-400">Roadmap 2026 - 2027</span>
             </div>
-            <h3 class="text-xl font-black text-white mt-1">Módulos Avanzados en Desarrollo Activo</h3>
+            <h3 class="text-lg font-bold text-white mt-1">Módulos Avanzados en Desarrollo Activo</h3>
           </div>
-          <span class="text-2xl">⚡</span>
+          <span class="px-2 py-0.5 rounded-sm bg-slate-800 text-slate-300 text-xs font-mono font-bold border border-slate-700">LAB-R&D</span>
         </div>
 
         <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
           Estas funcionalidades se encuentran en etapa experimental de investigación y arquitectura para futuras versiones de EduDocente-Studio. Su interfaz está desacoplada del flujo de producción escolar actual para preservar la estabilidad de tus documentos Word y Excel.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Feature 1 -->
-          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+          <div class="p-4 rounded-sm bg-slate-800/60 border border-slate-700 space-y-2 hover:border-slate-500 transition group">
             <div class="flex items-center justify-between">
-              <span class="text-2xl">📷</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">Próximamente</span>
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-sm bg-slate-700 text-slate-200 border border-slate-600">OMR</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-amber-400/20 text-amber-300 border border-amber-400/30">Próximamente</span>
             </div>
-            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Corrector Automático por Cámara (OMR & Visión AI)</h4>
+            <h4 class="font-bold text-xs text-white group-hover:text-sky-300 transition">Corrector Automático por Cámara (OMR & Visión AI)</h4>
             <p class="text-xs text-slate-300 leading-relaxed">
               Escaneo instantáneo de las hojas de respuesta de los estudiantes mediante la cámara web de tu laptop o teléfono. Detección de círculos marcados y cálculo automático del puntaje según la pauta institucional.
             </p>
           </div>
 
           <!-- Feature 2 -->
-          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+          <div class="p-4 rounded-sm bg-slate-800/60 border border-slate-700 space-y-2 hover:border-slate-500 transition group">
             <div class="flex items-center justify-between">
-              <span class="text-2xl">🔗</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-400/20 text-blue-300 border border-blue-400/30">En Integración</span>
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-sm bg-slate-700 text-slate-200 border border-slate-600">LMS</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-blue-400/20 text-blue-300 border border-blue-400/30">En Integración</span>
             </div>
-            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Sincronización Bidireccional con Google Classroom & Canvas</h4>
+            <h4 class="font-bold text-xs text-white group-hover:text-sky-300 transition">Sincronización Bidireccional con Google Classroom & Canvas</h4>
             <p class="text-xs text-slate-300 leading-relaxed">
               Publicación automática de los temarios de estudio directamente en el tablón de anuncios de Google Classroom y sincronización de rúbricas con las tareas del LMS sin necesidad de descarga manual.
             </p>
           </div>
 
           <!-- Feature 3 -->
-          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+          <div class="p-4 rounded-sm bg-slate-800/60 border border-slate-700 space-y-2 hover:border-slate-500 transition group">
             <div class="flex items-center justify-between">
-              <span class="text-2xl">🖨️</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">En Arquitectura</span>
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-sm bg-slate-700 text-slate-200 border border-slate-600">DOC</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">En Arquitectura</span>
             </div>
-            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Generador de Cuadernillos con Código QR y Foliado Único</h4>
+            <h4 class="font-bold text-xs text-white group-hover:text-sky-300 transition">Generador de Cuadernillos con Código QR y Foliado Único</h4>
             <p class="text-xs text-slate-300 leading-relaxed">
               Foliado individual por estudiante con código QR de seguridad para evitar copias y automatizar la identificación en la corrección masiva de exámenes escolares.
             </p>
           </div>
 
           <!-- Feature 4 -->
-          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 hover:border-purple-400/40 transition group">
+          <div class="p-4 rounded-sm bg-slate-800/60 border border-slate-700 space-y-2 hover:border-slate-500 transition group">
             <div class="flex items-center justify-between">
-              <span class="text-2xl">📊</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-400/20 text-rose-300 border border-rose-400/30">Planificado</span>
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-sm bg-slate-700 text-slate-200 border border-slate-600">SIMCE</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-rose-400/20 text-rose-300 border border-rose-400/30">Planificado</span>
             </div>
-            <h4 class="font-bold text-sm text-white group-hover:text-purple-300 transition">Matriz de Análisis Psicométrico & Diagnóstico SIMCE/PAES</h4>
+            <h4 class="font-bold text-xs text-white group-hover:text-sky-300 transition">Matriz de Análisis Psicométrico & Diagnóstico SIMCE/PAES</h4>
             <p class="text-xs text-slate-300 leading-relaxed">
               Cálculo del índice de discriminación de preguntas, porcentaje de logro de cada Objetivo de Aprendizaje (OA) y emisión automática del informe de retroalimentación pedagógica para la UTP.
             </p>
@@ -686,7 +673,7 @@
 
   <!-- MODAL: AGREGAR CITACIÓN -->
   <div id="modal-interview" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
+    <div class="bg-white rounded-sm max-w-md w-full shadow-2xl overflow-hidden border border-slate-300">
       <div class="dark-header p-4 text-white flex items-center justify-between">
         <h3 class="text-sm font-bold">Registrar Nueva Citación de Apoderado</h3>
         <button onclick="closeAddInterviewModal()" class="text-slate-300 hover:text-white">✕</button>
@@ -694,43 +681,43 @@
       <div class="p-5 space-y-3 text-xs">
         <div>
           <label class="block font-semibold mb-1">Nombre del Apoderado/a</label>
-          <input type="text" id="add-apo" placeholder="Ej: Patricia Morales González" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="text" id="add-apo" placeholder="Ej: Patricia Morales González" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Correo Electrónico</label>
-          <input type="email" id="add-email" placeholder="ejemplo@correo.com" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="email" id="add-email" placeholder="ejemplo@correo.com" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-semibold mb-1">Nombre Estudiante</label>
-            <input type="text" id="add-est" placeholder="Estudiante" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+            <input type="text" id="add-est" placeholder="Estudiante" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
           <div>
             <label class="block font-semibold mb-1">Curso</label>
-            <input type="text" id="add-curso" value="5° Básico A" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+            <input type="text" id="add-curso" value="5° Básico A" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-semibold mb-1">Día y Fecha</label>
-            <input type="text" id="add-fecha" value="Miércoles 21 de octubre" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+            <input type="text" id="add-fecha" value="Miércoles 21 de octubre" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
           <div>
             <label class="block font-semibold mb-1">Horario</label>
-            <input type="text" id="add-hora" value="13:55 a 14:40 hrs" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+            <input type="text" id="add-hora" value="13:55 a 14:40 hrs" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
         </div>
         <div>
           <label class="block font-semibold mb-1">Estado</label>
-          <select id="add-estado" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white">
+          <select id="add-estado" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white focus:outline-none focus:border-slate-600">
             <option value="Confirmado">Confirmado</option>
             <option value="Pendiente" selected>Pendiente</option>
             <option value="Reprogramado">Reprogramado</option>
           </select>
         </div>
         <div class="pt-2 flex justify-end space-x-2">
-          <button onclick="closeAddInterviewModal()" class="px-3.5 py-2 border rounded-xl font-medium">Cancelar</button>
-          <button onclick="saveNewInterview()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition">Guardar en Excel</button>
+          <button onclick="closeAddInterviewModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-sm font-medium hover:bg-slate-50 transition">Cancelar</button>
+          <button onclick="saveNewInterview()" class="px-4 py-1.5 bg-slate-800 text-white rounded-sm font-bold hover:bg-slate-900 transition">Guardar en Excel</button>
         </div>
       </div>
     </div>
@@ -738,7 +725,7 @@
 
   <!-- MODAL: REGISTRAR/EDITAR INSTITUCIÓN -->
   <div id="modal-inst-edit" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
+    <div class="bg-white rounded-sm max-w-md w-full shadow-2xl overflow-hidden border border-slate-300">
       <div class="dark-header p-4 text-white flex items-center justify-between">
         <h3 class="text-sm font-bold">Configurar Identidad Institucional</h3>
         <button onclick="closeInstModal()" class="text-slate-300 hover:text-white">✕</button>
@@ -747,40 +734,40 @@
         <input type="hidden" id="inst-id">
         <div>
           <label class="block font-semibold mb-1">Nombre Oficial del Colegio</label>
-          <input type="text" id="inst-name" placeholder="Ej: COLEGIO SAN ALBERTO MAGNO" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="text" id="inst-name" placeholder="Ej: COLEGIO SAN ALBERTO MAGNO" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Dependencia / Sub-encabezado</label>
-          <input type="text" id="inst-subheader" placeholder="Ej: UNIDAD TÉCNICO PEDAGÓGICA (UTP)" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="text" id="inst-subheader" placeholder="Ej: UNIDAD TÉCNICO PEDAGÓGICA (UTP)" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
         </div>
         <div>
           <label class="block font-semibold mb-1">Lema o Misión</label>
-          <input type="text" id="inst-motto" placeholder="Ej: Excelencia, Vocación y Futuro" class="w-full px-3 py-2 rounded-xl border border-slate-200">
+          <input type="text" id="inst-motto" placeholder="Ej: Excelencia, Vocación y Futuro" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold mb-1">Color Primario (Hex)</label>
             <div class="flex items-center space-x-2">
-              <input type="color" id="inst-color-p" value="#173F73" class="w-8 h-8 rounded border cursor-pointer">
-              <input type="text" id="inst-hex-p" value="173F73" class="w-20 px-2 py-1 border rounded text-xs font-mono">
+              <input type="color" id="inst-color-p" value="#173F73" class="w-8 h-8 rounded-sm border border-slate-300 cursor-pointer">
+              <input type="text" id="inst-hex-p" value="173F73" class="w-20 px-2 py-1 border border-slate-300 rounded-sm text-xs font-mono">
             </div>
           </div>
           <div>
             <label class="block font-semibold mb-1">Color Secundario (Hex)</label>
             <div class="flex items-center space-x-2">
-              <input type="color" id="inst-color-s" value="#EAF3FB" class="w-8 h-8 rounded border cursor-pointer">
-              <input type="text" id="inst-hex-s" value="EAF3FB" class="w-20 px-2 py-1 border rounded text-xs font-mono">
+              <input type="color" id="inst-color-s" value="#EAF3FB" class="w-8 h-8 rounded-sm border border-slate-300 cursor-pointer">
+              <input type="text" id="inst-hex-s" value="EAF3FB" class="w-20 px-2 py-1 border border-slate-300 rounded-sm text-xs font-mono">
             </div>
           </div>
         </div>
         <div>
           <label class="block font-semibold mb-1">Ruta del Logo con Fondo Transparente</label>
-          <input type="text" id="inst-logo" value="assets/logo_colegio.png" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-600 font-mono text-[11px]">
+          <input type="text" id="inst-logo" value="assets/logo_colegio.png" class="w-full px-2.5 py-1.5 rounded-sm border border-slate-300 text-slate-600 font-mono text-[11px] bg-white">
           <p class="text-[10px] text-slate-400 mt-1">Coloca tu archivo PNG transparente en la carpeta 'assets/'</p>
         </div>
         <div class="pt-2 flex justify-end space-x-2">
-          <button onclick="closeInstModal()" class="px-3.5 py-2 border rounded-xl font-medium">Cancelar</button>
-          <button onclick="saveInstitution()" class="px-4 py-2 bg-brand-700 text-white rounded-xl font-bold hover:bg-brand-800 transition">Guardar en Memoria</button>
+          <button onclick="closeInstModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-sm font-medium hover:bg-slate-50 transition">Cancelar</button>
+          <button onclick="saveInstitution()" class="px-4 py-1.5 bg-slate-800 text-white rounded-sm font-bold hover:bg-slate-900 transition">Guardar en Memoria</button>
         </div>
       </div>
     </div>
@@ -788,7 +775,7 @@
 
   <!-- MODAL: OAUTH -->
   <div id="oauth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
+    <div class="bg-white rounded-sm max-w-md w-full shadow-2xl overflow-hidden border border-slate-300">
       <div class="dark-header p-5 text-white flex items-center justify-between">
         <div>
           <h3 class="text-sm font-bold">Identificación Docente (Google / Institucional)</h3>
@@ -798,15 +785,15 @@
       </div>
       <div class="p-5 space-y-3.5 text-xs">
         <!-- Botón Google Workspace -->
-        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3.5 rounded-xl border-2 border-blue-200 bg-blue-50/40 hover:bg-blue-50 hover:border-blue-500 transition shadow-sm">
+        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3 rounded-sm border border-slate-300 bg-slate-50 hover:bg-slate-100 transition shadow-sm">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">🔵</span>
+            <span class="w-7 h-7 rounded-sm bg-blue-600 text-white font-bold flex items-center justify-center text-xs font-sans">G</span>
             <div class="text-left">
               <div class="font-bold text-slate-900 text-[13px]">Google Workspace (@colegiocastelgandolfo.cl)</div>
-              <div class="text-[11px] text-blue-700">Acceso institucional / Google Classroom</div>
+              <div class="text-[11px] text-slate-500">Acceso institucional / Google Classroom</div>
             </div>
           </div>
-          <span class="text-blue-600 font-bold text-xs">Conectar →</span>
+          <span class="text-slate-700 font-bold text-xs">Conectar →</span>
         </button>
 
         <div class="relative flex py-1 items-center">
@@ -816,22 +803,22 @@
         </div>
 
         <!-- Formulario Manual Rápido -->
-        <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+        <div class="space-y-2 bg-slate-50 p-3.5 rounded-sm border border-slate-200">
           <div>
             <label class="block text-[11px] font-bold text-slate-700 mb-1">Nombre Completo del/la Docente:</label>
-            <input type="text" id="manual-teacher-name" placeholder="Ej: Profesor Pablo Avendaño" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <input type="text" id="manual-teacher-name" placeholder="Ej: Profesor Pablo Avendaño" class="w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-700 mb-1">Correo Institucional:</label>
-            <input type="email" id="manual-teacher-email" placeholder="docente@colegiocastelgandolfo.cl" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <input type="email" id="manual-teacher-email" placeholder="docente@colegiocastelgandolfo.cl" class="w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
           </div>
-          <button onclick="saveManualTeacher()" class="w-full mt-2 py-2 px-3 rounded-lg bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition shadow">
+          <button onclick="saveManualTeacher()" class="w-full mt-2 py-2 px-3 rounded-sm bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs transition shadow">
             Guardar y Usar en Membretes
           </button>
         </div>
 
-        <div class="pt-1 flex items-center justify-between text-[11px] text-slate-400">
-          <span>🔒 Los datos se guardan en tu navegador</span>
+        <div class="pt-1 flex items-center justify-between text-[11px] text-slate-500">
+          <span>Los datos se guardan localmente en el navegador</span>
           <button onclick="logoutTeacher()" class="text-rose-600 hover:underline font-semibold" id="btn-logout-teacher">Cerrar Sesión</button>
         </div>
       </div>
@@ -865,8 +852,8 @@
     function showToast(msg, type = 'success') {
       const box = document.getElementById('toast-box');
       const toast = document.createElement('div');
-      toast.className = 'px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center space-x-2 pointer-events-auto transform transition duration-300 ease-out translate-y-2 opacity-0 ' + 
-        (type === 'success' ? 'bg-emerald-800 text-white' : 'bg-slate-900 text-white');
+      toast.className = 'px-4 py-2.5 rounded-sm shadow-xl text-xs font-semibold flex items-center space-x-2 pointer-events-auto transform transition duration-300 ease-out translate-y-2 opacity-0 ' + 
+        (type === 'success' ? 'bg-slate-900 text-white border border-slate-700' : 'bg-rose-950 text-white border border-rose-800');
       toast.innerHTML = `<span>✓</span> <span>${msg}</span>`;
       box.appendChild(toast);
 
@@ -970,14 +957,14 @@
       grid.innerHTML = '';
       globalInstitutions.forEach(inst => {
         const card = document.createElement('div');
-        card.className = 'p-5 rounded-2xl border transition relative ' + (inst.is_active ? 'border-2 border-brand-600 bg-brand-50/30 shadow-md' : 'border-slate-200 bg-white hover:border-slate-300');
+        card.className = 'p-5 rounded-sm border transition relative ' + (inst.is_active ? 'border-2 border-slate-700 bg-slate-50/50 shadow-md' : 'border-slate-200 bg-white hover:border-slate-400');
         card.innerHTML = `
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center space-x-2">
-              <span class="w-4 h-4 rounded-full shadow" style="background-color: #${inst.colors.primary_hex}"></span>
-              <span class="w-3 h-3 rounded-full" style="background-color: #${inst.colors.secondary_hex}"></span>
+              <span class="w-3.5 h-3.5 rounded-sm shadow-sm" style="background-color: #${inst.colors.primary_hex}"></span>
+              <span class="w-3 h-3 rounded-sm shadow-sm" style="background-color: #${inst.colors.secondary_hex}"></span>
             </div>
-            ${inst.is_active ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-brand-700 text-white">Activo en Todo el Sistema</span>' : ''}
+            ${inst.is_active ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-slate-800 text-white">Activo en Todo el Sistema</span>' : ''}
           </div>
           <h4 class="font-bold text-xs text-slate-900 mb-1 leading-snug">${inst.name}</h4>
           <p class="text-[11px] text-slate-500 mb-3">${inst.sub_header || 'Departamento de Asignatura'}</p>
@@ -987,8 +974,8 @@
             <span>${inst.font_family || 'Arial'}</span>
           </div>
           <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-            ${!inst.is_active ? `<button onclick="selectInstitution('${inst.id}')" class="text-xs font-bold text-brand-700 hover:underline">Habilitar Memoria</button>` : '<span class="text-xs text-slate-400 font-medium">Seleccionado</span>'}
-            <button onclick="editInstitution('${inst.id}')" class="text-xs text-slate-500 hover:text-slate-800 font-medium">Editar ✏️</button>
+            ${!inst.is_active ? `<button onclick="selectInstitution('${inst.id}')" class="text-xs font-bold text-slate-700 hover:underline">Habilitar Memoria</button>` : '<span class="text-xs text-slate-400 font-medium">Seleccionado</span>'}
+            <button onclick="editInstitution('${inst.id}')" class="text-xs text-slate-600 hover:text-slate-900 font-medium">Editar</button>
           </div>
         `;
         grid.appendChild(card);
@@ -1083,11 +1070,11 @@
     function setRosterFilter(f) {
       currentRosterFilter = f;
       ['btn-filt-all', 'btn-filt-conf', 'btn-filt-pend'].forEach(b => {
-        document.getElementById(b).className = 'px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100';
+        document.getElementById(b).className = 'px-2.5 py-1 rounded-sm text-slate-600 hover:bg-slate-100 border border-transparent';
       });
-      if (f === 'all') document.getElementById('btn-filt-all').className = 'px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-200';
-      if (f === 'Confirmado') document.getElementById('btn-filt-conf').className = 'px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold border border-emerald-200';
-      if (f === 'Pendiente') document.getElementById('btn-filt-pend').className = 'px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 font-bold border border-amber-200';
+      if (f === 'all') document.getElementById('btn-filt-all').className = 'px-2.5 py-1 rounded-sm bg-slate-100 text-slate-800 font-bold border border-slate-300';
+      if (f === 'Confirmado') document.getElementById('btn-filt-conf').className = 'px-2.5 py-1 rounded-sm bg-emerald-50 text-emerald-800 font-bold border border-emerald-300';
+      if (f === 'Pendiente') document.getElementById('btn-filt-pend').className = 'px-2.5 py-1 rounded-sm bg-amber-50 text-amber-800 font-bold border border-amber-300';
       renderRosterRows();
     }
 
@@ -1122,8 +1109,8 @@
           <td class="px-3 py-2.5 text-center text-slate-600">${it.dia} ${it.fecha}</td>
           <td class="px-3 py-2.5 text-center text-slate-600">${it.hora}</td>
           <td class="px-3 py-2.5 text-center">
-            <button onclick="toggleInterviewStatus(${it.id})" title="Haz clic para cambiar estado" class="px-2.5 py-1 rounded-full text-[10px] font-bold shadow-sm transition hover:scale-105 ${isConfirmed ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
-              ${it.estado} ⇄
+            <button onclick="toggleInterviewStatus(${it.id})" title="Haz clic para alternar estado" class="px-2 py-0.5 rounded-sm text-[10px] font-bold transition ${isConfirmed ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100' : 'bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100'}">
+              ${it.estado}
             </button>
           </td>
         `;
@@ -1244,13 +1231,13 @@
         const sel = document.getElementById('sel-oa-mineduc');
         if (!sel || !data.asignaturas) return;
 
-        sel.innerHTML = '<option value="">✨ Seleccionar Objetivo Priorizado Mineduc (Autocompleta Asignatura, Contenidos y Páginas)...</option>';
+        sel.innerHTML = '<option value="">Seleccionar Objetivo Priorizado Mineduc (Autocompleta Asignatura, Contenidos y Páginas)...</option>';
         
         let counter = 0;
         for (const [asig, cursos] of Object.entries(data.asignaturas)) {
           for (const [curso, oas] of Object.entries(cursos)) {
             const grp = document.createElement('optgroup');
-            grp.label = `📚 ${asig} — ${curso}`;
+            grp.label = `${asig} — ${curso}`;
             oas.forEach(item => {
               counter++;
               const key = `oa_${counter}`;
@@ -1311,10 +1298,10 @@
         const lbl = r.closest('label');
         if (!lbl) return;
         if (r.checked) {
-          lbl.classList.add('border-brand-500', 'bg-brand-50/60');
+          lbl.classList.add('border-slate-800', 'bg-slate-100');
           lbl.classList.remove('border-slate-200', 'bg-white');
         } else {
-          lbl.classList.remove('border-brand-500', 'bg-brand-50/60');
+          lbl.classList.remove('border-slate-800', 'bg-slate-100');
           lbl.classList.add('border-slate-200', 'bg-white');
         }
       });
@@ -1330,15 +1317,15 @@
       const linkContainer = document.getElementById('provider-free-link');
       if (linkContainer) {
         if (prov === 'antigravity' || prov === 'gemini') {
-          linkContainer.innerHTML = '👉 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-brand-700 font-bold underline">Obtén tu API Key gratuita en Google AI Studio (15 RPM sin costo)</a>.';
+          linkContainer.innerHTML = '<a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-slate-800 font-bold underline">Obtén tu API Key gratuita en Google AI Studio (15 RPM sin costo)</a>.';
         } else if (prov === 'codex' || prov === 'openai') {
-          linkContainer.innerHTML = '👉 <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-700 font-bold underline">Obtén tu API Key en OpenAI Platform (Codex / GPT-4o-mini)</a>.';
+          linkContainer.innerHTML = '<a href="https://platform.openai.com/api-keys" target="_blank" class="text-slate-800 font-bold underline">Obtén tu API Key en OpenAI Platform (Codex / GPT-4o-mini)</a>.';
         } else if (prov === 'claude') {
-          linkContainer.innerHTML = '👉 <a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-purple-700 font-bold underline">Obtén tu clave en Anthropic Console (Claude Haiku semanal)</a>.';
+          linkContainer.innerHTML = '<a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-slate-800 font-bold underline">Obtén tu clave en Anthropic Console (Claude Haiku semanal)</a>.';
         } else if (prov === 'saori') {
-          linkContainer.innerHTML = '🌸 Conectado al daemon cognitivo de Saori en Star Server (puerto 8089). No requiere clave externa.';
+          linkContainer.innerHTML = 'Conectado al daemon cognitivo de Saori en Star Server (puerto 8089). No requiere clave externa.';
         } else if (prov === 'buffer') {
-          linkContainer.innerHTML = '🛡️ Smart Buffer Escolar. 100% Offline con currículum chileno, costo $0 y sin clave.';
+          linkContainer.innerHTML = 'Smart Buffer Escolar: 100% Offline con currículum chileno, costo $0 y sin clave.';
         } else {
           linkContainer.innerHTML = '';
         }
@@ -1366,7 +1353,7 @@
         showToast(`Clave eliminada para ${prov.toUpperCase()}`);
       } else {
         localStorage.setItem('edu_api_key_' + prov, key);
-        showToast(`✅ Clave guardada en tu navegador para ${prov.toUpperCase()}`);
+        showToast(`Clave guardada en tu navegador para ${prov.toUpperCase()}`);
         logConsole(`> API Key configurada para ${prov.toUpperCase()} (Guardada localmente en tu navegador).`, 'text-emerald-400');
       }
     }
