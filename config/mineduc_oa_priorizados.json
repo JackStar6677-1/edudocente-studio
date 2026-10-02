@@ -1,0 +1,294 @@
+{
+  "asignaturas": {
+    "CIENCIAS NATURALES": {
+      "5° Básico A": [
+        {
+          "oa": "OA 11 — Explicar la importancia de la energía eléctrica y construir circuitos simples.",
+          "descripcion": "Explicar la importancia de la energía eléctrica en la vida cotidiana y construir circuitos eléctricos simples.",
+          "tema_sugerido": "¿Qué es la energía eléctrica?, Circuitos eléctricos en serie y paralelo, Símbolos esquemáticos y Conductores eléctricos.",
+          "paginas_sugeridas": "Páginas 146, 149, 150 y 152",
+          "puntos_sugeridos": 28
+        },
+        {
+          "oa": "OA 13 — Demostrar que la materia tiene masa y ocupa espacio (volumen).",
+          "descripcion": "Demostrar que la materia tiene masa y ocupa espacio (volumen), identificando estados sólido, líquido y gaseoso.",
+          "tema_sugerido": "Propiedades de la materia, masa, volumen y estados físicos en el entorno.",
+          "paginas_sugeridas": "Páginas 110 a 125",
+          "puntos_sugeridos": 25
+        }
+      ],
+      "6° Básico A": [
+        {
+          "oa": "OA 13 — Demostrar mediante la investigación los cambios de estado de la materia.",
+          "descripcion": "Demostrar mediante la investigación experimental los cambios de estado de la materia.",
+          "tema_sugerido": "Cambios de estado de la materia (fusión, evaporación, ebullición, condensación, solidificación y sublimación).",
+          "paginas_sugeridas": "Páginas 170, 173 y 181",
+          "puntos_sugeridos": 26
+        },
+        {
+          "oa": "OA 1 — Explicar requerimientos y productos de la fotosíntesis en los vegetales.",
+          "descripcion": "Explicar los requerimientos de agua, CO2 y luz solar para la producción de glucosa y oxígeno en la fotosíntesis.",
+          "tema_sugerido": "Proceso de fotosíntesis, flujo de energía y relaciones tróficas en los ecosistemas.",
+          "paginas_sugeridas": "Páginas 50 a 68",
+          "puntos_sugeridos": 30
+        }
+      ],
+      "7° Básico A": [
+        {
+          "oa": "OA 2 — Explicar la formación de un nuevo individuo y sistemas reproductores.",
+          "descripcion": "Explicar la reproducción humana, función de gametos y cuidado de la salud sexual.",
+          "tema_sugerido": "Sistemas reproductores femenino y masculino, ciclo menstrual y fecundación.",
+          "paginas_sugeridas": "Páginas 140 a 160",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 13 — Investigar y explicar el comportamiento de gases ideales.",
+          "descripcion": "Investigar experimentalmente y explicar el comportamiento de gases ideales considerando presión, volumen y temperatura.",
+          "tema_sugerido": "Leyes de los gases ideales (Boyle, Charles y Gay-Lussac) y teoría cinético-molecular.",
+          "paginas_sugeridas": "Páginas 190 a 205",
+          "puntos_sugeridos": 28
+        }
+      ],
+      "8° Básico A": [
+        {
+          "oa": "OA 3 — Desarrollar modelos que expliquen que la materia está constituida por átomos.",
+          "descripcion": "Desarrollar modelos que expliquen que la materia está constituida por átomos que interactúan.",
+          "tema_sugerido": "Teoría atómica de John Dalton y estructura del átomo (corteza, núcleo, protones, neutrones, electrones).",
+          "paginas_sugeridas": "Páginas 126, 136 y 137",
+          "puntos_sugeridos": 25
+        },
+        {
+          "oa": "OA 1 — Explicar la integración de los sistemas en la nutrición del cuerpo humano.",
+          "descripcion": "Explicar el rol del sistema digestivo, respiratorio, circulatorio y renal en la nutrición y equilibrio corporal.",
+          "tema_sugerido": "Sistemas digestivo, circulatorio, respiratorio y excretor coordinados para la nutrición celular.",
+          "paginas_sugeridas": "Páginas 24 a 45",
+          "puntos_sugeridos": 35
+        }
+      ]
+    },
+    "MATEMÁTICA": {
+      "5° Básico A": [
+        {
+          "oa": "OA 3 — Demostrar que comprenden la multiplicación de 2 dígitos por 2 dígitos.",
+          "descripcion": "Demostrar que comprenden la multiplicación de números naturales de dos dígitos usando estrategias de cálculo.",
+          "tema_sugerido": "Multiplicación de factores de dos dígitos, descomposición aditiva y resolución de problemas.",
+          "paginas_sugeridas": "Páginas 48 a 62",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 7 — Demostrar que comprenden las fracciones y números mixtos.",
+          "descripcion": "Demostrar que comprenden fracciones propias, impropias y números mixtos con representación concreta y pictórica.",
+          "tema_sugerido": "Fracciones propias, números mixtos, simplificación y equivalencias.",
+          "paginas_sugeridas": "Páginas 80 a 98",
+          "puntos_sugeridos": 25
+        }
+      ],
+      "6° Básico A": [
+        {
+          "oa": "OA 3 — Demostrar comprensión del concepto de razón y proporción.",
+          "descripcion": "Demostrar comprensión de razones de manera concreta, pictórica y simbólica.",
+          "tema_sugerido": "Razones, proporcionalidad directa y comparación de cantidades en situaciones cotidianas.",
+          "paginas_sugeridas": "Páginas 60 a 75",
+          "puntos_sugeridos": 25
+        },
+        {
+          "oa": "OA 11 — Resolver ecuaciones de primer grado con una incógnita.",
+          "descripcion": "Resolver ecuaciones de primer grado usando balanzas y operaciones inversas.",
+          "tema_sugerido": "Ecuaciones lineales de la forma x + a = b y ax = b con números naturales.",
+          "paginas_sugeridas": "Páginas 120 a 135",
+          "puntos_sugeridos": 30
+        }
+      ],
+      "7° Básico A": [
+        {
+          "oa": "OA 1 — Comprender la adición y sustracción de números enteros.",
+          "descripcion": "Comprender operaciones con números enteros (Z) en la recta numérica y resolución de problemas.",
+          "tema_sugerido": "Conjunto de los números enteros (Z), valor absoluto, adición y sustracción con signos opuestos.",
+          "paginas_sugeridas": "Páginas 14 a 32",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 4 — Mostrar comprensión del porcentaje y cálculo en contextos reales.",
+          "descripcion": "Calcular porcentajes de forma concreta, pictórica y simbólica aplicando a descuentos e intereses.",
+          "tema_sugerido": "Cálculo de porcentajes, descuentos, aumentos sucesivos e IVA.",
+          "paginas_sugeridas": "Páginas 50 a 66",
+          "puntos_sugeridos": 28
+        }
+      ],
+      "8° Básico A": [
+        {
+          "oa": "OA 2 — Comprender la multiplicación y división de números racionales.",
+          "descripcion": "Resolver problemas que involucren multiplicación y división en el conjunto Q (fracciones y decimales).",
+          "tema_sugerido": "Multiplicación y división de números racionales positivos y negativos.",
+          "paginas_sugeridas": "Páginas 20 a 38",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 10 — Mostrar que comprenden la función afín y lineal.",
+          "descripcion": "Identificar funciones afines y lineales en tablas, gráficos y expresiones algebraicas.",
+          "tema_sugerido": "Función lineal y afín: pendiente, corte con eje Y y representación en el plano cartesiano.",
+          "paginas_sugeridas": "Páginas 94 a 115",
+          "puntos_sugeridos": 35
+        }
+      ],
+      "1° Medio A": [
+        {
+          "oa": "OA 2 — Comprender potencias de base racional y exponente entero.",
+          "descripcion": "Aplicar propiedades de potencias y notación científica en el cálculo de cantidades extremas.",
+          "tema_sugerido": "Propiedades de las potencias de base racional y uso de notación científica.",
+          "paginas_sugeridas": "Páginas 34 a 50",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 4 — Resolver sistemas de ecuaciones lineales 2x2.",
+          "descripcion": "Resolver sistemas de ecuaciones lineales relacionados con la economía y la vida diaria.",
+          "tema_sugerido": "Sistemas de ecuaciones 2x2: métodos de igualación, sustitución y reducción.",
+          "paginas_sugeridas": "Páginas 90 a 110",
+          "puntos_sugeridos": 35
+        }
+      ],
+      "2° Medio A": [
+        {
+          "oa": "OA 2 — Comprender las propiedades de las raíces en los números reales.",
+          "descripcion": "Comprender raíces cuadradas y enésimas, racionalización y operaciones algebraicas.",
+          "tema_sugerido": "Propiedades de las raíces, simplificación y racionalización de denominadores.",
+          "paginas_sugeridas": "Páginas 26 a 44",
+          "puntos_sugeridos": 32
+        },
+        {
+          "oa": "OA 3 — Mostrar comprensión de la función y ecuación cuadrática.",
+          "descripcion": "Graficar funciones cuadráticas y resolver ecuaciones de segundo grado mediante fórmula general.",
+          "tema_sugerido": "Ecuación cuadrática, discriminante, concavidad y vértice de la parábola.",
+          "paginas_sugeridas": "Páginas 88 a 112",
+          "puntos_sugeridos": 35
+        }
+      ]
+    },
+    "LENGUAJE Y COMUNICACIÓN": {
+      "5° Básico A": [
+        {
+          "oa": "OA 4 — Analizar narraciones para profundizar comprensión (personajes y ambiente).",
+          "descripcion": "Analizar aspectos relevantes de las narraciones: conflicto, caracterización de personajes y ambiente.",
+          "tema_sugerido": "Estructura del texto narrativo, conflicto central y descripción física/psicológica de personajes.",
+          "paginas_sugeridas": "Páginas 18 a 34",
+          "puntos_sugeridos": 25
+        },
+        {
+          "oa": "OA 6 — Comprender textos no literarios e informativos.",
+          "descripcion": "Leer y comprender noticias, infografías y artículos identificando ideas centrales y detalles.",
+          "tema_sugerido": "Textos informativos: estructura de la noticia, titular, bajada y cuerpo, y propósito comunicativo.",
+          "paginas_sugeridas": "Páginas 60 a 76",
+          "puntos_sugeridos": 25
+        }
+      ],
+      "6° Básico A": [
+        {
+          "oa": "OA 3 — Analizar narraciones profundizando dilemas y motivaciones.",
+          "descripcion": "Interpretar textos narrativos reconociendo motivaciones de los personajes y moralejas o visiones.",
+          "tema_sugerido": "El mito y la leyenda: héroes, dioses, valores culturales y conflicto central.",
+          "paginas_sugeridas": "Páginas 12 a 30",
+          "puntos_sugeridos": 25
+        },
+        {
+          "oa": "OA 8 — Evaluar textos argumentativos y cartas al director.",
+          "descripcion": "Comprender y evaluar textos de opinión distinguiendo hechos de opiniones.",
+          "tema_sugerido": "Diferenciación entre hecho y opinión en cartas al director y columnas de opinión.",
+          "paginas_sugeridas": "Páginas 90 a 104",
+          "puntos_sugeridos": 28
+        }
+      ],
+      "7° Básico A": [
+        {
+          "oa": "OA 7 — Formular interpretación de textos literarios (novelas y cuentos).",
+          "descripcion": "Interpretar textos literarios considerando la relación entre personajes, tema y contexto del relato.",
+          "tema_sugerido": "La novela de aventuras, el viaje del héroe y evolución de los personajes.",
+          "paginas_sugeridas": "Páginas 22 a 45",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 14 — Escribir textos de opinión con argumentos fundamentados.",
+          "descripcion": "Escribir textos con el propósito de persuadir, sustentados en argumentos sólidos y evidencias.",
+          "tema_sugerido": "Estructura del texto argumentativo: tesis, argumentos de causa y autoridad, y conectores.",
+          "paginas_sugeridas": "Páginas 110 a 128",
+          "puntos_sugeridos": 32
+        }
+      ],
+      "8° Básico A": [
+        {
+          "oa": "OA 8 — Interpretar obras del género dramático y conflicto.",
+          "descripcion": "Analizar obras dramáticas identificando conflicto, acotaciones, parlamentos y motivaciones.",
+          "tema_sugerido": "El género dramático: conflicto dramático, clímax, desenlace y virtualidad teatral.",
+          "paginas_sugeridas": "Páginas 78 a 96",
+          "puntos_sugeridos": 30
+        },
+        {
+          "oa": "OA 10 — Analizar y evaluar textos de medios de comunicación.",
+          "descripcion": "Analizar críticamente publicidad, propaganda y reportajes identificando recursos persuasivos.",
+          "tema_sugerido": "Publicidad y propaganda: estereotipos, falacias y recursos verbales y visuales.",
+          "paginas_sugeridas": "Páginas 130 a 148",
+          "puntos_sugeridos": 30
+        }
+      ]
+    },
+    "HISTORIA Y CIENCIAS SOCIALES": {
+      "5° Básico A": [
+        {
+          "oa": "OA 1 — Explicar los viajes de descubrimiento y conquista de América.",
+          "descripcion": "Explicar las causas, rutas y consecuencias de las expediciones de Colón y exploradores europeos.",
+          "tema_sugerido": "Causas de los descubrimientos geográficos, avances técnicos (astrolabio, brújula) y encuentro de mundos.",
+          "paginas_sugeridas": "Páginas 68 a 84",
+          "puntos_sugeridos": 25
+        }
+      ],
+      "6° Básico A": [
+        {
+          "oa": "OA 1 — Explicar los antecedentes y etapas de la Independencia de Chile.",
+          "descripcion": "Analizar los factores externos e internos que condujeron a la Independencia de Chile y sus etapas.",
+          "tema_sugerido": "Antecedentes de la Independencia: Ilustración, invasión napoleónica, Patria Vieja, Reconquista y Patria Nueva.",
+          "paginas_sugeridas": "Páginas 54 a 72",
+          "puntos_sugeridos": 28
+        }
+      ],
+      "7° Básico A": [
+        {
+          "oa": "OA 3 — Explicar el surgimiento de las primeras civilizaciones fluviales.",
+          "descripcion": "Explicar cómo la agricultura sustentó el surgimiento de las civilizaciones en Mesopotamia, Egipto, India y China.",
+          "tema_sugerido": "Primeras civilizaciones: excedentes agrícolas, estratificación social, escritura y ciudades-estado.",
+          "paginas_sugeridas": "Páginas 46 a 65",
+          "puntos_sugeridos": 30
+        }
+      ],
+      "8° Básico A": [
+        {
+          "oa": "OA 2 — Caracterizar el Humanismo y el Renacimiento en la Edad Moderna.",
+          "descripcion": "Caracterizar el pensamiento humanista renacentista y su impacto en las ciencias, artes y visión antropocéntrica.",
+          "tema_sugerido": "Humanismo y Renacimiento: antropocentrismo, imprenta de Gutenberg, arte renacentista y revolución científica.",
+          "paginas_sugeridas": "Páginas 12 a 32",
+          "puntos_sugeridos": 30
+        }
+      ]
+    },
+    "MÚSICA": {
+      "1° Básico A": [
+        {
+          "oa": "OA 4 — Cantar al unísono y tocar instrumentos de percusión.",
+          "descripcion": "Cantar al unísono y tocar instrumentos de percusión convencionales y no convencionales con precisión.",
+          "tema_sugerido": "Canto al unísono y percusión convencional y no convencional con la canción Estrellita.",
+          "paginas_sugeridas": "Unidad 4 Mineduc",
+          "puntos_sugeridos": 25
+        }
+      ]
+    },
+    "ORIENTACIÓN": {
+      "5° Básico A": [
+        {
+          "oa": "OA 5 — Manifestar hábitos de vida saludable y autocuidado frente al consumo de sustancias.",
+          "descripcion": "Manifestar hábitos de vida saludable y autocuidado frente al consumo de tabaco, alcohol y drogas.",
+          "tema_sugerido": "Autocuidado, efectos nocivos del tabaco, alcohol y drogas; prevención y vida saludable.",
+          "paginas_sugeridas": "Programa de Orientación Mineduc",
+          "puntos_sugeridos": 25
+        }
+      ]
+    }
+  }
+}

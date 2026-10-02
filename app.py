@@ -191,6 +191,21 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"providers": providers_list})
             return
 
+        # 9. API: Catálogo de Objetivos de Aprendizaje Priorizados Mineduc
+        if path == "/api/curriculum/oa":
+            oa_path = os.path.join(BASE_DIR, "config", "mineduc_oa_priorizados.json")
+            if os.path.exists(oa_path):
+                try:
+                    with open(oa_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    self._send_json(200, data)
+                    return
+                except Exception as e:
+                    self._send_json(500, {"error": f"Error leyendo OA: {e}"})
+                    return
+            self._send_json(404, {"error": "Catálogo OA no encontrado"})
+            return
+
         self.send_error(404, "Ruta no encontrada")
 
     def do_POST(self):
@@ -220,12 +235,16 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
             topic = payload.get("topic", "Cambios del estado de la materia")
             oa = payload.get("oa", "OA 13 — Demostrar cambios de estado")
             textbook_pages = payload.get("textbook_pages", "Páginas 170 y 173")
+            try:
+                points = int(payload.get("points", 25))
+            except (ValueError, TypeError):
+                points = 25
             teacher = payload.get("teacher", None)
 
             print(f"\n[GENERACIÓN WEB] Solicitud recibida:")
             print(f"  • Proveedor: {provider.upper()}")
             print(f"  • API Key personalizada: {'Sí (Proporcionada por Docente)' if api_key else 'No (Usando Buffer/Sistema)'}")
-            print(f"  • Asignatura: {subject} | Curso: {grade}")
+            print(f"  • Asignatura: {subject} | Curso: {grade} | Puntaje: {points} pts")
             print(f"  • Contenidos: {topic}")
 
             try:
@@ -235,7 +254,9 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                     topic=topic,
                     grade=grade,
                     oa=oa,
-                    textbook_pages=textbook_pages
+                    textbook_pages=textbook_pages,
+                    subject=subject,
+                    points=points
                 )
                 teacher_email = payload.get("teacher_email", None)
                 if teacher:

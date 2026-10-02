@@ -151,29 +151,50 @@ class AIConnector:
         except Exception as e:
             raise RuntimeError(f"Fallo de conexión con {self.provider}: {e}")
 
-    def generate_assessment_json(self, topic, grade, oa="", textbook_pages="", num_q1=5, num_q2=8):
+    def generate_assessment_json(self, topic, grade, oa="", textbook_pages="", subject="CIENCIAS NATURALES", points=25, num_q1=5, num_q2=8):
         """
         Envía los temas y objetivos curriculares a la IA seleccionada y retorna la estructura JSON
+        con puntaje total dinámico y asignatura personalizada.
         """
+        clean_subject = (subject or "CIENCIAS NATURALES").strip().upper()
+        clean_topic = (topic or "").strip()
+        pts_target = int(points) if points else 25
+
+        # Adaptar cantidad de preguntas según el puntaje total deseado por el docente
+        if pts_target >= 45:
+            num_q1 = max(num_q1, 12)
+            num_q2 = max(num_q2, 10)
+        elif pts_target >= 35:
+            num_q1 = max(num_q1, 8)
+            num_q2 = max(num_q2, 9)
+        elif pts_target <= 18:
+            num_q1 = min(num_q1, 4)
+            num_q2 = min(num_q2, 5)
+
+        pts_item1 = num_q1 * 2
+        pts_item2 = num_q2 * 1
+        pts_item3 = max(2, pts_target - (pts_item1 + pts_item2))
+        pts_total = pts_item1 + pts_item2 + pts_item3 # Suma matemática exacta garantizada
+
         user_prompt = f"""Genera una evaluación completa para:
-- Asignatura: CIENCIAS NATURALES
+- Asignatura: {clean_subject}
 - Curso: {grade}
-- Tema o Contenidos: {topic}
+- Tema o Contenidos: {clean_topic}
 - Objetivo de Aprendizaje (OA): {oa}
 - Páginas de Referencia Texto Mineduc: {textbook_pages}
-- Cantidad preguntas Ítem I (Selección Múltiple): {num_q1}
-- Cantidad afirmaciones Ítem II (Verdadero/Falso): {num_q2}
-- Ítem III: Dibujo y aplicación con 2 o 3 situaciones de autocuidado/observación.
+- Cantidad preguntas Ítem I (Selección Múltiple): {num_q1} ({pts_item1} puntos, 2 pts cada una)
+- Cantidad afirmaciones Ítem II (Verdadero/Falso): {num_q2} ({pts_item2} puntos, 1 pt cada una)
+- Ítem III: Dibujo, aplicación práctica o desarrollo acorde a {clean_subject} ({pts_item3} puntos).
 
 El JSON debe cumplir exactamente con esta estructura:
 {{
   "colegio": "COLEGIO CASTELGANDOLFO",
-  "asignatura": "CIENCIAS NATURALES",
+  "asignatura": "{clean_subject}",
   "curso": "{grade}",
-  "titulo": "EVALUACIÓN FINAL: {topic.upper()}",
+  "titulo": "EVALUACIÓN: {clean_topic.upper()}",
   "oa": "{oa}",
-  "contenidos": "{topic}",
-  "puntaje_total": 25,
+  "contenidos": "{clean_topic}",
+  "puntaje_total": {pts_total},
   "item1_pts_cada_una": 2,
   "item1_seleccion_multiple": [
     {{
@@ -192,13 +213,13 @@ El JSON debe cumplir exactamente con esta estructura:
     }}
   ],
   "item3_aplicacion": {{
-    "titulo": "ÍTEM III: DIBUJO Y APLICACIÓN PRÁCTICA",
-    "puntaje": 5,
+    "titulo": "ÍTEM III: APLICACIÓN PRÁCTICA Y DESARROLLO",
+    "puntaje": {pts_item3},
     "tipo": "drawing_boxes",
-    "instruccion": "[Instrucción para dibujar y describir]",
+    "instruccion": "[Instrucción para dibujar, resolver o describir acorde a {clean_subject}]",
     "cajas": [
       {{
-        "titulo": "1. [Situación a representar]",
+        "titulo": "1. [Situación a representar o resolver]",
         "ejemplo_pauta": "[Respuesta esperada docente]"
       }}
     ]
@@ -208,13 +229,13 @@ El JSON debe cumplir exactamente con esta estructura:
         # 0. Si el proveedor seleccionado es Buffer / Sintetizador Local sin clave
         if self.provider == "buffer":
             print("[IA BUFFER] Modo Sintetizador Pedagógico Local activado (Costo $0 / Sin API Key).")
-            return self._generate_smart_mock(topic, grade, oa, textbook_pages)
+            return self._generate_smart_mock(clean_topic, grade, oa, textbook_pages, clean_subject, pts_total, pts_item3)
 
         # Si no hay API key y no es Saori ni Local, usar fallback pedagógico inteligente
         if not self.api_key and self.provider not in ("local", "saori"):
             print(f"\n[AVISO IA] No se detectó clave de API para {AI_PROVIDERS.get(self.provider, {}).get('name', self.provider)}.")
             print("Activando automáticamente el 'Smart Pedagogical Buffer' escolar (Simulador sin costo)...")
-            return self._generate_smart_mock(topic, grade, oa, textbook_pages)
+            return self._generate_smart_mock(clean_topic, grade, oa, textbook_pages, clean_subject, pts_total, pts_item3)
 
         try:
             # 1. Saori AI Daemon (Star Server en red local :8089)
@@ -288,9 +309,12 @@ El JSON debe cumplir exactamente con esta estructura:
             mock_data["_ai_note"] = f"Generado vía Buffer Inteligente (Fallo en {self.provider}: {str(e)})"
             return mock_data
 
-    def _generate_smart_mock(self, topic, grade, oa, textbook_pages):
-        """Simulador curricular que construye una prueba completa sin requerir API Key externa"""
+    def _generate_smart_mock(self, topic, grade, oa, textbook_pages, subject="CIENCIAS NATURALES", points=25, pts_item3=None):
+        """Simulador curricular que construye una prueba completa sin requerir API Key externa con suma matemática exacta"""
         clean_topic = topic.strip().capitalize()
+        clean_subject = (subject or "CIENCIAS NATURALES").strip().upper()
+        target_pts = int(points) if points else 25
+
         try:
             from institution_manager import institution_manager
             act_inst = institution_manager.get_active()
@@ -298,87 +322,223 @@ El JSON debe cumplir exactamente con esta estructura:
         except Exception:
             colegio_nombre = "COLEGIO CASTELGANDOLFO"
 
+        # Determinar número de preguntas según escala de puntaje
+        if target_pts >= 45:
+            n_q1, n_q2 = 12, 14
+        elif target_pts >= 35:
+            n_q1, n_q2 = 8, 10
+        elif target_pts <= 18:
+            n_q1, n_q2 = 3, 5
+        else:
+            n_q1, n_q2 = 5, 7
+
+        pts_q1 = n_q1 * 2
+        pts_q2 = n_q2 * 1
+        calc_item3 = max(2, target_pts - (pts_q1 + pts_q2))
+        total_sum = pts_q1 + pts_q2 + calc_item3
+
+        # Pool de preguntas para Selección Múltiple (2 pts c/u)
+        pool_q1 = [
+            (
+                f"Respecto a {clean_topic}, ¿cuál de las siguientes opciones describe su principio fundamental en {clean_subject}?",
+                [
+                    ["A", f"Constituye una propiedad central en los contenidos de {clean_topic.lower()} según el currículo oficial."],
+                    ["B", "Ocurre únicamente en situaciones de laboratorio sin interacción en el entorno."],
+                    ["C", "Es una transformación que carece de relación con los procesos estudiados."],
+                    ["D", "Es observable de manera exclusiva a través de mediciones astronómicas."]
+                ],
+                f"A) Constituye una propiedad central en los contenidos de {clean_topic.lower()} según el currículo oficial.",
+                f"Conforme a los contenidos estudiados sobre {clean_topic.lower()} (Texto del estudiante {textbook_pages})."
+            ),
+            (
+                f"¿Cómo interactúan los componentes observados en {clean_topic.lower()}?",
+                [
+                    ["A", "Interactúan de manera coordinada y estructurada según los principios de la disciplina."],
+                    ["B", "Permanecen estáticos sin ningún tipo de interacción ni transferencia energética."],
+                    ["C", "Se anulan mutuamente impidiendo cualquier medición objetiva."],
+                    ["D", "Cambian de forma arbitraria sin seguir leyes ni patrones medibles."]
+                ],
+                "A",
+                "Los aprendizajes esperados establecen relaciones de causa, efecto y conservación de procesos."
+            ),
+            (
+                f"En la vida cotidiana, una manifestación concreta de {clean_topic.lower()} se aprecia cuando:",
+                [
+                    ["A", "Observamos y aplicamos los conceptos aprendidos en situaciones y fenómenos del entorno."],
+                    ["B", "Solo cuando se realizan experimentos industriales complejos."],
+                    ["C", "Únicamente al resolver cuestionarios estandarizados."],
+                    ["D", "En ningún aspecto de la vida real ni formativa."]
+                ],
+                "A",
+                "La enseñanza escolar conecta los conceptos teóricos con vivencias directas de los estudiantes."
+            ),
+            (
+                f"¿Cuál de las siguientes afirmaciones respecto a la importancia de {clean_topic.lower()} es correcta?",
+                [
+                    ["A", f"Permite fundamentar explicaciones científicas y resolver problemas en {clean_subject}."],
+                    ["B", "Es un concepto aislado que no influye en otras áreas del conocimiento."],
+                    ["C", "Solo tiene validez histórica pero ya no se utiliza en la actualidad."],
+                    ["D", "Carece de evidencia comprobable en el entorno escolar."]
+                ],
+                "A",
+                "El aprendizaje significativo articula saberes teóricos con habilidades analíticas."
+            ),
+            (
+                f"Al comparar diferentes situaciones asociadas a {clean_topic.lower()}, es fundamental considerar:",
+                [
+                    ["A", "Las variables intervinientes y los factores que modifican su comportamiento."],
+                    ["B", "Únicamente la opinión subjetiva del observador."],
+                    ["C", "Que todos los resultados deben ser idénticos sin importar las condiciones."],
+                    ["D", "Exclusivamente el tiempo transcurrido descartando la magnitud."]
+                ],
+                "A",
+                "El rigor pedagógico exige identificar variables dependientes e independientes."
+            ),
+            (
+                f"¿Qué herramienta o método resulta más adecuado para registrar observaciones de {clean_topic.lower()}?",
+                [
+                    ["A", "Tablas de datos, esquemas explicativos y gráficos comparativos."],
+                    ["B", "Registros memorísticos sin respaldo documental."],
+                    ["C", "Estimaciones visuales rápidas sin unidades de medida."],
+                    ["D", "Suposiciones teóricas sin contraste empírico."]
+                ],
+                "A",
+                "El método analítico promueve el uso de representaciones gráficas y registros sistemáticos."
+            ),
+            (
+                f"¿Qué consecuencia se deriva de una alteración sustancial en las condiciones de {clean_topic.lower()}?",
+                [
+                    ["A", "Se produce una variación proporcional en los resultados o estados finales."],
+                    ["B", "El fenómeno se detiene permanentemente sin posibilidad de recuperación."],
+                    ["C", "No existe alteración alguna bajo ninguna circunstancia."],
+                    ["D", "Los datos obtenidos se vuelven aleatorios e irrelevantes."]
+                ],
+                "A",
+                "Los sistemas responden a perturbaciones manteniendo relaciones de equilibrio dinámico."
+            ),
+            (
+                f"En el análisis de {clean_topic.lower()}, el uso de modelos conceptuales permite:",
+                [
+                    ["A", "Simplificar la comprensión de fenómenos complejos o de escala microscópica/macroscópica."],
+                    ["B", "Reemplazar completamente la realidad por ilustraciones ficticias."],
+                    ["C", "Evitar el cálculo matemático en cualquier circunstancia."],
+                    ["D", "Limitar el estudio a descripciones meramente verbales."]
+                ],
+                "A",
+                "Los modelos pedagógicos son puentes cognitivos para conceptualizar estructuras abstractas."
+            ),
+            (
+                f"Respecto al cuidado y aplicación responsable de {clean_topic.lower()}, se recomienda:",
+                [
+                    ["A", "Seguir protocolos de seguridad, uso eficiente de recursos y trabajo colaborativo."],
+                    ["B", "Manipular materiales sin supervisión previa."],
+                    ["C", "Ignorar las advertencias del texto escolar y pautas docentes."],
+                    ["D", "Proceder por ensayo y error sin planificación."]
+                ],
+                "A",
+                "La formación integral contempla normas de seguridad escolar y conciencia ambiental."
+            ),
+            (
+                f"¿Cuál es el rol de la evidencia en las conclusiones relativas a {clean_topic.lower()}?",
+                [
+                    ["A", "Sustentar las respuestas con datos contrastados y justificaciones fundadas."],
+                    ["B", "Respaldar afirmaciones sin necesidad de comprobación."],
+                    ["C", "Demostrar que cualquier hipótesis es válida de antemano."],
+                    ["D", "Descartar los resultados que no coincidan con la expectativa inicial."]
+                ],
+                "A",
+                "La argumentación basada en evidencia es un objetivo transversal del currículum nacional."
+            ),
+            (
+                f"Al clasificar los elementos relacionados con {clean_topic.lower()}, el criterio principal es:",
+                [
+                    ["A", "Sus propiedades observables, estructura funcional y comportamiento medible."],
+                    ["B", "El color aparente sin considerar la composición."],
+                    ["C", "El orden alfabético de sus denominaciones."],
+                    ["D", "El grado de dificultad percibido por el evaluador."]
+                ],
+                "A",
+                "Las taxonomías y clasificaciones se fundamentan en criterios científicos reproducibles."
+            ),
+            (
+                f"Finalmente, ¿cómo se vincula {clean_topic.lower()} con los Objetivos de Aprendizaje de {clean_subject}?",
+                [
+                    ["A", "Promoviendo el pensamiento crítico, la investigación y la transferencia a la vida cotidiana."],
+                    ["B", "Reduciendo el aprendizaje a la memorización mecánica de definiciones breves."],
+                    ["C", "Aislando el contenido de cualquier aplicación práctica en la comunidad escolar."],
+                    ["D", "Restringiendo el análisis a un único punto de vista sin discusión."]
+                ],
+                "A",
+                "Los OAs buscan desarrollar competencias integrales para la toma de decisiones ciudadanas."
+            )
+        ]
+
+        # Pool de afirmaciones Verdadero / Falso (1 pt c/u)
+        pool_vf = [
+            (f"El estudio de {clean_topic.lower()} permite comprender el entorno y fortalecer el aprendizaje integral en {clean_subject}.", "V", "La comprensión pedagógica fomenta la toma de decisiones informadas y el pensamiento crítico."),
+            ("Los conceptos estudiados son arbitrarios y carecen de fundamentación en las bases curriculares oficiales.", "F", "Los contenidos responden a los Objetivos de Aprendizaje (OA) definidos en el currículum Mineduc."),
+            ("El trabajo colaborativo y la atención en clases facilitan la resolución de este tipo de problemas.", "V", "Las habilidades formativas potencian el rendimiento y la internalización de conocimientos."),
+            ("Los conceptos evaluados son independientes de las actividades y experimentos realizados en el aula.", "F", "La evaluación mide directamente los aprendizajes construidos durante el período lectivo."),
+            (f"Existen relaciones observables entre {clean_topic.lower()} y los fenómenos cotidianos del entorno.", "V", "La contextualización curricular conecta los saberes con la realidad del estudiante."),
+            ("Cualquier conclusión es válida aun cuando contradiga los datos empíricos obtenidos.", "F", "Las conclusiones deben sustentarse rigurosamente en evidencia comprobable."),
+            (f"El texto escolar ({textbook_pages or 'guía oficial'}) aporta definiciones y esquemas para profundizar en {clean_topic.lower()}.", "V", "El texto de estudio es el recurso pedagógico oficial de referencia para el curso."),
+            ("El uso de unidades de medida y lenguaje técnico específico es innecesario en esta disciplina.", "F", "La precisión conceptual y el vocabulario disciplinar son fundamentales para una comunicación efectiva."),
+            ("Analizar causas y efectos contribuye a una comprensión más profunda de los fenómenos evaluados.", "V", "El pensamiento causal estructura el razonamiento lógico del estudiante."),
+            ("Las leyes y principios de esta materia aplican exclusivamente en situaciones teóricas.", "F", "Los principios disciplinarios rigen los fenómenos tanto en contextos naturales como tecnológicos."),
+            ("La contrastación de hipótesis fortalece el desarrollo de habilidades investigativas.", "V", "La formulación y contrastación de hipótesis es central en las ciencias y el razonamiento sistemático."),
+            ("Los resultados de una experiencia siempre dependen del azar sin responder a leyes naturales.", "F", "Los fenómenos responden a principios físicos, químicos, biológicos o matemáticos consistentes."),
+            (f"Interpretar esquemas y gráficos es una destreza evaluada en la unidad de {clean_topic.lower()}.", "V", "La alfabetización visual y gráfica forma parte esencial de las metas de aprendizaje."),
+            ("La revisión de pautas y rúbricas antes de entregar un trabajo permite corregir discrepancias a tiempo.", "V", "La metacognición y autorregulación mejoran sustancialmente los resultados formativos.")
+        ]
+
+        # Construir lista ajustada de preguntas Item 1
+        items1 = []
+        for i in range(min(n_q1, len(pool_q1))):
+            q_text, alts, corr_val, just = pool_q1[i]
+            corr_text = corr_val if corr_val.startswith("A)") else f"A) {alts[0][1]}"
+            items1.append({
+                "pregunta": f"{i+1}. {q_text}",
+                "alternativas": alts,
+                "correcta": corr_text,
+                "justificacion": just
+            })
+
+        # Construir lista ajustada de preguntas Item 2
+        items2 = []
+        for j in range(min(n_q2, len(pool_vf))):
+            oracion, resp, just = pool_vf[j]
+            items2.append({
+                "oracion": oracion,
+                "resp": resp,
+                "justificacion": just
+            })
+
         return {
             "colegio": colegio_nombre,
-            "asignatura": "CIENCIAS NATURALES",
+            "asignatura": clean_subject,
             "curso": grade,
-            "titulo": f"EVALUACIÓN FINAL: {clean_topic.upper()}",
-            "oa": oa or "OA Mineduc: Desarrollar modelos explicativos y comprensión de conceptos clave.",
+            "titulo": f"EVALUACIÓN: {clean_topic.upper()}",
+            "oa": oa or f"OA Mineduc: Desarrollar habilidades y comprensión de conceptos clave en {clean_subject}.",
             "contenidos": f"{clean_topic}. Páginas del texto escolar: {textbook_pages or 'Capítulo oficial'}.",
-            "puntaje_total": 25,
+            "puntaje_total": total_sum,
             "docente": "Docente Titular / Evaluador",
             "email_docente": "docente@colegiocastelgandolfo.cl",
 
             "item1_pts_cada_una": 2,
-            "item1_seleccion_multiple": [
-                {
-                    "pregunta": f"1. Respecto a {clean_topic}, ¿cuál de las siguientes afirmaciones describe su principio fundamental?",
-                    "alternativas": [
-                        ["A", f"Constituye una propiedad central en los procesos de {clean_topic.lower()} según el currículo escolar."],
-                        ["B", "Ocurre únicamente en situaciones de laboratorio sin interacción en el entorno."],
-                        ["C", "Es una transformación que destruye totalmente la materia y la energía."],
-                        ["D", "Es observable de manera exclusiva a través de imágenes satelitales."]
-                    ],
-                    "correcta": f"A) Constituye una propiedad central en los procesos de {clean_topic.lower()} según el currículo escolar.",
-                    "justificacion": f"Conforme a los contenidos estudiados en clases sobre {clean_topic.lower()} (Texto del estudiante {textbook_pages})."
-                },
-                {
-                    "pregunta": "2. ¿Cómo se relacionan los componentes observados en este fenómeno?",
-                    "alternativas": [
-                        ["A", "Interactúan de manera equilibrada siguiendo las leyes físicas de conservación."],
-                        ["B", "Permanecen estáticos sin ningún tipo de intercambio energético."],
-                        ["C", "Se anulan mutuamente generando un vacío en el sistema."],
-                        ["D", "Cambian de forma arbitraria sin ningún patrón medible."]
-                    ],
-                    "correcta": "A) Interactúan de manera equilibrada siguiendo las leyes físicas de conservación.",
-                    "justificacion": "Las interacciones en ciencias naturales conservan la masa y la energía en los sistemas analizados."
-                },
-                {
-                    "pregunta": "3. En la vida cotidiana, una manifestación concreta de este contenido se aprecia cuando:",
-                    "alternativas": [
-                        ["A", "Observamos los cambios y ciclos en el hogar y en la naturaleza."],
-                        ["B", "Solo cuando se realizan experimentos con elementos químicos peligrosos."],
-                        ["C", "Únicamente en el espacio exterior."],
-                        ["D", "En ningún aspecto de la vida diaria."]
-                    ],
-                    "correcta": "A) Observamos los cambios y ciclos en el hogar y en la naturaleza.",
-                    "justificacion": "La ciencia escolar conecta los conceptos teóricos con vivencias directas de los estudiantes."
-                }
-            ],
+            "item1_seleccion_multiple": items1,
 
             "item2_pts_cada_una": 1,
-            "item2_verdadero_falso": [
-                {
-                    "oracion": f"El estudio de {clean_topic.lower()} permite comprender el funcionamiento de nuestro entorno y aplicar medidas de autocuidado.",
-                    "resp": "V",
-                    "justificacion": "La comprensión científica fomenta la toma de decisiones informadas y el cuidado del medioambiente."
-                },
-                {
-                    "oracion": "Los cambios en la materia implican siempre la creación de nuevos átomos desde la nada.",
-                    "resp": "F",
-                    "justificacion": "La materia no se crea ni se destruye, solo se transforma y reorganiza en las reacciones."
-                },
-                {
-                    "oracion": "El seguimiento de normas de seguridad escolar previene accidentes en actividades prácticas.",
-                    "resp": "V",
-                    "justificacion": "La prevención y el autocuidado son conductas prioritarias en toda actividad de aula o laboratorio."
-                },
-                {
-                    "oracion": "Los conceptos estudiados son independientes de las observaciones realizadas en clases.",
-                    "resp": "F",
-                    "justificacion": "El método científico escolar se basa en la contrastación entre teoría y evidencia empírica."
-                }
-            ],
+            "item2_verdadero_falso": items2,
 
             "item3_aplicacion": {
-                "titulo": "ÍTEM III: DIBUJO Y APLICACIÓN DEL FENÓMENO ESTUDIADO",
-                "puntaje": 6,
+                "titulo": "ÍTEM III: APLICACIÓN PRÁCTICA Y DESARROLLO",
+                "puntaje": calc_item3,
                 "tipo": "drawing_boxes",
-                "instruccion": f"Dibuja en el recuadro una situación o esquema que represente claramente el concepto de {clean_topic.lower()} y describe lo que dibujaste:",
+                "instruccion": f"Desarrolla o representa en el recuadro una situación o esquema que aplique los conceptos de {clean_topic.lower()} en {clean_subject}:",
                 "cajas": [
                     {
-                        "titulo": f"Representación gráfica de {clean_topic.lower()}:",
-                        "ejemplo_pauta": f"Esquema claro donde se aprecian los componentes clave de {clean_topic.lower()} con rótulos legibles y color adecuado."
+                        "titulo": f"Aplicación de {clean_topic.lower()} ({calc_item3} puntos):",
+                        "ejemplo_pauta": f"Respuesta o esquema claro donde se aprecian los componentes clave de {clean_topic.lower()} según la pauta docente."
                     }
                 ]
             }

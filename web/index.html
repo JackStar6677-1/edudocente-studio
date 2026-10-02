@@ -365,8 +365,18 @@
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Objetivo de Aprendizaje (OA)</label>
-              <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-semibold text-slate-700">Objetivo de Aprendizaje (OA)</label>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-bold text-brand-700 bg-brand-50 border border-brand-200 px-1.5 py-0.5 rounded">🇨🇱 Priorización Oficial Mineduc</span>
+                </div>
+              </div>
+              <div class="space-y-1.5 mb-1.5">
+                <select id="sel-oa-mineduc" onchange="onSelectMineducOA(this.value)" class="w-full text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border border-brand-300 bg-brand-50/50 text-brand-900 focus:outline-none focus:border-brand-600 focus:bg-white transition cursor-pointer">
+                  <option value="">✨ Seleccionar Objetivo Priorizado Mineduc (Autocompleta Asignatura, Contenidos y Páginas)...</option>
+                </select>
+              </div>
+              <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white" placeholder="O escribe aquí un OA personalizado...">
             </div>
 
             <div class="grid grid-cols-2 gap-3">
@@ -375,8 +385,16 @@
                 <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Puntaje Total</label>
-                <input type="number" id="inp-points" value="26" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-xs font-semibold text-slate-700">Puntaje Total</label>
+                  <div class="flex gap-1">
+                    <button type="button" onclick="document.getElementById('inp-points').value=15" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Control corto (15 pts)">15p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=25" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Evaluación estándar (25 pts)">25p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=35" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Evaluación de unidad (35 pts)">35p</button>
+                    <button type="button" onclick="document.getElementById('inp-points').value=50" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 hover:bg-brand-100 hover:text-brand-700 font-bold transition" title="Prueba de nivel (50 pts)">50p</button>
+                  </div>
+                </div>
+                <input type="number" id="inp-points" value="25" min="10" max="100" class="w-full text-xs font-medium px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 bg-white">
               </div>
             </div>
 
@@ -1213,6 +1231,67 @@
       logConsole(`> Plantilla seleccionada: ${p.subject} - ${p.grade}`);
     }
 
+    // Catálogo de Objetivos de Aprendizaje Priorizados Mineduc
+    let mineducCatalogData = null;
+    const mineducOAMap = {};
+
+    async function loadMineducOAs() {
+      try {
+        const res = await fetch('/api/curriculum/oa');
+        if (!res.ok) return;
+        const data = await res.json();
+        mineducCatalogData = data;
+        const sel = document.getElementById('sel-oa-mineduc');
+        if (!sel || !data.asignaturas) return;
+
+        sel.innerHTML = '<option value="">✨ Seleccionar Objetivo Priorizado Mineduc (Autocompleta Asignatura, Contenidos y Páginas)...</option>';
+        
+        let counter = 0;
+        for (const [asig, cursos] of Object.entries(data.asignaturas)) {
+          for (const [curso, oas] of Object.entries(cursos)) {
+            const grp = document.createElement('optgroup');
+            grp.label = `📚 ${asig} — ${curso}`;
+            oas.forEach(item => {
+              counter++;
+              const key = `oa_${counter}`;
+              mineducOAMap[key] = {
+                asig, curso, ...item
+              };
+              const opt = document.createElement('option');
+              opt.value = key;
+              opt.textContent = `${item.oa.slice(0, 32)}: ${item.descripcion.slice(0, 60)}...`;
+              grp.appendChild(opt);
+            });
+            sel.appendChild(grp);
+          }
+        }
+      } catch (err) {
+        console.warn('No se pudo cargar el catálogo OA de Mineduc:', err);
+      }
+    }
+
+    function onSelectMineducOA(key) {
+      if (!key || !mineducOAMap[key]) return;
+      const item = mineducOAMap[key];
+
+      document.getElementById('inp-subject').value = item.asig;
+      document.getElementById('inp-grade').value = item.curso;
+      document.getElementById('inp-oa').value = item.oa;
+      if (item.tema_sugerido) document.getElementById('inp-topic').value = item.tema_sugerido;
+      if (item.paginas_sugeridas) document.getElementById('inp-pages').value = item.paginas_sugeridas;
+      if (item.puntos_sugeridos) document.getElementById('inp-points').value = item.puntos_sugeridos;
+
+      // Actualizar el Simulador de Evaluación en tiempo real
+      document.getElementById('sheet-subject-title').textContent = `${item.asig} — ${item.curso}`;
+      document.getElementById('sheet-eval-title').textContent = `EVALUACIÓN FINAL: ${(item.tema_sugerido || '').slice(0, 40).toUpperCase()}...`;
+      document.getElementById('sheet-field-grade').textContent = item.curso;
+      document.getElementById('sheet-field-oa').textContent = item.oa.slice(0, 45) + '...';
+      document.getElementById('sheet-field-pts').textContent = item.puntos_sugeridos || 25;
+
+      showToast(`OA Mineduc cargado: ${item.oa.slice(0, 25)}`);
+      logConsole(`> Currículum Nacional Mineduc: ${item.asig} | ${item.curso} | ${item.oa}`);
+    }
+
     function logConsole(msg, col = 'text-slate-300') {
       const b = document.getElementById('console-log');
       const p = document.createElement('p');
@@ -1325,10 +1404,12 @@
 
       try {
         const curTeacher = getActiveTeacher();
+        const points = parseInt(document.getElementById('inp-points')?.value) || 25;
         const payload = {
           provider: prov,
           api_key: userApiKey || null,
           subject, grade, topic, oa, textbook_pages: pages,
+          points: points,
           teacher: curTeacher ? curTeacher.name : null,
           teacher_email: curTeacher ? curTeacher.email : null
         };
@@ -1478,6 +1559,7 @@
 
     // Startup
     loadInstitutions();
+    loadMineducOAs();
     selectAIProvider('antigravity');
     checkUrlTeacherParams();
   </script>
