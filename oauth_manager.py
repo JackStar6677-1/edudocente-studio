@@ -66,17 +66,16 @@ class AuthManager:
     def _init_state(self):
         self.active_sessions = {}
         self.state_tokens = {}
-        # Sesión docente predeterminada para demostración inmediata
         self.current_user = {
-            "authenticated": True,
-            "provider": "google",
-            "name": "Profesor(a) Castelgandolfo",
-            "email": "docente@colegiocastelgandolfo.cl",
-            "institution": "Colegio Castelgandolfo",
-            "role": "Docente de Asignatura",
-            "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=DocenteCastel",
-            "classroom_connected": True,
-            "connected_at": time.strftime("%Y-%m-%d %H:%M:%S")
+            "authenticated": False,
+            "provider": None,
+            "name": "",
+            "email": "",
+            "institution": "",
+            "role": "",
+            "avatar": "",
+            "classroom_connected": False,
+            "connected_at": ""
         }
 
     def get_providers_status(self):
@@ -89,7 +88,7 @@ class AuthManager:
             status[key] = {
                 "name": conf["name"],
                 "configured": configured,
-                "sandbox_available": True,
+                "sandbox_available": os.getenv("EDUDOCENTE_SANDBOX", "0") == "1",
                 "icon": conf["icon"]
             }
         return status
@@ -112,8 +111,7 @@ class AuthManager:
 
         cid = os.getenv(conf["client_id_env"], "")
         if not cid:
-            # Si no hay credenciales de producción, retornar URL de sandbox directa
-            return f"{redirect_uri}?sandbox=true&provider={provider}&state={state}"
+            raise RuntimeError("Proveedor OAuth no configurado")
 
         params = {
             "client_id": cid,
@@ -128,7 +126,13 @@ class AuthManager:
 
     def handle_callback(self, provider, code, state, is_sandbox=False, custom_email=None, custom_name=None):
         """Procesa el callback de OAuth y registra la sesión del docente"""
+        token_state = self.state_tokens.pop(state, None)
+        if (not token_state or token_state["provider"] != provider
+                or time.time() - token_state["created_at"] > 300):
+            raise ValueError("Estado OAuth inválido o expirado")
         if is_sandbox or code == "sandbox":
+            if os.getenv("EDUDOCENTE_SANDBOX", "0") != "1":
+                raise ValueError("Modo sandbox deshabilitado")
             # Autenticación Sandbox para demostraciones y pruebas rápidas
             names = {
                 "google": ("Docente Google Workspace", custom_email or "docente@colegiocastelgandolfo.cl"),
@@ -174,9 +178,7 @@ class AuthManager:
                 tokens = json.loads(res.read().decode("utf-8"))
                 access_token = tokens.get("access_token")
         except Exception as e:
-            # Fallback a sandbox controlado si falla la conexión remota
-            print(f"[AUTH ERROR] Error conectando a {provider}: {e}. Pasando a sandbox.")
-            return self.handle_callback(provider, "sandbox", state, is_sandbox=True)
+            raise RuntimeError(f"Error conectando a {provider}") from e
 
         # Obtener perfil del usuario
         user_headers = {"Authorization": f"Bearer {access_token}", "Accept": "application/json"}
@@ -197,8 +199,7 @@ class AuthManager:
                 }
                 return self.current_user
         except Exception as e:
-            print(f"[AUTH ERROR] Error obteniendo perfil de {provider}: {e}")
-            return self.handle_callback(provider, "sandbox", state, is_sandbox=True)
+            raise RuntimeError(f"Error obteniendo perfil de {provider}") from e
 
     def logout(self):
         self.current_user = {

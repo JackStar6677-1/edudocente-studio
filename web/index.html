@@ -417,11 +417,11 @@
               <h4 class="text-xs font-bold text-slate-800">Descarga en Microsoft Word (.docx)</h4>
             </div>
             <div class="flex items-center space-x-2 w-full sm:w-auto">
-              <a id="btn-dl-student" href="/download/Evaluacion_Final_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs border border-slate-700 transition flex items-center justify-center gap-1.5">
+              <a id="btn-dl-student" href="#" aria-disabled="true" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs border border-slate-700 transition flex items-center justify-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
                 <span>Prueba Estudiante</span>
               </a>
-              <a id="btn-dl-teacher" href="/download/Pauta_Correccion_Ciencias_6Basico.docx" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs border border-slate-600 transition flex items-center justify-center gap-1.5">
+              <a id="btn-dl-teacher" href="#" aria-disabled="true" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-sm bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs border border-slate-600 transition flex items-center justify-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span>Pauta Docente</span>
               </a>
@@ -773,52 +773,20 @@
     </div>
   </div>
 
-  <!-- MODAL: OAUTH -->
+  <!-- La identidad docente la entrega el panel institucional. -->
   <div id="oauth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-sm max-w-md w-full shadow-2xl overflow-hidden border border-slate-300">
       <div class="dark-header p-5 text-white flex items-center justify-between">
         <div>
-          <h3 class="text-sm font-bold">Identificación Docente (Google / Institucional)</h3>
-          <p class="text-[11px] text-slate-300">Tus datos aparecerán automáticamente en el membrete de cada prueba</p>
+          <h3 class="text-sm font-bold">Sesión institucional</h3>
+          <p class="text-[11px] text-slate-300">Identidad verificada por el panel del colegio</p>
         </div>
         <button onclick="closeOAuthModal()" class="text-slate-300 hover:text-white text-base">✕</button>
       </div>
       <div class="p-5 space-y-3.5 text-xs">
-        <!-- Botón Google Workspace -->
-        <button onclick="triggerOAuth('google')" class="w-full flex items-center justify-between p-3 rounded-sm border border-slate-300 bg-slate-50 hover:bg-slate-100 transition shadow-sm">
-          <div class="flex items-center space-x-3">
-            <span class="w-7 h-7 rounded-sm bg-blue-600 text-white font-bold flex items-center justify-center text-xs font-sans">G</span>
-            <div class="text-left">
-              <div class="font-bold text-slate-900 text-[13px]">Google Workspace (@colegiocastelgandolfo.cl)</div>
-              <div class="text-[11px] text-slate-500">Acceso institucional / Google Classroom</div>
-            </div>
-          </div>
-          <span class="text-slate-700 font-bold text-xs">Conectar →</span>
-        </button>
-
-        <div class="relative flex py-1 items-center">
-          <div class="flex-grow border-t border-slate-200"></div>
-          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">o ingresa tus datos directamente</span>
-          <div class="flex-grow border-t border-slate-200"></div>
-        </div>
-
-        <!-- Formulario Manual Rápido -->
-        <div class="space-y-2 bg-slate-50 p-3.5 rounded-sm border border-slate-200">
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">Nombre Completo del/la Docente:</label>
-            <input type="text" id="manual-teacher-name" placeholder="Ej: Profesor Pablo Avendaño" class="w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">Correo Institucional:</label>
-            <input type="email" id="manual-teacher-email" placeholder="docente@colegiocastelgandolfo.cl" class="w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
-          </div>
-          <button onclick="saveManualTeacher()" class="w-full mt-2 py-2 px-3 rounded-sm bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs transition shadow">
-            Guardar y Usar en Membretes
-          </button>
-        </div>
-
+        <p id="session-identity" class="text-slate-700">Cargando identidad…</p>
         <div class="pt-1 flex items-center justify-between text-[11px] text-slate-500">
-          <span>Los datos se guardan localmente en el navegador</span>
+          <span>El acceso del personal se gestiona en /admin/</span>
           <button onclick="logoutTeacher()" class="text-rose-600 hover:underline font-semibold" id="btn-logout-teacher">Cerrar Sesión</button>
         </div>
       </div>
@@ -1390,15 +1358,12 @@
       logConsole(`>>> Sintetizando estructura de 3 ítems: Selección Múltiple, V/F con justificación y Aplicación práctica...`);
 
       try {
-        const curTeacher = getActiveTeacher();
         const points = parseInt(document.getElementById('inp-points')?.value) || 25;
         const payload = {
           provider: prov,
           api_key: userApiKey || null,
           subject, grade, topic, oa, textbook_pages: pages,
-          points: points,
-          teacher: curTeacher ? curTeacher.name : null,
-          teacher_email: curTeacher ? curTeacher.email : null
+          points: points
         };
         const res = await fetch('/api/generate', {
           method: 'POST',
@@ -1408,19 +1373,26 @@
         const d = await res.json();
         if (d.success) {
           logConsole(`✓ Evaluación y Pauta generadas exitosamente en Word (.docx)`, 'text-emerald-400');
+          if (d.assessment?.simulation_mode) {
+            logConsole('⚠ Contenido generado con el simulador local; revisa y valida la evaluación antes de usarla.', 'text-amber-600');
+            showToast('Se utilizó el simulador local. Revisa el contenido antes de entregarlo.');
+          }
           logConsole(`  • Alumno: ${d.student_file}`);
           logConsole(`  • Docente: ${d.teacher_file}`);
-          document.getElementById('btn-dl-student').href = `/download/${d.student_file}`;
-          document.getElementById('btn-dl-teacher').href = `/download/${d.teacher_file}`;
+          document.getElementById('btn-dl-student').href = d.student_url;
+          document.getElementById('btn-dl-teacher').href = d.teacher_url;
+          document.getElementById('btn-dl-student').removeAttribute('aria-disabled');
+          document.getElementById('btn-dl-teacher').removeAttribute('aria-disabled');
 
           // Update Simulator with generated questions if available
           if (d.assessment && d.assessment.item1_seleccion_multiple && d.assessment.item1_seleccion_multiple.length > 0) {
             const q1 = d.assessment.item1_seleccion_multiple[0];
             const pBox = document.getElementById('sheet-item1-preview');
+            const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
             pBox.innerHTML = `
-              <p class="font-semibold text-slate-900">${q1.pregunta}</p>
+              <p class="font-semibold text-slate-900">${escapeHtml(q1.pregunta)}</p>
               <div class="grid grid-cols-2 gap-1.5 pl-3 text-slate-600">
-                ${q1.alternativas.map(alt => `<div><b>${alt[0]})</b> ${alt[1]}</div>`).join('')}
+                ${q1.alternativas.map(alt => `<div><b>${escapeHtml(alt[0])})</b> ${escapeHtml(alt[1])}</div>`).join('')}
               </div>
             `;
           }
@@ -1442,13 +1414,11 @@
       }
     }
 
-    // Gestión Integral de Sesión Docente (Google Workspace / Institucional)
+    // La sesión docente proviene exclusivamente del panel institucional.
+    let activeTeacher = null;
     function openOAuthModal() {
-      const u = getActiveTeacher();
-      if (u) {
-        document.getElementById('manual-teacher-name').value = u.name || '';
-        document.getElementById('manual-teacher-email').value = u.email || '';
-      }
+      document.getElementById('session-identity').textContent = activeTeacher
+        ? `${activeTeacher.name} · ${activeTeacher.email}` : 'Sesión no disponible';
       document.getElementById('oauth-modal').classList.remove('hidden');
     }
 
@@ -1457,12 +1427,7 @@
     }
 
     function getActiveTeacher() {
-      try {
-        const raw = localStorage.getItem('edu_current_user');
-        return raw ? JSON.parse(raw) : null;
-      } catch (e) {
-        return null;
-      }
+      return activeTeacher;
     }
 
     function updateTeacherUI(u) {
@@ -1478,69 +1443,25 @@
       }
     }
 
-    async function triggerOAuth(p) {
-      closeOAuthModal();
-      logConsole(`> Conectando cuenta docente vía Google Workspace (${p.toUpperCase()})...`);
+    async function logoutTeacher() {
       try {
-        const cb = await fetch(`/api/auth/${p}/callback?code=sandbox`);
-        const u = await cb.json();
-        logConsole(`✓ Sesión institucional activa: ${u.name} (${u.email})`, 'text-emerald-400');
-        showToast(`Conectado como: ${u.name}`);
-        localStorage.setItem('edu_current_user', JSON.stringify(u));
-        updateTeacherUI(u);
-      } catch (err) {
-        logConsole(`! Error conectando OAuth: ${err.message}`, 'text-rose-400');
+        await fetch('/api/auth/logout', { method: 'POST' });
+      } catch (error) {
+        console.error('[EduDocente] No se pudo cerrar la sesión.', error);
       }
+      window.location.href = 'https://colegiocastelgandolfo.cl/admin/';
     }
 
-    async function saveManualTeacher() {
-      const name = document.getElementById('manual-teacher-name').value.trim();
-      const email = document.getElementById('manual-teacher-email').value.trim();
-      if (!name) {
-        showToast('Por favor ingresa tu nombre de docente', 'error');
-        return;
-      }
-      closeOAuthModal();
-      const encName = encodeURIComponent(name);
-      const encEmail = encodeURIComponent(email || 'docente@colegiocastelgandolfo.cl');
+    async function checkUrlTeacherParams() {
       try {
-        const cb = await fetch(`/api/auth/google/callback?code=sandbox&name=${encName}&email=${encEmail}`);
-        const u = await cb.json();
-        localStorage.setItem('edu_current_user', JSON.stringify(u));
-        updateTeacherUI(u);
-        logConsole(`✓ Identidad docente guardada: ${u.name}`, 'text-emerald-400');
-        showToast(`Docente guardado: ${u.name}`);
-      } catch (e) {
-        const u = { name, email: email || 'docente@colegiocastelgandolfo.cl', institution: 'Colegio Castelgandolfo' };
-        localStorage.setItem('edu_current_user', JSON.stringify(u));
-        updateTeacherUI(u);
-      }
-    }
-
-    function logoutTeacher() {
-      localStorage.removeItem('edu_current_user');
-      updateTeacherUI(null);
-      closeOAuthModal();
-      showToast('Sesión de docente finalizada');
-      logConsole(`> Sesión de docente cerrada. Los membretes usarán valores por defecto.`);
-    }
-
-    function checkUrlTeacherParams() {
-      const params = new URLSearchParams(window.location.search);
-      const doc = params.get('docente') || params.get('teacher');
-      const email = params.get('email');
-      if (doc) {
-        const u = {
-          name: decodeURIComponent(doc),
-          email: email ? decodeURIComponent(email) : 'docente@colegiocastelgandolfo.cl',
-          institution: 'Colegio Castelgandolfo'
-        };
-        localStorage.setItem('edu_current_user', JSON.stringify(u));
-        updateTeacherUI(u);
-        logConsole(`✓ Identidad sincronizada desde CastelBoard: ${u.name}`, 'text-emerald-400');
-      } else {
-        const existing = getActiveTeacher();
-        if (existing) updateTeacherUI(existing);
+        const response = await fetch('/api/status', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Sesión vencida');
+        const status = await response.json();
+        activeTeacher = status.user;
+        updateTeacherUI(activeTeacher);
+      } catch (error) {
+        console.error('[EduDocente] Sesión institucional no disponible.', error);
+        window.location.href = 'https://colegiocastelgandolfo.cl/admin/sso_jump.php?target=edudocente';
       }
     }
 

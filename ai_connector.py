@@ -159,6 +159,8 @@ class AIConnector:
         clean_subject = (subject or "CIENCIAS NATURALES").strip().upper()
         clean_topic = (topic or "").strip()
         pts_target = int(points) if points else 25
+        if pts_target < 4 or pts_target > 200:
+            raise ValueError("El puntaje solicitado debe estar entre 4 y 200")
 
         # Adaptar cantidad de preguntas según el puntaje total deseado por el docente
         if pts_target >= 45:
@@ -171,6 +173,12 @@ class AIConnector:
             num_q1 = min(num_q1, 4)
             num_q2 = min(num_q2, 5)
 
+        # Reservar al menos dos puntos para aplicación sin superar el total.
+        while num_q1 * 2 + num_q2 > pts_target - 2:
+            if num_q2 > 0:
+                num_q2 -= 1
+            else:
+                num_q1 -= 1
         pts_item1 = num_q1 * 2
         pts_item2 = num_q2 * 1
         pts_item3 = max(2, pts_target - (pts_item1 + pts_item2))
@@ -298,15 +306,22 @@ El JSON debe cumplir exactamente con esta estructura:
 
             # Extraer JSON de la respuesta
             match = re.search(r'\{.*\}', text_out, re.DOTALL)
-            if match:
-                return json.loads(match.group(0))
-            return json.loads(text_out)
+            generated = json.loads(match.group(0) if match else text_out)
+            actual_points = (
+                len(generated["item1_seleccion_multiple"]) * int(generated["item1_pts_cada_una"])
+                + len(generated["item2_verdadero_falso"]) * int(generated["item2_pts_cada_una"])
+                + int(generated["item3_aplicacion"]["puntaje"])
+            )
+            if actual_points != pts_target or int(generated["puntaje_total"]) != pts_target:
+                raise ValueError("El proveedor entregó una evaluación con puntaje inconsistente")
+            return generated
 
         except Exception as e:
             print(f"\n[FALLO IA] Error invocando proveedor '{self.provider}': {e}")
             print("Activando Smart Pedagogical Buffer de contingencia inmediata para garantizar la entrega...")
-            mock_data = self._generate_smart_mock(topic, grade, oa, textbook_pages)
+            mock_data = self._generate_smart_mock(topic, grade, oa, textbook_pages, clean_subject, pts_target, pts_item3)
             mock_data["_ai_note"] = f"Generado vía Buffer Inteligente (Fallo en {self.provider}: {str(e)})"
+            mock_data["simulation_mode"] = True
             return mock_data
 
     def _generate_smart_mock(self, topic, grade, oa, textbook_pages, subject="CIENCIAS NATURALES", points=25, pts_item3=None):
@@ -334,7 +349,14 @@ El JSON debe cumplir exactamente con esta estructura:
 
         pts_q1 = n_q1 * 2
         pts_q2 = n_q2 * 1
-        calc_item3 = max(2, target_pts - (pts_q1 + pts_q2))
+        while n_q1 * 2 + n_q2 > target_pts - 2:
+            if n_q2 > 0:
+                n_q2 -= 1
+            else:
+                n_q1 -= 1
+        pts_q1 = n_q1 * 2
+        pts_q2 = n_q2
+        calc_item3 = target_pts - (pts_q1 + pts_q2)
         total_sum = pts_q1 + pts_q2 + calc_item3
 
         # Pool de preguntas para Selección Múltiple (2 pts c/u)
@@ -513,7 +535,11 @@ El JSON debe cumplir exactamente con esta estructura:
                 "justificacion": just
             })
 
+        # El banco local puede contener menos ejemplos que lo solicitado.
+        calc_item3 = target_pts - (len(items1) * 2 + len(items2))
+        total_sum = target_pts
         return {
+            "simulation_mode": True,
             "colegio": colegio_nombre,
             "asignatura": clean_subject,
             "curso": grade,
