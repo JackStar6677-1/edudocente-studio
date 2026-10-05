@@ -49,9 +49,18 @@ class DocenteEngine:
         self.title = self.cfg.get("titulo", "EVALUACIÓN FINAL").upper()
         self.oa = self.cfg.get("oa", "")
         self.contents = self.cfg.get("contenidos", "")
-        self.total_pts = self.cfg.get("puntaje_total", 25)
+        self.total_pts = int(self.cfg.get("puntaje_total", 25))
         self.teacher = self.cfg.get("docente", "Docente de Asignatura")
         self.teacher_email = self.cfg.get("email_docente", "docente@colegiocastelgandolfo.cl")
+        
+        # Exigencia dinámica según Decreto 67 (estándar 60%, adaptaciones PIE 50%, técnico 70%)
+        try:
+            self.exigencia = int(self.cfg.get("exigencia_porcentaje", 60))
+        except (ValueError, TypeError):
+            self.exigencia = 60
+        self.pts_aprobacion = round(self.total_pts * (self.exigencia / 100.0), 1)
+        if self.pts_aprobacion.is_integer():
+            self.pts_aprobacion = int(self.pts_aprobacion)
 
     # --------------------------------------------------------------------------
     # COMPONENTE: Cuadro de Datos y OA
@@ -65,8 +74,8 @@ class DocenteEngine:
         filas = [
             ("Nombre del/la Estudiante: " + ("PAUTA OFICIAL DOCENTE" if is_pauta else "____________________________________"),
              f"Curso: {self.course}"),
-            ("Fecha: ______ de _________________ de 2026",
-             f"Puntaje Total: {self.total_pts} puntos   |   Puntaje Obtenido: " + (f"{self.total_pts} pts" if is_pauta else "_____ pts"))
+            (f"Puntaje Total: {self.total_pts} pts   |   Exigencia: {self.exigencia}% (Nota 4.0: {self.pts_aprobacion} pts)",
+             "Puntaje Obtenido: " + (f"{self.total_pts} pts" if is_pauta else "_____ pts") + "   |   Nota: " + ("7.0" if is_pauta else "_______"))
         ]
 
         for r_idx, (d1, d2) in enumerate(filas):

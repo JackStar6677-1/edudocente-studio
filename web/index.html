@@ -366,7 +366,7 @@
               <input type="text" id="inp-oa" value="OA 13 — Demostrar mediante la investigación los cambios de estado de la materia." class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white" placeholder="O escribe aquí un OA personalizado...">
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <div>
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Páginas Texto Mineduc</label>
                 <input type="text" id="inp-pages" value="Páginas 170, 173 y 181" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
@@ -375,13 +375,24 @@
                 <div class="flex items-center justify-between mb-1">
                   <label class="block text-xs font-semibold text-slate-700">Puntaje Total</label>
                   <div class="flex gap-1">
-                    <button type="button" onclick="document.getElementById('inp-points').value=15" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Control corto (15 pts)">15p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=25" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Evaluación estándar (25 pts)">25p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=35" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Evaluación de unidad (35 pts)">35p</button>
-                    <button type="button" onclick="document.getElementById('inp-points').value=50" class="text-[9px] px-1.5 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="Prueba de nivel (50 pts)">50p</button>
+                    <button type="button" onclick="setPoints(15)" class="text-[9px] px-1 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="15 pts">15p</button>
+                    <button type="button" onclick="setPoints(25)" class="text-[9px] px-1 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="25 pts">25p</button>
+                    <button type="button" onclick="setPoints(35)" class="text-[9px] px-1 py-0.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="35 pts">35p</button>
                   </div>
                 </div>
-                <input type="number" id="inp-points" value="25" min="10" max="100" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
+                <input type="number" id="inp-points" value="25" min="10" max="100" oninput="updateExigenciaPreview()" class="w-full text-xs font-medium px-2.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-xs font-semibold text-slate-700" title="Decreto 67: Exigencia para Nota 4.0">Exigencia % (Dec. 67)</label>
+                  <span id="label-nota4" class="text-[10px] font-bold text-sky-700 bg-sky-50 px-1 py-0.2 rounded border border-sky-200">4.0: 15 pts</span>
+                </div>
+                <div class="flex gap-1 items-center">
+                  <input type="number" id="inp-exigencia" value="60" min="40" max="80" step="5" oninput="updateExigenciaPreview()" class="w-14 text-xs font-medium px-1.5 py-1.5 rounded-sm border border-slate-300 focus:outline-none focus:border-slate-600 bg-white">
+                  <button type="button" onclick="setExigencia(50)" class="text-[9px] px-1.5 py-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="50% Adaptación PIE">50%</button>
+                  <button type="button" onclick="setExigencia(60)" class="text-[9px] px-1.5 py-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="60% Estándar Decreto 67">60%</button>
+                  <button type="button" onclick="setExigencia(70)" class="text-[9px] px-1.5 py-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold border border-slate-300 transition" title="70% Diferenciado / TP">70%</button>
+                </div>
               </div>
             </div>
 
@@ -425,6 +436,119 @@
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <span>Pauta Docente</span>
               </a>
+            </div>
+          </div>
+
+          <!-- TABS DE ALTERNANCIA: EDITOR INTERACTIVO VS VISTA PREVIA IMPRESA -->
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div class="flex items-center space-x-2">
+              <button id="tab-btn-editor" onclick="switchPreviewTab('editor')" class="px-3 py-1.5 rounded-sm text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5 shadow-sm">
+                <span>Paso 2 · Editor Pedagógico de Evaluación</span>
+                <span id="editor-items-count" class="px-1.5 py-0.2 text-[10px] rounded bg-slate-800 text-slate-300">0 preguntas</span>
+              </button>
+              <button id="tab-btn-preview" onclick="switchPreviewTab('preview')" class="px-3 py-1.5 rounded-sm text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-1.5">
+                <span>Simulador de Hoja A4</span>
+              </button>
+            </div>
+            <span class="text-[11px] text-slate-500 italic hidden sm:inline">Paso 2: Edita antes de fotocopiar</span>
+          </div>
+
+          <!-- EDITOR DE EVALUACIÓN INTERACTIVO (Paso 2) -->
+          <div id="editor-assessment-container" class="glass-card rounded-sm p-4 shadow-sm border border-slate-300 space-y-4">
+            <!-- Banner Explicativo del Flujo Pedagógico -->
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-3 rounded-r text-xs text-blue-900 flex items-start gap-2">
+              <span class="text-base font-bold">ℹ️</span>
+              <div>
+                <strong>Flujo de Creación de Evaluaciones Oficiales:</strong>
+                <ol class="list-decimal pl-4 mt-1 space-y-0.5 text-blue-800">
+                  <li><strong>Generar con IA / Buffer:</strong> Genera la estructura inicial de la prueba.</li>
+                  <li><strong>Editar libremente:</strong> Modifica enunciados, alternativas, la respuesta correcta o la justificación para la pauta.</li>
+                  <li><strong>Reconstruir Word:</strong> Haz clic en <em>"Reconstruir y Actualizar Word (.docx)"</em> para compilar el documento oficial final.</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Datos Generales Editables -->
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 space-y-2.5">
+              <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Datos de Membrete y Exigencia</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5">Título de la Evaluación</label>
+                  <input type="text" id="edit-eval-title" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" placeholder="EVALUACIÓN...">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5">Asignatura y Curso</label>
+                  <div class="grid grid-cols-2 gap-1">
+                    <input type="text" id="edit-eval-subject" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" placeholder="Asignatura">
+                    <input type="text" id="edit-eval-grade" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" placeholder="Curso">
+                  </div>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-semibold text-slate-600 mb-0.5">Objetivo de Aprendizaje (OA)</label>
+                  <input type="text" id="edit-eval-oa" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" placeholder="OA curricular">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5">Puntaje Total</label>
+                  <input type="number" id="edit-eval-pts" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" oninput="updateEditorCalculatedScale()">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5">Exigencia Decreto 67</label>
+                  <div class="flex items-center gap-1.5">
+                    <input type="number" id="edit-eval-exigencia" min="40" max="80" step="5" class="w-20 text-xs px-2 py-1 border rounded bg-white font-medium" oninput="updateEditorCalculatedScale()">
+                    <span id="edit-scale-preview" class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded border border-emerald-200">Nota 4.0: 15 pts (60%)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ítem I: Selección Múltiple -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between pb-1 border-b border-slate-200">
+                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Ítem I · Selección Múltiple (2 pts c/u)</h5>
+                <button type="button" onclick="addQuestionItem1()" class="text-xs font-semibold px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition">
+                  + Agregar Pregunta
+                </button>
+              </div>
+              <div id="editor-item1-list" class="space-y-3"></div>
+            </div>
+
+            <!-- Ítem II: Verdadero o Falso -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between pb-1 border-b border-slate-200">
+                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Ítem II · Verdadero o Falso (1 pto c/u)</h5>
+                <button type="button" onclick="addQuestionItem2()" class="text-xs font-semibold px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition">
+                  + Agregar Afirmación
+                </button>
+              </div>
+              <div id="editor-item2-list" class="space-y-2"></div>
+            </div>
+
+            <!-- Ítem III: Aplicación y Desarrollo -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between pb-1 border-b border-slate-200">
+                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Ítem III · Aplicación Práctica y Desarrollo</h5>
+                <button type="button" onclick="addBoxItem3()" class="text-xs font-semibold px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition">
+                  + Agregar Ejercicio
+                </button>
+              </div>
+              <div class="text-xs space-y-2">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5">Instrucción para el Alumno</label>
+                  <input type="text" id="edit-item3-instruction" class="w-full text-xs px-2 py-1 border rounded bg-white font-medium" placeholder="Instrucción de dibujo o desarrollo...">
+                </div>
+                <div id="editor-item3-boxes" class="space-y-2"></div>
+              </div>
+            </div>
+
+            <!-- Botón Reconstruir y Sincronizar -->
+            <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="text-xs text-slate-500">
+                <span>Al hacer clic, se compilan inmediatamente los nuevos archivos Word oficiales.</span>
+              </div>
+              <button id="btn-rebuild-assessment" onclick="rebuildWithChanges()" class="w-full sm:w-auto px-5 py-2.5 rounded-sm bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-sm">
+                <svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Reconstruir y Actualizar Word (.docx)</span>
+              </button>
             </div>
           </div>
 
@@ -1334,6 +1458,385 @@
       showToast(`Clave eliminada para ${prov.toUpperCase()}`);
     }
 
+    let currentAssessment = null;
+
+    function setPoints(pts) {
+      const el = document.getElementById('inp-points');
+      if (el) el.value = pts;
+      updateExigenciaPreview();
+    }
+
+    function setExigencia(ex) {
+      const el = document.getElementById('inp-exigencia');
+      if (el) el.value = ex;
+      updateExigenciaPreview();
+    }
+
+    function updateExigenciaPreview() {
+      const pts = parseInt(document.getElementById('inp-points')?.value) || 25;
+      const ex = parseInt(document.getElementById('inp-exigencia')?.value) || 60;
+      const nota4 = Math.round(pts * (ex / 100.0) * 10) / 10;
+      const label = document.getElementById('label-nota4');
+      if (label) label.textContent = `4.0: ${nota4} pts`;
+    }
+
+    function updateEditorCalculatedScale() {
+      const pts = parseInt(document.getElementById('edit-eval-pts')?.value) || 25;
+      const ex = parseInt(document.getElementById('edit-eval-exigencia')?.value) || 60;
+      const nota4 = Math.round(pts * (ex / 100.0) * 10) / 10;
+      const preview = document.getElementById('edit-scale-preview');
+      if (preview) preview.textContent = `Nota 4.0: ${nota4} pts (${ex}%)`;
+    }
+
+    function switchPreviewTab(tab) {
+      const editorEl = document.getElementById('editor-assessment-container');
+      const previewEl = document.querySelector('.sheet-preview');
+      const tabBtnEditor = document.getElementById('tab-btn-editor');
+      const tabBtnPreview = document.getElementById('tab-btn-preview');
+
+      if (tab === 'editor') {
+        editorEl?.classList.remove('hidden');
+        previewEl?.classList.add('hidden');
+        if (tabBtnEditor) tabBtnEditor.className = 'px-3 py-1.5 rounded-sm text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5 shadow-sm';
+        if (tabBtnPreview) tabBtnPreview.className = 'px-3 py-1.5 rounded-sm text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-1.5';
+      } else {
+        editorEl?.classList.add('hidden');
+        previewEl?.classList.remove('hidden');
+        if (tabBtnPreview) tabBtnPreview.className = 'px-3 py-1.5 rounded-sm text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5 shadow-sm';
+        if (tabBtnEditor) tabBtnEditor.className = 'px-3 py-1.5 rounded-sm text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition flex items-center gap-1.5';
+      }
+    }
+
+    function renderAssessmentEditor(assessment) {
+      if (!assessment) return;
+      currentAssessment = JSON.parse(JSON.stringify(assessment));
+
+      document.getElementById('edit-eval-title').value = currentAssessment.titulo || '';
+      document.getElementById('edit-eval-subject').value = currentAssessment.asignatura || '';
+      document.getElementById('edit-eval-grade').value = currentAssessment.curso || '';
+      document.getElementById('edit-eval-oa').value = currentAssessment.oa || '';
+      document.getElementById('edit-eval-pts').value = currentAssessment.puntaje_total || 25;
+      document.getElementById('edit-eval-exigencia').value = currentAssessment.exigencia_porcentaje || 60;
+      updateEditorCalculatedScale();
+
+      const item1List = currentAssessment.item1_seleccion_multiple || [];
+      const item2List = currentAssessment.item2_verdadero_falso || [];
+      const totalQ = item1List.length + item2List.length;
+      const countEl = document.getElementById('editor-items-count');
+      if (countEl) countEl.textContent = `${totalQ} preguntas`;
+
+      // Render Ítem I
+      renderItem1DOM();
+      // Render Ítem II
+      renderItem2DOM();
+      // Render Ítem III
+      renderItem3DOM();
+    }
+
+    function renderItem1DOM() {
+      const container = document.getElementById('editor-item1-list');
+      if (!container) return;
+      container.innerHTML = '';
+      const list = currentAssessment.item1_seleccion_multiple || [];
+      list.forEach((q, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-3 bg-white border border-slate-200 rounded text-xs space-y-2 relative';
+        
+        let altsHtml = '';
+        const alts = q.alternativas || [["A",""],["B",""],["C",""],["D",""]];
+        alts.forEach((alt, aIdx) => {
+          const letter = alt[0];
+          const text = alt[1] || '';
+          altsHtml += `
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-700 w-4">${letter})</span>
+              <input type="text" data-q-idx="${idx}" data-alt-idx="${aIdx}" value="${escapeHtmlAttr(text)}" class="input-alt flex-1 px-2 py-1 text-xs border rounded bg-slate-50 font-normal">
+            </div>
+          `;
+        });
+
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="font-bold text-slate-800">Pregunta ${idx + 1}</span>
+            <button type="button" onclick="removeItem1(${idx})" class="text-rose-600 hover:text-rose-800 text-[11px] font-semibold">Eliminar</button>
+          </div>
+          <input type="text" data-q-idx="${idx}" class="input-q-text w-full px-2 py-1 text-xs border rounded font-semibold text-slate-900 bg-white" value="${escapeHtmlAttr(q.pregunta)}">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            ${altsHtml}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1.5 border-t border-slate-100">
+            <div>
+              <label class="block text-[11px] font-semibold text-emerald-800 mb-0.5">Alternativa Correcta:</label>
+              <select data-q-idx="${idx}" class="select-correcta w-full px-2 py-1 text-xs border rounded bg-emerald-50 text-emerald-900 font-bold">
+                <option value="A" ${q.correcta && q.correcta.startsWith('A') ? 'selected' : ''}>A</option>
+                <option value="B" ${q.correcta && q.correcta.startsWith('B') ? 'selected' : ''}>B</option>
+                <option value="C" ${q.correcta && q.correcta.startsWith('C') ? 'selected' : ''}>C</option>
+                <option value="D" ${q.correcta && q.correcta.startsWith('D') ? 'selected' : ''}>D</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Justificación para Pauta Docente:</label>
+              <input type="text" data-q-idx="${idx}" class="input-just w-full px-2 py-1 text-xs border rounded text-slate-700 bg-slate-50" value="${escapeHtmlAttr(q.justificacion || '')}" placeholder="Explicación pedagógica">
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderItem2DOM() {
+      const container = document.getElementById('editor-item2-list');
+      if (!container) return;
+      container.innerHTML = '';
+      const list = currentAssessment.item2_verdadero_falso || [];
+      list.forEach((vf, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-3 bg-white border border-slate-200 rounded text-xs space-y-2';
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="font-bold text-slate-800">Afirmación ${idx + 1}</span>
+            <button type="button" onclick="removeItem2(${idx})" class="text-rose-600 hover:text-rose-800 text-[11px] font-semibold">Eliminar</button>
+          </div>
+          <input type="text" data-vf-idx="${idx}" class="input-vf-text w-full px-2 py-1 text-xs border rounded font-medium text-slate-900 bg-white" value="${escapeHtmlAttr(vf.oracion)}">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-slate-100">
+            <div class="flex items-center gap-2">
+              <label class="text-[11px] font-semibold text-slate-700">Respuesta:</label>
+              <select data-vf-idx="${idx}" class="select-vf-resp px-2 py-1 text-xs border rounded font-bold ${vf.resp === 'V' ? 'bg-blue-50 text-blue-900' : 'bg-amber-50 text-amber-900'}">
+                <option value="V" ${vf.resp === 'V' ? 'selected' : ''}>Verdadero (V)</option>
+                <option value="F" ${vf.resp === 'F' ? 'selected' : ''}>Falso (F)</option>
+              </select>
+            </div>
+            <div>
+              <input type="text" data-vf-idx="${idx}" class="input-vf-just w-full px-2 py-1 text-xs border rounded text-slate-700 bg-slate-50" value="${escapeHtmlAttr(vf.justificacion || '')}" placeholder="Justificación (obligatoria en Falsas)">
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderItem3DOM() {
+      const container = document.getElementById('editor-item3-boxes');
+      if (!container) return;
+      container.innerHTML = '';
+      const it3 = currentAssessment.item3_aplicacion || { instruccion: '', cajas: [] };
+      document.getElementById('edit-item3-instruction').value = it3.instruccion || '';
+
+      const boxes = it3.cajas || [];
+      boxes.forEach((box, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-3 bg-white border border-slate-200 rounded text-xs space-y-2';
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="font-bold text-slate-800">Ejercicio / Situación ${idx + 1}</span>
+            <button type="button" onclick="removeItem3Box(${idx})" class="text-rose-600 hover:text-rose-800 text-[11px] font-semibold">Eliminar</button>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Enunciado o Caso a Representar:</label>
+            <input type="text" data-box-idx="${idx}" class="input-box-title w-full px-2 py-1 text-xs border rounded font-medium text-slate-900" value="${escapeHtmlAttr(box.titulo || '')}">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Criterio o Respuesta Esperada (Pauta):</label>
+            <textarea data-box-idx="${idx}" rows="2" class="input-box-pauta w-full px-2 py-1 text-xs border rounded text-slate-700 bg-slate-50 font-normal">${escapeHtmlAttr(box.ejemplo_pauta || '')}</textarea>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function escapeHtmlAttr(str) {
+      return String(str ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function addQuestionItem1() {
+      if (!currentAssessment) return;
+      if (!currentAssessment.item1_seleccion_multiple) currentAssessment.item1_seleccion_multiple = [];
+      const num = currentAssessment.item1_seleccion_multiple.length + 1;
+      currentAssessment.item1_seleccion_multiple.push({
+        pregunta: `${num}. Nueva pregunta conceptual`,
+        alternativas: [["A", "Alternativa A"], ["B", "Alternativa B"], ["C", "Alternativa C"], ["D", "Alternativa D"]],
+        correcta: "A",
+        justificacion: "Explicación de pauta"
+      });
+      syncAssessmentFromEditor();
+      renderItem1DOM();
+    }
+
+    function removeItem1(idx) {
+      syncAssessmentFromEditor();
+      currentAssessment.item1_seleccion_multiple.splice(idx, 1);
+      renderItem1DOM();
+    }
+
+    function addQuestionItem2() {
+      if (!currentAssessment) return;
+      if (!currentAssessment.item2_verdadero_falso) currentAssessment.item2_verdadero_falso = [];
+      const num = currentAssessment.item2_verdadero_falso.length + 1;
+      currentAssessment.item2_verdadero_falso.push({
+        oracion: `${num}. Nueva afirmación sobre el contenido curricular.`,
+        resp: "V",
+        justificacion: "Justificación de pauta docente."
+      });
+      syncAssessmentFromEditor();
+      renderItem2DOM();
+    }
+
+    function removeItem2(idx) {
+      syncAssessmentFromEditor();
+      currentAssessment.item2_verdadero_falso.splice(idx, 1);
+      renderItem2DOM();
+    }
+
+    function addBoxItem3() {
+      if (!currentAssessment) return;
+      if (!currentAssessment.item3_aplicacion) currentAssessment.item3_aplicacion = { instruccion: '', cajas: [] };
+      if (!currentAssessment.item3_aplicacion.cajas) currentAssessment.item3_aplicacion.cajas = [];
+      const num = currentAssessment.item3_aplicacion.cajas.length + 1;
+      currentAssessment.item3_aplicacion.cajas.push({
+        titulo: `${num}. Caso o esquema a resolver`,
+        ejemplo_pauta: "Respuesta modelo para el docente"
+      });
+      syncAssessmentFromEditor();
+      renderItem3DOM();
+    }
+
+    function removeItem3Box(idx) {
+      syncAssessmentFromEditor();
+      currentAssessment.item3_aplicacion.cajas.splice(idx, 1);
+      renderItem3DOM();
+    }
+
+    function syncAssessmentFromEditor() {
+      if (!currentAssessment) return;
+
+      currentAssessment.titulo = document.getElementById('edit-eval-title')?.value || currentAssessment.titulo;
+      currentAssessment.asignatura = document.getElementById('edit-eval-subject')?.value || currentAssessment.asignatura;
+      currentAssessment.curso = document.getElementById('edit-eval-grade')?.value || currentAssessment.curso;
+      currentAssessment.oa = document.getElementById('edit-eval-oa')?.value || currentAssessment.oa;
+      currentAssessment.puntaje_total = parseInt(document.getElementById('edit-eval-pts')?.value) || currentAssessment.puntaje_total;
+      currentAssessment.exigencia_porcentaje = parseInt(document.getElementById('edit-eval-exigencia')?.value) || 60;
+
+      // Sync Item 1
+      const qTexts = document.querySelectorAll('.input-q-text');
+      qTexts.forEach((el, idx) => {
+        if (currentAssessment.item1_seleccion_multiple[idx]) {
+          currentAssessment.item1_seleccion_multiple[idx].pregunta = el.value;
+        }
+      });
+      const alts = document.querySelectorAll('.input-alt');
+      alts.forEach((el) => {
+        const qIdx = parseInt(el.getAttribute('data-q-idx'));
+        const aIdx = parseInt(el.getAttribute('data-alt-idx'));
+        if (currentAssessment.item1_seleccion_multiple[qIdx] && currentAssessment.item1_seleccion_multiple[qIdx].alternativas[aIdx]) {
+          currentAssessment.item1_seleccion_multiple[qIdx].alternativas[aIdx][1] = el.value;
+        }
+      });
+      const selects = document.querySelectorAll('.select-correcta');
+      selects.forEach((el) => {
+        const qIdx = parseInt(el.getAttribute('data-q-idx'));
+        if (currentAssessment.item1_seleccion_multiple[qIdx]) {
+          const l = el.value;
+          const matched = currentAssessment.item1_seleccion_multiple[qIdx].alternativas.find(a => a[0] === l);
+          currentAssessment.item1_seleccion_multiple[qIdx].correcta = matched ? `${l}) ${matched[1]}` : l;
+        }
+      });
+      const justs = document.querySelectorAll('.input-just');
+      justs.forEach((el) => {
+        const qIdx = parseInt(el.getAttribute('data-q-idx'));
+        if (currentAssessment.item1_seleccion_multiple[qIdx]) {
+          currentAssessment.item1_seleccion_multiple[qIdx].justificacion = el.value;
+        }
+      });
+
+      // Sync Item 2
+      const vfTexts = document.querySelectorAll('.input-vf-text');
+      vfTexts.forEach((el, idx) => {
+        if (currentAssessment.item2_verdadero_falso[idx]) {
+          currentAssessment.item2_verdadero_falso[idx].oracion = el.value;
+        }
+      });
+      const vfResps = document.querySelectorAll('.select-vf-resp');
+      vfResps.forEach((el, idx) => {
+        if (currentAssessment.item2_verdadero_falso[idx]) {
+          currentAssessment.item2_verdadero_falso[idx].resp = el.value;
+        }
+      });
+      const vfJusts = document.querySelectorAll('.input-vf-just');
+      vfJusts.forEach((el, idx) => {
+        if (currentAssessment.item2_verdadero_falso[idx]) {
+          currentAssessment.item2_verdadero_falso[idx].justificacion = el.value;
+        }
+      });
+
+      // Sync Item 3
+      if (!currentAssessment.item3_aplicacion) currentAssessment.item3_aplicacion = { instruccion: '', cajas: [] };
+      currentAssessment.item3_aplicacion.instruccion = document.getElementById('edit-item3-instruction')?.value || '';
+      const boxTitles = document.querySelectorAll('.input-box-title');
+      boxTitles.forEach((el, idx) => {
+        if (currentAssessment.item3_aplicacion.cajas[idx]) {
+          currentAssessment.item3_aplicacion.cajas[idx].titulo = el.value;
+        }
+      });
+      const boxPautas = document.querySelectorAll('.input-box-pauta');
+      boxPautas.forEach((el, idx) => {
+        if (currentAssessment.item3_aplicacion.cajas[idx]) {
+          currentAssessment.item3_aplicacion.cajas[idx].ejemplo_pauta = el.value;
+        }
+      });
+    }
+
+    async function rebuildWithChanges() {
+      if (!currentAssessment) {
+        showToast('No hay ninguna evaluación activa para reconstruir', 'error');
+        return;
+      }
+      syncAssessmentFromEditor();
+
+      const btn = document.getElementById('btn-rebuild-assessment');
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      const origHtml = btn.innerHTML;
+      btn.innerHTML = '<span>Compilando Word con tus ajustes...</span>';
+
+      logConsole(`\n[RECONSTRUYENDO WORD] Aplicando modificaciones pedagógicas del docente...`);
+      logConsole(`  • Título: ${currentAssessment.titulo}`);
+      logConsole(`  • Exigencia: ${currentAssessment.exigencia_porcentaje}% | Puntaje: ${currentAssessment.puntaje_total} pts`);
+
+      try {
+        const res = await fetch('/api/rebuild', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assessment: currentAssessment })
+        });
+        const d = await res.json();
+        if (d.success) {
+          logConsole(`✓ Documentos Word actualizados y recompilados con éxito (.docx)`, 'text-emerald-400');
+          document.getElementById('btn-dl-student').href = d.student_url;
+          document.getElementById('btn-dl-teacher').href = d.teacher_url;
+          document.getElementById('btn-dl-student').removeAttribute('aria-disabled');
+          document.getElementById('btn-dl-teacher').removeAttribute('aria-disabled');
+
+          // Actualizar simulador visual
+          document.getElementById('sheet-eval-title').textContent = currentAssessment.titulo;
+          document.getElementById('sheet-subject-title').textContent = `${currentAssessment.asignatura} — ${currentAssessment.curso}`;
+          document.getElementById('sheet-field-grade').textContent = currentAssessment.curso;
+          document.getElementById('sheet-field-oa').textContent = currentAssessment.oa;
+          document.getElementById('sheet-field-pts').textContent = currentAssessment.puntaje_total;
+
+          showToast('¡Evaluación Word actualizada con tus cambios!');
+        } else {
+          throw new Error(d.error || 'Error al reconstruir evaluación');
+        }
+      } catch (err) {
+        logConsole(`! ERROR AL RECONSTRUIR: ${err.message}`, 'text-rose-400 font-bold');
+        showToast(err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-75');
+        btn.innerHTML = origHtml;
+      }
+    }
+
     async function generateWithAI() {
       const btn = document.getElementById('btn-generate');
       const badge = document.getElementById('gen-status-badge');
@@ -1359,11 +1862,13 @@
 
       try {
         const points = parseInt(document.getElementById('inp-points')?.value) || 25;
+        const exigencia = parseInt(document.getElementById('inp-exigencia')?.value) || 60;
         const payload = {
           provider: prov,
           api_key: userApiKey || null,
           subject, grade, topic, oa, textbook_pages: pages,
-          points: points
+          points: points,
+          exigencia_porcentaje: exigencia
         };
         const res = await fetch('/api/generate', {
           method: 'POST',
@@ -1384,22 +1889,22 @@
           document.getElementById('btn-dl-student').removeAttribute('aria-disabled');
           document.getElementById('btn-dl-teacher').removeAttribute('aria-disabled');
 
-          // Update Simulator with generated questions if available
-          if (d.assessment && d.assessment.item1_seleccion_multiple && d.assessment.item1_seleccion_multiple.length > 0) {
-            const q1 = d.assessment.item1_seleccion_multiple[0];
-            const pBox = document.getElementById('sheet-item1-preview');
-            const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
-            pBox.innerHTML = `
-              <p class="font-semibold text-slate-900">${escapeHtml(q1.pregunta)}</p>
-              <div class="grid grid-cols-2 gap-1.5 pl-3 text-slate-600">
-                ${q1.alternativas.map(alt => `<div><b>${escapeHtml(alt[0])})</b> ${escapeHtml(alt[1])}</div>`).join('')}
-              </div>
-            `;
+          // Cargar el editor interactivo para permitir ajustes pedagógicos inmediatos
+          if (d.assessment) {
+            renderAssessmentEditor(d.assessment);
+            switchPreviewTab('editor');
+
+            // Actualizar también la hoja simulada
+            document.getElementById('sheet-eval-title').textContent = d.assessment.titulo || 'EVALUACIÓN';
+            document.getElementById('sheet-subject-title').textContent = `${d.assessment.asignatura} — ${d.assessment.curso}`;
+            document.getElementById('sheet-field-grade').textContent = d.assessment.curso;
+            document.getElementById('sheet-field-oa').textContent = d.assessment.oa;
+            document.getElementById('sheet-field-pts').textContent = d.assessment.puntaje_total;
           }
 
           badge.textContent = 'Completado ✓';
           badge.className = 'text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded';
-          showToast('Evaluación generada con éxito');
+          showToast('Evaluación generada con éxito. Revisa y ajusta los ítems en el editor.');
         } else {
           throw new Error(d.error || 'Fallo de compilación');
         }

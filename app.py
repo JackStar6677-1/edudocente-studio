@@ -292,12 +292,16 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                 points = int(payload.get("points", 25))
             except (ValueError, TypeError):
                 points = 25
+            try:
+                exigencia_porcentaje = int(payload.get("exigencia_porcentaje", 60))
+            except (ValueError, TypeError):
+                exigencia_porcentaje = 60
             teacher = self._session_user()
 
             print(f"\n[GENERACIÓN WEB] Solicitud recibida:")
             print(f"  • Proveedor: {provider.upper()}")
             print(f"  • API Key personalizada: {'Sí (Proporcionada por Docente)' if api_key else 'No (Usando Buffer/Sistema)'}")
-            print(f"  • Asignatura: {subject} | Curso: {grade} | Puntaje: {points} pts")
+            print(f"  • Asignatura: {subject} | Curso: {grade} | Puntaje: {points} pts | Exigencia: {exigencia_porcentaje}%")
             print(f"  • Contenidos: {topic}")
 
             try:
@@ -313,6 +317,7 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                 )
                 assessment_data["docente"] = teacher["name"]
                 assessment_data["email_docente"] = teacher["email"]
+                assessment_data["exigencia_porcentaje"] = exigencia_porcentaje
 
                 # 2. Compilar documentos con DocenteEngine
                 engine = DocenteEngine(assessment_data)
