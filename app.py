@@ -342,6 +342,46 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                 self._send_json(500, {"success": False, "error": str(e)})
             return
 
+        # 2b. API: Reconstruir documentos desde un assessment EDITADO por el docente
+        #     (permite ajustar cada detalle de la evaluación antes de exportar a Word).
+        if path == "/api/rebuild":
+            teacher = self._session_user()
+            assessment = payload.get("assessment")
+            if not isinstance(assessment, dict) or not assessment.get("item1_seleccion_multiple") \
+                    and not assessment.get("item2_verdadero_falso") and not assessment.get("item3_desarrollo"):
+                self._send_json(400, {"success": False, "error": "Assessment inválido o vacío"})
+                return
+            job_dir = None
+            try:
+                # La identidad del docente SIEMPRE viene de la sesión, nunca del cliente.
+                assessment["docente"] = teacher["name"]
+                assessment["email_docente"] = teacher["email"]
+
+                engine = DocenteEngine(assessment)
+                job_id = secrets.token_hex(16)
+                job_dir = Path(OUTPUT_DIR) / job_id
+                job_dir.mkdir(mode=0o700)
+                student_path = engine.build_evaluacion_estudiante(str(job_dir / "Evaluacion.docx"))
+                teacher_path = engine.build_pauta_correccion(str(job_dir / "Pauta.docx"))
+                if not Path(student_path).is_file() or not Path(teacher_path).is_file():
+                    raise RuntimeError("No se pudieron guardar ambos documentos")
+                grant_download(self.headers.get("Cookie", ""), job_id)
+                self._send_json(200, {
+                    "success": True,
+                    "student_file": "Evaluacion.docx",
+                    "teacher_file": "Pauta.docx",
+                    "student_url": f"/download/{job_id}/Evaluacion.docx",
+                    "teacher_url": f"/download/{job_id}/Pauta.docx",
+                    "assessment": assessment
+                })
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                if job_dir is not None and job_dir.is_dir():
+                    shutil.rmtree(job_dir, ignore_errors=True)
+                self._send_json(500, {"success": False, "error": str(e)})
+            return
+
         # 3. API: Cambiar Institución Activa
         if path == "/api/institutions/active":
             if not self._require_admin():
