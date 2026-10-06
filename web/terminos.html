@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Términos del Servicio, Privacidad y Disponibilidad On-Premise · EduDocente Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .dark-header {
+      background: #0F2038;
+      border-bottom: 1px solid #1E3A5F;
+    }
+    .legal-card {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 2px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- TOP BAR -->
+  <header class="dark-header text-white sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-sm bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-sm font-bold tracking-tight uppercase">EduDocente Studio</span>
+          <span class="text-[10px] text-slate-400 block font-normal">Marco Institucional, Privacidad y Disponibilidad</span>
+        </div>
+      </div>
+      <div>
+        <a href="/" class="inline-flex items-center px-3 py-1.5 rounded-sm text-xs font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition">
+          ← Volver a EduDocente
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="legal-card p-6 sm:p-10 space-y-8">
+
+      <!-- Header Title -->
+      <div class="border-b border-slate-200 pb-5">
+        <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded-sm bg-blue-100 text-blue-900 mb-2">Normativa Pedagógica & TI Escolar</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Términos de Uso, Privacidad de IA y Disponibilidad On-Premise</h1>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">Colegio Castelgandolfo · Plataforma Curricular y Generador de Instrumentos de Evaluación</p>
+      </div>
+
+      <!-- Alerta Destacada Ámbito -->
+      <div class="p-4 rounded-sm bg-slate-50 border-l-4 border-slate-800 text-xs sm:text-sm text-slate-700 space-y-1">
+        <strong class="font-bold text-slate-900 block">🏛️ Ámbito y Finalidad Exclusiva:</strong>
+        EduDocente Studio es una herramienta de asistencia curricular diseñada para agilizar el diseño de instrumentos de evaluación, rúbricas y material pedagógico en formato Word (.docx). Su uso está reservado para el cuerpo docente y equipo directivo/UTP del <strong>Colegio Castelgandolfo</strong>.
+      </div>
+
+      <!-- Sección 1 -->
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2 border-b border-slate-200 pb-2">
+          <span>1. Disponibilidad del Servicio, Topología On-Premise y Suministro Físico</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          EduDocente Studio opera sobre el nodo de procesamiento físico on-premise (<strong>Star Server / CCG Físico</strong>) ubicado dentro de las dependencias escolares:
+        </p>
+        <ul class="list-disc pl-5 text-xs sm:text-sm text-slate-600 space-y-2">
+          <li>
+            <strong>Dependencia del Suministro Eléctrico y Conectividad Escolar:</strong> Al ser un servidor alojado localmente en el campus escolar, en casos de <em>corte de suministro eléctrico general en el establecimiento, interrupción del enlace de fibra óptica del colegio o labores de mantenimiento físico</em>, <strong>el servicio dejará de estar disponible temporalmente desde el exterior</strong> hasta que se restablezca el suministro físico en el recinto.
+          </li>
+          <li>
+            <strong>Cortes Fuera del Horario Escolar:</strong> Por protocolos de seguridad física y eficiencia energética del establecimiento escolar, el suministro eléctrico de ciertas dependencias puede ser interrumpido en fines de semana o recesos sin previo aviso.
+          </li>
+          <li>
+            <strong>Persistencia e Integridad Absoluta:</strong> Todos los instrumentos compilados, plantillas institucionales y configuraciones curriculares se resguardan de forma atómica en disco de estado sólido con transacciones seguras. Ninguna evaluación ni dato docente se pierde por una caída imprevista del suministro.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 2 -->
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2 border-b border-slate-200 pb-2">
+          <span>2. Privacidad de Inteligencia Artificial y Protección de Claves (API Keys)</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          En protección del secreto profesional, derechos de autor docente y privacidad técnica:
+        </p>
+        <ul class="list-disc pl-5 text-xs sm:text-sm text-slate-600 space-y-2">
+          <li>
+            <strong>Aislamiento de Claves en el Navegador (LocalStorage):</strong> Las claves privadas de los proveedores de Inteligencia Artificial (Google Gemini, OpenAI Codex, Anthropic Claude) ingresadas por los profesores <strong>residen única y exclusivamente en el navegador local del usuario (<code class="bg-slate-100 px-1 py-0.5 rounded text-slate-800 font-mono text-[11px]">localStorage</code>)</strong>. El servidor escolar jamás almacena de manera persistente las claves personales de los docentes en bases de datos ni archivos compartidos.
+          </li>
+          <li>
+            <strong>Cero Entrenamiento con Datos Institucionales:</strong> Las consultas enviadas mediante la API oficial de desarrollo no son utilizadas por los proveedores para reentrenar modelos fundacionales públicos, preservando el contenido curricular del colegio.
+          </li>
+          <li>
+            <strong>Smart Buffer Offline ($0):</strong> Para docentes que no deseen configurar claves externas o en momentos de baja conectividad, la plataforma provee un generador curricular basado en plantillas offline deterministas del MINEDUC sin costo ni dependencia de servicios de terceros.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 3 -->
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2 border-b border-slate-200 pb-2">
+          <span>3. Protección de Datos Personales Escolares (Ley N° 19.628)</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          En cumplimiento estricto con la Ley N° 19.628 sobre protección de la vida privada y normativas de la Superintendencia de Educación:
+        </p>
+        <ul class="list-disc pl-5 text-xs sm:text-sm text-slate-600 space-y-2">
+          <li>
+            <strong>Anonimización Estudiantil:</strong> La generación de instrumentos no requiere el ingreso de datos de identificación civil de estudiantes (RUT ni domicilios). En caso de utilizar listas de curso para control de asistencia o rúbricas de retroalimentación, estos datos se manejan bajo estricto secreto profesional docente.
+          </li>
+          <li>
+            <strong>No Comercialización:</strong> El Colegio Castelgandolfo no comercializa, comparte ni monetiza ninguna información curricular o pedagógica generada en este sistema.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 4 -->
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2 border-b border-slate-200 pb-2">
+          <span>4. Responsabilidad y Revisión Curricular</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          La Inteligencia Artificial opera como un <strong>asistente pedagógico de borrador</strong>. Es responsabilidad indelegable del docente de asignatura revisar la precisión de los enunciados, las claves del solucionario, los puntajes asignados y la concordancia con el currículum vigente del MINEDUC antes de fotocopiar o aplicar cualquier instrumento de evaluación a los estudiantes.
+        </p>
+      </section>
+
+      <!-- Sección 5 -->
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2 border-b border-slate-200 pb-2">
+          <span>5. Atribución y Soporte Técnico</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          EduDocente Studio forma parte de la suite digital institucional desarrollada por el <strong>Departamento de Tecnologías de la Información, Redes y Laboratorios</strong>, bajo la dirección del <strong>Ing. Pablo Elías Avendaño Miranda</strong>. Para sugerencias, soporte pedagógico o consultas técnicas, comunicarse vía correo institucional.
+        </p>
+      </section>
+
+      <!-- Botón Volver -->
+      <div class="pt-6 border-t border-slate-200 text-center">
+        <a href="/" class="inline-flex items-center px-5 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-slate-800 transition shadow">
+          Entendido · Volver al Editor
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    Colegio Castelgandolfo · Actualizado Septiembre 2026 · Santiago de Chile
+  </footer>
+
+</body>
+</html>

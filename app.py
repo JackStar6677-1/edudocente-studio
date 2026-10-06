@@ -95,12 +95,18 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
 
     def do_HEAD(self):
-        self.send_response(200 if self._session_user() else 401)
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+        is_public = path in ("/terminos.html", "/terminos", "/api/health") or self._session_user()
+        self.send_response(200 if is_public else 401)
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
 
     def do_OPTIONS(self):
-        self.send_response(204 if self._session_user() else 401)
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+        is_public = path in ("/terminos.html", "/terminos", "/api/health") or self._session_user()
+        self.send_response(204 if is_public else 401)
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
 
@@ -113,15 +119,32 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
             return self._handle_sso(query)
         if path == "/api/health":
             return self._send_json(200, {"status": "ok"})
+
+        # Términos de Servicio y Privacidad (acceso público informativo sin requerir login)
+        if path in ("/terminos.html", "/terminos"):
+            page_file = os.path.join(WEB_DIR, "terminos.html")
+            if os.path.exists(page_file):
+                with open(page_file, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(content)
+                return
+            else:
+                self.send_error(404, "web/terminos.html no encontrado")
+                return
+
         if not self._require_session(path):
             return
         user = self._session_user()
 
         # 1. Página principal Web SPA
         if path == "/" or path == "/index.html":
-            index_file = os.path.join(WEB_DIR, "index.html")
-            if os.path.exists(index_file):
-                with open(index_file, "rb") as f:
+            page_file = os.path.join(WEB_DIR, "index.html")
+            if os.path.exists(page_file):
+                with open(page_file, "rb") as f:
                     content = f.read()
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
