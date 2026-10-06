@@ -61,7 +61,7 @@ def consume_sso_token(encoded):
 
     if (data.get("ver") != 2 or data.get("aud") != "edudocente"
             or role not in ("admin", "docente")
-            or not email.endswith("@colegiocastelgandolfo.cl")
+            or not re.fullmatch(r"[^@\s]{1,128}@[^@\s]{1,128}\.[^@\s]{2,63}", email)
             or not re.fullmatch(r"[0-9a-f]{32}", nonce)
             or not re.fullmatch(r"[0-9a-f]{64}", signature)
             or abs(time.time() - timestamp) > TOKEN_SECONDS):
