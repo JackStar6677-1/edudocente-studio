@@ -17,7 +17,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from ai_connector import AI_PROVIDERS, AIConnector   # noqa: E402
 
-from .mensual import CAMPOS, resolver_oa   # noqa: E402
+from .mensual import campos_de, formato_de, resolver_oa   # noqa: E402
 
 EVAL_FORMATIVA = 'Evaluación formativa a través de las actividades realizadas en clases.'
 RECURSOS_BASE = 'Texto del estudiante, págs. ____; cuaderno de actividades.'
@@ -45,10 +45,17 @@ ACTIVIDAD = {
 
 
 def _clases_libres(plan):
+    claves = campos_de(formato_de(plan))
     for p in plan['periodos']:
         for n, c in enumerate(p['clases']):
-            if not any(c.get(k, '').strip() for k in CAMPOS):
+            if not any(str(c.get(k, '')).strip() for k in claves):
                 yield p['nombre'], n, c
+
+
+def _filtrar(sug, plan):
+    """Solo las columnas que existen en el formato del plan (los formatos pueden renombrar o quitar columnas)."""
+    claves = set(campos_de(formato_de(plan)))
+    return {k: v for k, v in sug.items() if k in claves}
 
 
 def _objetivo_desde_indicador(ind):
@@ -78,17 +85,17 @@ def sugerir_offline(plan):
         trozo = inds[k * por_clase:(k + 1) * por_clase] or inds[-1:]
         obj, verbo = _objetivo_desde_indicador(trozo[0][1])
         accion = ACTIVIDAD.get(verbo)
-        clase['sugerencia'] = {
+        clase['sugerencia'] = _filtrar({
             'objetivo': obj,
             'actividad': (f'{accion}: ' if accion else 'Actividad guiada para lograr: ') + trozo[0][1].rstrip('.') + f' (OA {trozo[0][0]}).',
             'evaluacion': plan.get('evaluacion_por_defecto', EVAL_FORMATIVA),
             'recursos': plan.get('recursos_por_defecto', RECURSOS_BASE),
-        }
+        }, plan)
     return len(libres)
 
 
 # ---------------------------------------------------------------- proveedores de IA
-def _pedir(proveedor, system, user, modelo=None, api_key=None):
+def _pedir(proveedor, system, user, modelo=None, api_key=None):   # api_key: solo para esta llamada, no se guarda
     ai = AIConnector(proveedor, api_key=api_key, model=modelo)
     info = AI_PROVIDERS[ai.provider]
     if not ai.api_key and ai.provider != 'local':
@@ -107,32 +114,33 @@ def _pedir(proveedor, system, user, modelo=None, api_key=None):
     return r['choices'][0]['message']['content']
 
 
-SISTEMA = ('Eres asistente de planificación docente en Chile (Mineduc). Redactas filas de una planificación mensual: '
-           'objetivo de la clase (infinitivo), estrategia de actividad (qué hacen los estudiantes, 3.ª persona plural), '
-           'estrategia de evaluación y recursos. Sé breve y concreto. NO inventes números de página del texto escolar: '
-           'si no los conoces escribe "págs. ____". Responde SOLO con un arreglo JSON, un objeto por clase, con las claves '
-           '"objetivo","actividad","evaluacion","recursos".')
+SISTEMA = ('Eres asistente de planificación docente en Chile (Mineduc). Redactas filas de una planificación mensual. '
+           'Para las claves "objetivo" (infinitivo), "actividad" (qué hacen los estudiantes, 3.ª persona plural), '
+           '"evaluacion" y "recursos" sigue ese estilo; para cualquier otra columna de "columnas" escribe un texto breve y pertinente. '
+           'Sé breve y concreto. NO inventes números de página del texto escolar: si no los conoces escribe "págs. ____". '
+           'Responde SOLO con un arreglo JSON, un objeto por clase, con exactamente las claves de "columnas".')
 
 
-def sugerir_con_ia(plan, proveedor, modelo=None):
+def sugerir_con_ia(plan, proveedor, modelo=None, api_key=None):
     oas = resolver_oa(plan)
     libres = list(_clases_libres(plan))
     if not libres:
         return 0
     escritas = [f'{p["nombre"]} {n + 1}: {c["objetivo"]}' for p in plan['periodos'] for n, c in enumerate(p['clases']) if c.get('objetivo')]
+    columnas = campos_de(formato_de(plan))
     user = json.dumps({
         'curso': plan['curso'], 'asignatura': plan['asignatura'], 'unidad': plan['unidad'],
         'oa': [{'codigo': o['codigo'], 'texto': o['texto'], 'indicadores': o['indicadores']} for o in oas],
         'clases_ya_escritas': escritas, 'clases_a_sugerir': [f'{nom} {n + 1}' for nom, n, _ in libres],
-        'evaluacion_por_defecto': plan.get('evaluacion_por_defecto', EVAL_FORMATIVA),
+        'evaluacion_por_defecto': plan.get('evaluacion_por_defecto', EVAL_FORMATIVA), 'columnas': columnas,
     }, ensure_ascii=False)
-    bruto = _pedir(proveedor, SISTEMA, user, modelo)
+    bruto = _pedir(proveedor, SISTEMA, user, modelo, api_key)
     m = re.search(r'\[.*\]', bruto, re.S)
     datos = json.loads(m.group(0))
     for (_, _, clase), sug in zip(libres, datos):
-        clase['sugerencia'] = {k: str(sug.get(k, '')) for k in CAMPOS}
+        clase['sugerencia'] = {k: str(sug.get(k, '')) for k in columnas}
     return min(len(libres), len(datos))
 
 
-def sugerir(plan, motor='offline', modelo=None):
-    return sugerir_offline(plan) if motor == 'offline' else sugerir_con_ia(plan, motor, modelo)
+def sugerir(plan, motor='offline', modelo=None, api_key=None):
+    return sugerir_offline(plan) if motor == 'offline' else sugerir_con_ia(plan, motor, modelo, api_key)

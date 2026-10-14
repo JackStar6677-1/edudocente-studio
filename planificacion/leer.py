@@ -2,13 +2,15 @@
 """Lee una planificacion mensual ya generada (y escrita en Word por el docente) de vuelta a JSON.
 
 Sirve para que una IA vea que semanas ya estan escritas y complete o sugiera las que faltan.
+Funciona con cualquier formato (ver formato.py): reconoce la cabecera por las etiquetas del formato.
 """
 import re
 
 from docx import Document
 from docx.oxml.ns import qn
 
-from .mensual import CAMPOS
+from . import formato as F
+from .mensual import campos_de
 
 
 def _tx(el):
@@ -33,36 +35,52 @@ def _celda_dividida(tc):
     return ''.join(normal).strip(), ''.join(sug).strip()
 
 
-def leer_mensual(ruta_docx, curso_codigo, anio):
+def leer_mensual(ruta_docx, curso_codigo, anio, fmt=None):
+    fmt = fmt or F.defecto('mensual')
+    claves = campos_de(fmt)
+    cols = fmt['clases']['columnas']
+    primera = cols[0]['titulo']
+    etiquetas = {}                         # etiqueta de la cabecera -> campo del plan ({profesor}, {curso}, ...)
+    for fila in fmt['datos']:
+        for etiqueta, valor in fila:
+            m = re.fullmatch(r'\{(\w+)\}', valor.strip())
+            if m:
+                etiquetas[etiqueta.strip()] = m.group(1)
     d = Document(ruta_docx)
-    plan = {'anio': anio, 'curso_codigo': curso_codigo, 'periodos': [], 'oa': []}
+    plan = {'anio': anio, 'curso_codigo': curso_codigo, 'periodos': [], 'oa': [], 'unidad': {}}
     for tbl in d.element.body.iter(qn('w:tbl')):
         filas = list(tbl.iter(qn('w:tr')))
         c0 = _celdas(filas[0])
-        txt = _tx(tbl)
-        if c0 and c0[0].startswith('PROFESOR'):
-            plan['profesor'], plan['curso'], plan['asignatura'] = c0[1], c0[3], c0[5]
-            plan['mes'] = c0[7]
-        elif c0 and c0[0].startswith('UNIDAD PROGRAM'):
-            plan['unidad'] = {'numero': c0[1], 'nombre': c0[3]}
-            plan['horas'] = c0[5]
-        elif c0 and c0[0].startswith('OBJETIVOS DE APRENDIZAJE QUE'):
-            plan['oa'] = re.findall(r'(?:^|\s)OA\s+(\d+):', ' '.join(_celdas(filas[1])))
-        elif c0 and c0[0].startswith('N° de clases'):
+        if not c0:
+            continue
+        if any(c0[i] in etiquetas for i in range(0, len(c0) - 1, 2)):
+            for i in range(0, len(c0) - 1, 2):
+                campo = etiquetas.get(c0[i])
+                if campo in ('profesor', 'curso', 'asignatura', 'horas'):
+                    plan[campo] = c0[i + 1]
+                elif campo == 'meses':
+                    plan['mes'] = c0[i + 1]
+                elif campo == 'unidad_numero':
+                    plan['unidad']['numero'] = c0[i + 1]
+                elif campo == 'unidad_nombre':
+                    plan['unidad']['nombre'] = c0[i + 1]
+        elif c0[0] == fmt['oa']['titulo'] and len(filas) > 1:
+            pref = re.escape(fmt['oa'].get('prefijo', 'OA'))
+            plan['oa'] = re.findall(rf'(?:^|\s){pref}\s+(\w+):', ' '.join(_celdas(filas[1])))
+        elif c0[0] == primera:
             nombres = [x.strip() for x in plan.get('mes', '').split(' - ')] or ['Mes']
             periodo = {'nombre': nombres[0] if nombres else 'Mes', 'clases': []}
             plan['periodos'].append(periodo)
             for fila in filas[1:]:
                 c = _celdas(fila)
-                if len(c) < 5 or (len(c) == 1) or (c[0].isalpha() and c[0].upper() == c[0]):
-                    nombre = c[0].capitalize() if c else 'Mes'
-                    periodo = {'nombre': nombre, 'clases': []}
+                if len(c) < len(cols):                          # franja de mes (una sola celda combinada)
+                    periodo = {'nombre': (c[0] if c else 'Mes').capitalize(), 'clases': []}
                     plan['periodos'].append(periodo)
                     continue
-                tcs = list(fila.iter(qn('w:tc')))[1:5]
+                tcs = [tc for tc, col in zip(fila.iter(qn('w:tc')), cols) if col['clave'] != 'n']
                 partes = [_celda_dividida(tc) for tc in tcs]
-                clase = {k: p[0] for k, p in zip(CAMPOS, partes)}
-                sug = {k: p[1] for k, p in zip(CAMPOS, partes) if p[1]}
+                clase = {k: p[0] for k, p in zip(claves, partes)}
+                sug = {k: p[1] for k, p in zip(claves, partes) if p[1]}
                 if sug:
                     clase['sugerencia'] = sug
                 periodo['clases'].append(clase)

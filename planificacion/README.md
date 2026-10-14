@@ -81,6 +81,62 @@ python -m planificacion generar-anual "5°AB - Ciencias Naturales - Plan Anual 2
 Formato de un OA del plan anual: `{"semestre": 2, "unidad": 4, "codigo": "9", "texto": "…", "puntos": [], "indicadores": ["…"], "marcas": {"NOVIEMBRE": [1, 2], "DICIEMBRE": [1]}}`.
 Cada semestre termina con el cuadro **OA Enseñados / OA No Enseñados / % Cobertura Curricular**.
 
+## Formatos editables (los incluidos son *placeholders*)
+
+Cada documento se arma a partir de un **formato** (JSON). Los que vienen incluidos son marcadores de posición que reproducen un formato escolar
+típico; **cualquier establecimiento puede cambiarlos**. Hay cuatro tipos: `mensual`, `anual`, `temario` y `evaluacion`.
+
+| Tipo | Qué se puede cambiar |
+|---|---|
+| `mensual` | título y subtítulo, colores, fuente, tamaño y márgenes de página, logo, cabecera (filas de pares *etiqueta → valor*), bloques visibles (`datos`, `oa`, `clases`, `indicadores`), **columnas de la tabla de clases** (renombrar, reordenar, agregar, quitar, ancho), franja entre meses, color alterno, alto de fila, títulos de OA/indicadores, pie de página |
+| `anual` | título, cabecera, **semestres, meses y semanas por mes**, unidades base, títulos y anchos de la tabla, marca de semana (`X` u otra), leyenda, cuadro de cobertura (o quitarlo), pie |
+| `temario` | título, cabecera, **secciones libres** (título, tipo lista/texto, contenido con `{contenidos}`, `{como_sera}`…), cierre, colores, página |
+| `evaluacion` | **exigencia %**, **ponderación por ítem** (% del puntaje total → recalcula el puntaje de cada pregunta), etiquetas del cuadro de datos, mostrar/ocultar Objetivo de Aprendizaje y contenidos, instrucciones |
+
+Campos que se reemplazan al generar: `{profesor}` `{curso}` `{asignatura}` `{meses}` `{anio}` `{unidad_numero}` `{unidad_nombre}` `{horas}` `{clases}` `{fecha}` `{puntaje}`.
+Los valores inválidos se corrigen solos (colores, fuentes, anchos, largos).
+
+Prioridad: **formato incluido  <  perfil guardado (`datos/formatos/`)  <  `"formato"` dentro del propio plan**.
+
+```
+python -m planificacion formato-listar                         # perfiles disponibles por tipo
+python -m planificacion formato-ver mensual > mi_formato.json  # punto de partida para editar
+python -m planificacion formato-guardar mensual "Mi colegio" mi_formato.json
+python -m planificacion nuevo-mensual ... --formato mi_colegio # usar el perfil
+python -m planificacion formato-restablecer mensual mi_colegio
+```
+Ejemplo mínimo (cambia título, color y columnas de la planificación):
+```json
+{"titulo": "PLAN DE CLASES", "colores": {"primario": "7A1F1F"},
+ "clases": {"columnas": [{"clave": "n", "titulo": "Sesión", "ancho": 900},
+                         {"clave": "tema", "titulo": "TEMA", "ancho": 3000},
+                         {"clave": "tiempo", "titulo": "MINUTOS", "ancho": 1200}]}}
+```
+Las claves de las columnas (`tema`, `tiempo`) son los campos que se escriben en cada clase (`semana ... --campo tiempo=90`).
+
+Evaluación: el motor (`engine.py`) lee `"formato"` dentro de la configuración de la prueba; ejemplo
+`{"formato": {"exigencia_pct": 60, "ponderacion": {"item1": 40, "item2": 40, "item3": 20}, "mostrar_oa": false}}`.
+Si la ponderación no cuadra con múltiplos de 0,5 por pregunta, el puntaje total mostrado es el realmente asignado.
+
+## Panel web (pestaña «4. Planificaciones»)
+
+`python app.py` → pestaña **Planificaciones**: planificación mensual (busca los OA en el banco, editor de clases, sugerencias en gris, descarga del Word,
+borrador automático en el navegador), plan anual (en blanco o desde el banco), temario y **Formatos editables** (controles + JSON).
+Un formato se puede usar *en esta sesión*, guardar *en este navegador* (personal) o *para todo el colegio* (requiere rol administrativo).
+El panel de **Evaluaciones** incluye «Personalizar formato de la evaluación» (exigencia %, ponderación, instrucciones, etiquetas).
+
+## Idioma (español de Chile) y autor de los documentos
+
+Todo documento Word generado por el proyecto (planificaciones, planes anuales, temarios, evaluaciones y pautas) sale con **idioma es-CL**
+—para que Word no subraye en rojo lo que se escribe en español— y con autor configurable (nunca «python-docx»). Lo define `documento_meta.py`:
+
+1. variable de entorno `EDUDOCENTE_AUTOR`
+2. `config/documento.local.json` → `{"autor": "Nombre"}` (archivo local, ignorado por git)
+3. `config/documento.json` → valor por defecto del proyecto: `{"autor": "Jack", "idioma": "es-CL"}`
+
+El valor `"auto"` usa el nombre de usuario del equipo. Para corregir documentos ya creados (sin tocar su contenido):
+`python -m planificacion normalizar "carpeta o archivo.docx" --autor "Nombre"`.
+
 ## Archivos
 
 | Archivo | Rol |
@@ -91,6 +147,10 @@ Cada semestre termina con el cuadro **OA Enseñados / OA No Enseñados / % Cober
 | `leer.py` | Word escrito por la docente → JSON |
 | `ia.py` | sugerencias (offline o proveedor de IA) |
 | `docx_base.py` | estilos y tablas |
+| `formato.py` | formatos editables (incluidos = placeholders), perfiles y validación |
+| `temario.py` | temario de evaluación (JSON → Word) |
+| `web_api.py` | funciones de la API del panel web (saneamiento de lo que envía el navegador) |
+| `../documento_meta.py` | idioma es-CL y autor de todos los documentos |
 | `test_planificacion.py` | `python -m unittest planificacion.test_planificacion` |
 | `datos/` | **local, no se sube a GitHub**: `colegio.json` (docente y cursos), `banco/`, `mensual/` |
 | `ejemplos/colegio.ejemplo.json` | plantilla de `datos/colegio.json` |

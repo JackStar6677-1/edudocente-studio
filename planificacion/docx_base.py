@@ -2,6 +2,7 @@
 """Utilidades de bajo nivel para armar los .docx (estilos, bordes, celdas). Sin logica pedagogica."""
 import io
 import os
+import sys
 from docx import Document
 from docx.enum.section import WD_ORIENT
 from docx.enum.table import WD_TABLE_ALIGNMENT
@@ -11,32 +12,52 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 LOGO_DEFECTO = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'assets', 'logo_colegio.png')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from documento_meta import aplicar as _aplicar_metadatos   # noqa: E402  (idioma es-CL y autor)
+
 NAVY, MID, ICE, PALE, LINE = '1F3864', '2E5597', 'DCE6F2', 'F4F7FB', '8EA9DB'
+FUENTE = 'Arial'
+
+
+def usar_tema(colores=None, fuente=None):
+    """Aplica colores y fuente de un formato (las funciones leen estas variables al construir cada documento)."""
+    global NAVY, MID, ICE, PALE, LINE, FUENTE
+    c = colores or {}
+    NAVY, MID, ICE = c.get('primario', '1F3864'), c.get('secundario', '2E5597'), c.get('claro', 'DCE6F2')
+    PALE, LINE = c.get('fondo', 'F4F7FB'), c.get('borde', '8EA9DB')
+    FUENTE = fuente or 'Arial'
 CENTER = WD_ALIGN_PARAGRAPH.CENTER
 XML_SPACE = '{http://www.w3.org/XML/1998/namespace}space'
 
 
 def nuevo_documento(ancho_cm=33.0, alto_cm=21.6, margen_lat=1.5, margen_sup=1.0, margen_inf=1.1):
-    """Hoja oficio horizontal (formato del colegio)."""
+    """Hoja con el tamano indicado (por defecto oficio horizontal)."""
     doc = Document()
     st = doc.styles['Normal']
-    st.font.name = 'Arial'; st.font.size = Pt(9)
-    st.element.rPr.rFonts.set(qn('w:eastAsia'), 'Arial')
+    st.font.name = FUENTE; st.font.size = Pt(9)
+    st.element.rPr.rFonts.set(qn('w:eastAsia'), FUENTE)
     sec = doc.sections[0]
-    sec.orientation = WD_ORIENT.LANDSCAPE
+    sec.orientation = WD_ORIENT.LANDSCAPE if ancho_cm >= alto_cm else WD_ORIENT.PORTRAIT
     sec.page_width, sec.page_height = Cm(ancho_cm), Cm(alto_cm)
     sec.left_margin = sec.right_margin = Cm(margen_lat)
     sec.top_margin, sec.bottom_margin = Cm(margen_sup), Cm(margen_inf)
     sec.footer_distance = Cm(0.5)
+    _aplicar_metadatos(doc)
+    return doc
+
+
+def finalizar(doc, titulo=None):
+    """Llamar justo antes de guardar: autor, idioma es-CL y titulo del documento."""
+    _aplicar_metadatos(doc, titulo=titulo)
     return doc
 
 
 def run(p, text, bold=False, size=10, color=None, italic=False):
     r = p.add_run(text)
     r.bold = bold; r.italic = italic
-    r.font.name = 'Arial'; r.font.size = Pt(size)
+    r.font.name = FUENTE; r.font.size = Pt(size)
     rf = r._r.get_or_add_rPr().find(qn('w:rFonts'))
-    rf.set(qn('w:eastAsia'), 'Arial'); rf.set(qn('w:cs'), 'Arial')
+    rf.set(qn('w:eastAsia'), FUENTE); rf.set(qn('w:cs'), FUENTE)
     if color:
         r.font.color.rgb = RGBColor.from_string(color)
     return r
@@ -69,7 +90,8 @@ def sombrear(cell, fill):
     tcPr.insert(pos, sh)
 
 
-def borde_celda(cell, color=MID, sz='6'):
+def borde_celda(cell, color=None, sz='6'):
+    color = color or MID
     pr = cell._tc.get_or_add_tcPr()
     for b in pr.findall(qn('w:tcBorders')):
         pr.remove(b)
@@ -89,7 +111,7 @@ def valign(cell, v='center'):
     e = OxmlElement('w:vAlign'); e.set(qn('w:val'), v); cell._tc.get_or_add_tcPr().append(e)
 
 
-def tabla(doc, filas, anchos, borde=LINE, margenes=(60, 100)):
+def tabla(doc, filas, anchos, borde='auto', margenes=(60, 100)):
     """Tabla de ancho fijo (twips) con bordes finos y margenes de celda."""
     t = doc.add_table(rows=filas, cols=len(anchos))
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -106,6 +128,7 @@ def tabla(doc, filas, anchos, borde=LINE, margenes=(60, 100)):
     for row in t.rows:
         for c, w in zip(row.cells, anchos):
             c.width = Cm(w / 567)
+    borde = LINE if borde == 'auto' else borde
     if borde:
         bd = OxmlElement('w:tblBorders')
         for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
@@ -142,7 +165,7 @@ def pie_de_pagina(doc, texto):
     fp = doc.sections[0].footer.paragraphs[0]
     fp.alignment = CENTER
     run(fp, texto + '  ·  Página ', False, 8, '595959')
-    r = fp.add_run(); r.font.size = Pt(8); r.font.name = 'Arial'
+    r = fp.add_run(); r.font.size = Pt(8); r.font.name = FUENTE
     for typ, txt in (('begin', None), (None, 'PAGE'), ('end', None)):
         if typ:
             fc = OxmlElement('w:fldChar'); fc.set(qn('w:fldCharType'), typ); r._r.append(fc)

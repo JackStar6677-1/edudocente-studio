@@ -52,6 +52,34 @@ class DocenteEngine:
         self.total_pts = self.cfg.get("puntaje_total", 25)
         self.teacher = self.cfg.get("docente", "Docente de Asignatura")
         self.teacher_email = self.cfg.get("email_docente", "docente@colegiocastelgandolfo.cl")
+        self.fmt = self.cfg.get("formato") or {}          # formato editable (todo opcional; ver docs de planificacion/formato)
+        self._aplicar_formato()
+
+    @staticmethod
+    def _p(x):
+        """Puntaje legible: 2 -> '2', 2.5 -> '2,5'."""
+        return str(int(x)) if float(x).is_integer() else f"{x:.1f}".replace(".", ",")
+
+    def _aplicar_formato(self):
+        """Si el formato trae `ponderacion` (porcentaje del puntaje total por ítem) recalcula el puntaje de cada pregunta."""
+        pond = self.fmt.get("ponderacion") or {}
+        if not pond:
+            return
+        def paso(x):                                    # multiplos de 0,5
+            return max(0.5, round(x * 2) / 2)
+        total, suma = float(self.total_pts), 0.0
+        for clave, lista, campo in (("item1", "item1_seleccion_multiple", "item1_pts_cada_una"),
+                                    ("item2", "item2_verdadero_falso", "item2_pts_cada_una")):
+            items = self.cfg.get(lista, [])
+            if items and clave in pond:
+                self.cfg[campo] = paso(total * float(pond[clave]) / 100 / len(items))
+            suma += len(items) * self.cfg.get(campo, 0) if items else 0
+        cfg3 = self.cfg.get("item3_aplicacion", {})
+        if cfg3 and "item3" in pond:
+            cfg3["puntaje"] = paso(total * float(pond["item3"]) / 100)
+        suma += cfg3.get("puntaje", 0) if cfg3 else 0
+        if suma:
+            self.total_pts = int(suma) if float(suma).is_integer() else suma     # el total refleja lo realmente asignado
 
     # --------------------------------------------------------------------------
     # COMPONENTE: Cuadro de Datos y OA
@@ -62,11 +90,14 @@ class DocenteEngine:
         t_info.autofit = False
         w_l, w_r = Pt(255), Pt(256.2)
 
+        et = self.fmt.get("etiquetas") or {}
+        total_txt = self._p(self.total_pts)
         filas = [
-            ("Nombre del/la Estudiante: " + ("PAUTA OFICIAL DOCENTE" if is_pauta else "____________________________________"),
-             f"Curso: {self.course}"),
-            ("Fecha: ______ de _________________ de 2026",
-             f"Puntaje Total: {self.total_pts} puntos   |   Puntaje Obtenido: " + (f"{self.total_pts} pts" if is_pauta else "_____ pts"))
+            (et.get("nombre", "Nombre del/la Estudiante:") + " " + ("PAUTA OFICIAL DOCENTE" if is_pauta else "____________________________________"),
+             f"{et.get('curso', 'Curso:')} {self.course}"),
+            (f"{et.get('fecha', 'Fecha:')} ______ de _________________ de {self.cfg.get('anio', 2026)}",
+             f"{et.get('puntaje_total', 'Puntaje Total:')} {total_txt} puntos   |   {et.get('puntaje_obtenido', 'Puntaje Obtenido:')} "
+             + (f"{total_txt} pts" if is_pauta else "_____ pts"))
         ]
 
         for r_idx, (d1, d2) in enumerate(filas):
@@ -107,14 +138,14 @@ class DocenteEngine:
         p_ins.paragraph_format.space_before = Pt(0)
         p_ins.paragraph_format.space_after = Pt(0)
 
-        if self.oa:
+        if self.oa and self.fmt.get("mostrar_oa", True):
             r_oa = p_ins.add_run(f"Objetivo de Aprendizaje: {self.oa}\n")
             r_oa.bold = True
             r_oa.font.name = "Arial"
             r_oa.font.size = Pt(8.5)
             r_oa.font.color.rgb = COLOR_NAVY_RGB
 
-        if self.contents:
+        if self.contents and self.fmt.get("mostrar_contenidos", True):
             r_co = p_ins.add_run(f"Contenidos Evaluados: {self.contents}\n")
             r_co.bold = True
             r_co.font.name = "Arial"
@@ -128,6 +159,14 @@ class DocenteEngine:
         r_txt.font.name = "Arial"
         r_txt.font.size = Pt(8)
 
+        exigencia = self.fmt.get("exigencia_pct")
+        if exigencia:                                       # p. ej. 60 -> "Exigencia: 60% (puntaje mínimo de aprobación: 15 pts)"
+            minimo = float(self.total_pts) * float(exigencia) / 100
+            r_ex = p_ins.add_run(f"\nExigencia: {self._p(float(exigencia))}% (puntaje mínimo de aprobación: {self._p(round(minimo * 2) / 2)} pts)")
+            r_ex.bold = True
+            r_ex.font.name = "Arial"
+            r_ex.font.size = Pt(8)
+
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
     # --------------------------------------------------------------------------
@@ -140,7 +179,7 @@ class DocenteEngine:
 
         pts_c_u = self.cfg.get("item1_pts_cada_una", 2)
         total_pts = len(items) * pts_c_u
-        header_text = f"ÍTEM I: SELECCIÓN MÚLTIPLE ({pts_c_u} puntos c/u — Total: {total_pts} puntos)"
+        header_text = f"ÍTEM I: SELECCIÓN MÚLTIPLE ({self._p(pts_c_u)} puntos c/u — Total: {self._p(total_pts)} puntos)"
         if is_pauta:
             header_text = f"SOLUCIONARIO {header_text}"
         add_section_header(doc, header_text)
@@ -253,7 +292,7 @@ class DocenteEngine:
 
         pts_c_u = self.cfg.get("item2_pts_cada_una", 1)
         total_pts = len(items) * pts_c_u
-        header_text = f"ÍTEM II: VERDADERO O FALSO ({pts_c_u} punto{'s' if pts_c_u > 1 else ''} c/u — Total: {total_pts} puntos)"
+        header_text = f"ÍTEM II: VERDADERO O FALSO ({self._p(pts_c_u)} punto{'s' if pts_c_u > 1 else ''} c/u — Total: {self._p(total_pts)} puntos)"
         if is_pauta:
             header_text = f"SOLUCIONARIO {header_text}"
         add_section_header(doc, header_text)
@@ -383,7 +422,7 @@ class DocenteEngine:
         instruccion = cfg3.get("instruccion", "")
         tipo = cfg3.get("tipo", "drawing_boxes") # drawing_boxes, diagram_image, table_symbols
 
-        header_text = f"{titulo3} ({pts} puntos)"
+        header_text = f"{titulo3} ({self._p(pts)} puntos)"
         if is_pauta:
             header_text = f"SOLUCIONARIO {header_text}"
         add_section_header(doc, header_text)

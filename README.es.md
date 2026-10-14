@@ -227,6 +227,15 @@ python -m planificacion nuevo-mensual --curso 5°AB --asignatura "Ciencias Natur
 python -m planificacion generar-mensual plan.json      # Word con filas vacías para escribir
 python -m planificacion sugerir plan.json              # propuesta para las clases vacías (offline o --ia claude)
 ```
+Los formatos incluidos son **marcadores de posición editables** (columnas, títulos, colores, bloques, semanas, secciones del temario y, en las
+evaluaciones, exigencia %, ponderación por ítem, etiquetas e instrucciones). Se editan desde la pestaña **4. Planificaciones → Formatos editables**
+del panel web o con `python -m planificacion formato-...`.
+
+**Idioma y autor por defecto:** todo documento Word sale en **español de Chile (es-CL)** —Word ya no subraya en rojo lo que se escribe— y con autor
+configurable (por defecto `Jack`, en `config/documento.json`; para cambiarlo: `config/documento.local.json` con `{"autor": "Nombre"}`, la variable
+`EDUDOCENTE_AUTOR`, o `"auto"` para usar el nombre de usuario del equipo). Para corregir documentos ya creados:
+`python -m planificacion normalizar "carpeta o archivo.docx" --autor "Nombre"`.
+
 Guía completa en [`planificacion/README.md`](planificacion/README.md).
 
 ---
@@ -246,6 +255,7 @@ edudocente_studio/
 ├── config/                               # Memoria persistente del sistema
 │   ├── institutions.json                 # Perfiles, logos y colores de colegios
 │   ├── mineduc_oa_priorizados.json       # Catálogo de objetivos de aprendizaje priorizados (Mineduc)
+│   ├── documento.json                    # Autor e idioma por defecto de los documentos (local: documento.local.json)
 │   └── roster_data.json                  # Nómina configurable de apoderados y citas
 │
 ├── planificacion/                        # Módulo de planificaciones (python -m planificacion)
@@ -254,6 +264,8 @@ edudocente_studio/
 │   ├── banco.py                          # Plan anual (.docx) -> banco de OA e indicadores
 │   ├── leer.py                           # Word escrito por la docente -> JSON
 │   ├── ia.py                             # Sugerencias offline o con proveedor de IA
+│   ├── formato.py / temario.py           # Formatos editables (placeholders) y generador de temarios
+│   ├── web_api.py                        # Funciones de la API del panel web
 │   ├── docx_base.py                      # Estilos y tablas del formato del colegio
 │   ├── ejemplos/                         # Configuración de ejemplo (genérica)
 │   ├── datos/                            # SOLO LOCAL (ignorado por git): docente, banco y planificaciones

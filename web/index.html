@@ -130,9 +130,13 @@
         <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
         3. Identidad Institucional & Branding
       </button>
+      <button onclick="switchTab('tab-planning')" id="tab-btn-planning" class="py-3 hover:text-white transition flex items-center gap-2 whitespace-nowrap">
+        <svg class="w-4 h-4 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        4. Planificaciones
+      </button>
       <button onclick="switchTab('tab-roadmap')" id="tab-btn-roadmap" class="py-3 hover:text-white transition flex items-center gap-2 whitespace-nowrap text-purple-300">
         <span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-bold border border-purple-400/30">Beta</span>
-        4. Próximamente (En Desarrollo)
+        5. Próximamente (En Desarrollo)
       </button>
     </div>
   </header>
@@ -385,6 +389,29 @@
               </div>
             </div>
 
+            <details class="border border-slate-200 rounded-sm p-3 bg-slate-50">
+              <summary class="text-xs font-bold text-slate-700 cursor-pointer">Personalizar formato de la evaluación (porcentajes, instrucciones, etiquetas)</summary>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Perfil de formato
+                  <select id="ev-perfil" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white"><option value="defecto">Predeterminado (editable)</option></select>
+                  <span class="block text-[11px] font-normal text-slate-500 mt-0.5">Se crean y guardan en «Planificaciones → Formatos editables → Evaluación».</span></label>
+                <label class="text-xs font-semibold text-slate-700">Exigencia (%)
+                  <input id="ev-exigencia" type="number" min="0" max="100" placeholder="p. ej. 60 (vacío = no mostrar)" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+                <div class="text-xs font-semibold text-slate-700">
+                  <label class="flex items-center gap-2"><input type="checkbox" id="ev-pond-on"> Ponderar cada ítem (% del puntaje total)</label>
+                  <div class="flex gap-2 mt-1">
+                    <input id="ev-p1" type="number" min="0" max="100" value="40" title="Ítem I" class="w-16 text-xs px-2 py-1 rounded-sm border border-slate-300">
+                    <input id="ev-p2" type="number" min="0" max="100" value="40" title="Ítem II" class="w-16 text-xs px-2 py-1 rounded-sm border border-slate-300">
+                    <input id="ev-p3" type="number" min="0" max="100" value="20" title="Ítem III" class="w-16 text-xs px-2 py-1 rounded-sm border border-slate-300">
+                  </div>
+                </div>
+                <label class="flex items-center gap-2 text-xs font-semibold text-slate-700"><input type="checkbox" id="ev-oa" checked> Mostrar el Objetivo de Aprendizaje en la prueba</label>
+                <label class="flex items-center gap-2 text-xs font-semibold text-slate-700"><input type="checkbox" id="ev-cont" checked> Mostrar los contenidos evaluados</label>
+                <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Instrucciones (vacío = las predeterminadas)
+                  <textarea id="ev-instr" rows="2" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></textarea></label>
+              </div>
+            </details>
+
             <button id="btn-generate" onclick="generateWithAI()" class="w-full py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider text-white bg-slate-900 hover:bg-black border border-slate-800 transition flex items-center justify-center gap-2">
               <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               <span>Generar Instrumento de Evaluación (.docx)</span>
@@ -597,6 +624,171 @@
     <!-- ============================================================== -->
     <!-- TAB 4: PRÓXIMAMENTE / ROADMAP EN DESARROLLO                    -->
     <!-- ============================================================== -->
+    <!-- ================= TAB: PLANIFICACIONES ================= -->
+    <div id="tab-planning" class="hidden space-y-6">
+      <div class="glass-card rounded-sm p-4 shadow-sm">
+        <div class="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100">
+          <button type="button" data-sub="mensual" onclick="planSub('mensual')" class="plan-sub px-3 py-1.5 rounded-sm text-xs font-bold border">Planificación mensual</button>
+          <button type="button" data-sub="anual" onclick="planSub('anual')" class="plan-sub px-3 py-1.5 rounded-sm text-xs font-bold border">Plan anual</button>
+          <button type="button" data-sub="temario" onclick="planSub('temario')" class="plan-sub px-3 py-1.5 rounded-sm text-xs font-bold border">Temario</button>
+          <button type="button" data-sub="formatos" onclick="planSub('formatos')" class="plan-sub px-3 py-1.5 rounded-sm text-xs font-bold border">Formatos editables</button>
+        </div>
+        <p class="text-[11px] text-slate-500 pt-2">
+          Los formatos incluidos son <b>marcadores de posición</b>: cada colegio puede cambiarlos (títulos, columnas, colores, bloques, etc.) en la pestaña
+          <b>Formatos editables</b>. Los documentos salen en español de Chile (es-CL).
+        </p>
+      </div>
+
+      <!-- ---------- Planificación mensual ---------- -->
+      <div id="plan-sec-mensual" class="space-y-4">
+        <div class="glass-card rounded-sm p-5 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Planificación mensual</h3>
+            <p class="text-xs text-slate-500">Indica los datos y los números de OA: el texto de los objetivos y sus indicadores salen del banco curricular (si existe). Luego escribe solo lo de cada clase.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <label class="text-xs font-semibold text-slate-700">Curso (código)
+              <input id="pm-curso" list="pm-cursos" placeholder="p. ej. 5°AB" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300">
+              <datalist id="pm-cursos"></datalist></label>
+            <label class="text-xs font-semibold text-slate-700">Asignatura
+              <input id="pm-asignatura" list="pm-asignaturas" placeholder="p. ej. Ciencias Naturales" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300">
+              <datalist id="pm-asignaturas"></datalist></label>
+            <label class="text-xs font-semibold text-slate-700">Año
+              <input id="pm-anio" type="number" value="2026" min="2000" max="2100" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Docente
+              <input id="pm-profesor" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Unidad N°
+              <input id="pm-unidad" placeholder="4" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Nombre de la unidad
+              <input id="pm-unidad-nombre" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">N° de horas
+              <input id="pm-horas" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Números de OA (separados por coma)
+              <input id="pm-oa" placeholder="8, 9, 10, 11" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Formato
+              <select id="pm-formato" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white"></select></label>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-semibold text-slate-700">Meses y cantidad de clases de cada uno</span>
+              <button type="button" onclick="planAgregarMes()" class="text-[11px] px-2 py-1 rounded-sm bg-slate-100 hover:bg-slate-200 border border-slate-300 font-bold text-slate-700">+ Mes</button>
+            </div>
+            <div id="pm-meses" class="space-y-1.5"></div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="planArmar()" class="px-4 py-2 rounded-sm bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow">Armar planificación</button>
+            <button type="button" onclick="planCargarBorrador()" class="px-4 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Continuar el borrador de este navegador</button>
+            <label class="px-4 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold cursor-pointer">Abrir archivo .json
+              <input type="file" accept="application/json,.json" class="hidden" onchange="planAbrirArchivo(this)"></label>
+          </div>
+        </div>
+
+        <div id="pm-editor" class="hidden space-y-4">
+          <div class="glass-card rounded-sm p-4 shadow-sm space-y-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-slate-700">Ayuda con IA para las clases vacías:</span>
+              <select id="pm-motor" onchange="document.getElementById('pm-clave-wrap').classList.toggle('hidden', this.value==='offline')" class="text-xs px-2 py-1.5 rounded-sm border border-slate-300 bg-white"></select>
+              <span id="pm-clave-wrap" class="hidden"><input id="pm-clave" type="password" autocomplete="off" placeholder="Clave de API (solo para esta consulta)" class="text-xs px-2 py-1.5 rounded-sm border border-slate-300 w-64"></span>
+              <button type="button" onclick="planSugerir()" class="px-3 py-1.5 rounded-sm bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold">Sugerir</button>
+              <button type="button" onclick="planAceptar(true)" class="px-3 py-1.5 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Aceptar todas las sugerencias</button>
+              <span id="pm-sug-estado" class="text-[11px] text-slate-500"></span>
+            </div>
+            <p class="text-[11px] text-slate-500">Las sugerencias aparecen en gris dentro de la celda vacía; no reemplazan lo que escribas. La IA no inventa páginas del texto escolar (deja «págs. ____»).</p>
+          </div>
+          <div class="glass-card rounded-sm p-4 shadow-sm"><div class="text-xs font-bold text-slate-700 mb-2">Objetivos de aprendizaje e indicadores <span class="font-normal text-slate-500">(editables)</span></div><div id="pm-oa-editor" class="space-y-3"></div></div>
+          <div id="pm-clases-editor" class="space-y-4"></div>
+          <div class="glass-card rounded-sm p-4 shadow-sm flex flex-wrap items-center gap-2">
+            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5"><input type="checkbox" id="pm-incluir-sug"> Incluir sugerencias en gris</label>
+            <button type="button" id="pm-btn-docx" onclick="planDescargar()" class="px-4 py-2 rounded-sm bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">Descargar Word (.docx)</button>
+            <button type="button" onclick="planDescargarJson()" class="px-4 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Guardar borrador (.json)</button>
+            <span id="pm-guardado" class="text-[11px] text-slate-500">El borrador se guarda automáticamente en este navegador.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Plan anual ---------- -->
+      <div id="plan-sec-anual" class="hidden space-y-4">
+        <div class="glass-card rounded-sm p-5 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Plan anual</h3>
+            <p class="text-xs text-slate-500">Plantilla en blanco para escribir en Word, o el plan completo desde el banco curricular. Una «X» marca las semanas en que se aborda cada objetivo.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <label class="text-xs font-semibold text-slate-700">Curso (código)<input id="pa-curso" list="pm-cursos" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Asignatura<input id="pa-asignatura" list="pm-asignaturas" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Año<input id="pa-anio" type="number" value="2027" min="2000" max="2100" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Docente<input id="pa-profesor" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Horas<input id="pa-horas" placeholder="4 hrs Semanales" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Clases<input id="pa-clases" placeholder="10 Mensuales" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Formato<select id="pa-formato" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white"></select></label>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="planAnual(false)" class="px-4 py-2 rounded-sm bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">Descargar plantilla en blanco</button>
+            <button type="button" onclick="planAnual(true)" class="px-4 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Descargar desde el banco curricular</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Temario ---------- -->
+      <div id="plan-sec-temario" class="hidden space-y-4">
+        <div class="glass-card rounded-sm p-5 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Temario de evaluación</h3>
+            <p class="text-xs text-slate-500">Documento para estudiantes y apoderados. Las secciones (títulos y contenido) son editables en <b>Formatos editables → Temario</b>.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <label class="text-xs font-semibold text-slate-700">Curso<input id="pt-curso" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Asignatura<input id="pt-asignatura" list="pm-asignaturas" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Fecha de evaluación<input id="pt-fecha" placeholder="lunes 19 de octubre" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700">Puntaje total<input id="pt-puntaje" placeholder="25 puntos" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Contenidos (uno por línea)<textarea id="pt-contenidos" rows="5" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></textarea></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Cómo será la evaluación<textarea id="pt-comosera" rows="5" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></textarea></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Docente<input id="pt-profesor" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+            <label class="text-xs font-semibold text-slate-700 sm:col-span-2">Formato<select id="pt-formato" class="mt-1 w-full text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white"></select></label>
+          </div>
+          <button type="button" onclick="planTemario()" class="px-4 py-2 rounded-sm bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">Descargar temario (.docx)</button>
+        </div>
+      </div>
+
+      <!-- ---------- Formatos editables ---------- -->
+      <div id="plan-sec-formatos" class="hidden space-y-4">
+        <div class="glass-card rounded-sm p-5 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Formatos editables</h3>
+            <p class="text-xs text-slate-500">Elige el tipo de documento, ajústalo y úsalo. <b>En esta sesión</b>: vale para lo que generes ahora. <b>En este navegador</b>: queda guardado solo para ti. <b>Para todo el colegio</b>: lo guarda el servidor (requiere rol administrativo).</p>
+          </div>
+          <div class="flex flex-wrap items-end gap-3">
+            <label class="text-xs font-semibold text-slate-700">Tipo
+              <select id="fm-tipo" onchange="fmCambiarTipo()" class="mt-1 block text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white">
+                <option value="mensual">Planificación mensual</option><option value="anual">Plan anual</option>
+                <option value="temario">Temario</option><option value="evaluacion">Evaluación</option></select></label>
+            <label class="text-xs font-semibold text-slate-700">Perfil
+              <select id="fm-perfil" class="mt-1 block text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 bg-white min-w-[12rem]"></select></label>
+            <button type="button" onclick="fmCargar()" class="px-3 py-1.5 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Cargar</button>
+            <label class="text-xs font-semibold text-slate-700">Nombre para guardar
+              <input id="fm-nombre" placeholder="p. ej. Mi colegio" class="mt-1 block text-xs px-2.5 py-1.5 rounded-sm border border-slate-300"></label>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div id="fm-controles" class="space-y-3"></div>
+            <div>
+              <div class="text-xs font-semibold text-slate-700 mb-1">Avanzado: formato completo (JSON)</div>
+              <textarea id="fm-json" rows="22" spellcheck="false" onchange="fmDesdeJson()" class="w-full font-mono text-[11px] px-2.5 py-2 rounded-sm border border-slate-300"></textarea>
+              <p class="text-[11px] text-slate-500 mt-1">Campos como <code>{profesor}</code>, <code>{curso}</code>, <code>{asignatura}</code>, <code>{meses}</code>, <code>{anio}</code> se reemplazan al generar. Los valores inválidos se corrigen solos.</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="fmUsarSesion()" class="px-3 py-2 rounded-sm bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold">Usar en esta sesión</button>
+            <button type="button" onclick="fmGuardarLocal()" class="px-3 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Guardar en este navegador</button>
+            <button type="button" onclick="fmGuardarServidor()" class="px-3 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Guardar para todo el colegio</button>
+            <button type="button" onclick="fmRestablecer()" class="px-3 py-2 rounded-sm bg-white hover:bg-rose-50 border border-rose-300 text-rose-700 text-xs font-bold">Restablecer este tipo</button>
+            <button type="button" onclick="fmDescargar()" class="px-3 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold">Descargar JSON</button>
+            <label class="px-3 py-2 rounded-sm bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-bold cursor-pointer">Abrir JSON
+              <input type="file" accept="application/json,.json" class="hidden" onchange="fmAbrir(this)"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="tab-roadmap" class="hidden space-y-6">
       <div class="bg-slate-900 rounded-sm p-6 text-white shadow-xl border border-slate-800 space-y-6">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -837,7 +1029,7 @@
 
     // Tab Switching
     function switchTab(tabId) {
-      ['tab-assessments', 'tab-roster', 'tab-institutions', 'tab-roadmap'].forEach(t => {
+      ['tab-assessments', 'tab-roster', 'tab-institutions', 'tab-planning', 'tab-roadmap'].forEach(t => {
         document.getElementById(t).classList.add('hidden');
         document.getElementById('tab-btn-' + t.replace('tab-', '')).classList.remove('tab-active');
       });
@@ -847,6 +1039,7 @@
 
       if (tabId === 'tab-roster') loadRosterTable();
       if (tabId === 'tab-institutions') renderInstitutionsCards();
+      if (tabId === 'tab-planning') planInit();
     }
 
     // Institution Branding
@@ -1363,7 +1556,8 @@
           provider: prov,
           api_key: userApiKey || null,
           subject, grade, topic, oa, textbook_pages: pages,
-          points: points
+          points: points,
+          ...evalFormatoDesdeUI()
         };
         const res = await fetch('/api/generate', {
           method: 'POST',
@@ -1470,6 +1664,415 @@
     loadMineducOAs();
     selectAIProvider('antigravity');
     checkUrlTeacherParams();
+      // =====================================================================
+    // PLANIFICACIONES (mensual, plan anual, temario) y FORMATOS EDITABLES
+    // =====================================================================
+    const LS_FORMATOS = 'edu_formatos_v1';
+    const LS_BORRADOR = 'edu_plan_borrador_v1';
+    let PLAN_OPC = null;       // opciones del servidor (cursos, bancos, formatos, proveedores de IA)
+    let planState = null;      // planificación mensual en edición
+    let planFmt = null;        // formato completo vigente de esa planificación (columnas)
+    let fmActual = null;       // formato abierto en el editor
+    const FM_SESION = {};      // formatos "usar en esta sesión" por tipo
+    let planAutoguardar = null;
+
+    function h(t) { return String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+    function $(id) { return document.getElementById(id); }
+    function lsGet(clave, defecto) { try { const v = localStorage.getItem(clave); return v ? JSON.parse(v) : defecto; } catch (e) { return defecto; } }
+    function lsSet(clave, valor) { try { localStorage.setItem(clave, JSON.stringify(valor)); return true; } catch (e) { return false; } }
+    function localFormatos() { return lsGet(LS_FORMATOS, {}); }
+
+    async function api(url, body) {
+      const res = await fetch(url, body === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      let data = {};
+      try { data = await res.json(); } catch (e) { /* respuesta sin JSON */ }
+      if (!res.ok) throw new Error(data.error || ('Error ' + res.status));
+      return data;
+    }
+    function descargarTexto(nombre, texto, tipo) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([texto], { type: tipo || 'application/json' }));
+      a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+    }
+    function leerArchivoJson(input, alCargar) {
+      const f = input.files && input.files[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = () => { try { alCargar(JSON.parse(r.result)); } catch (e) { showToast('El archivo no es un JSON válido', 'error'); } input.value = ''; };
+      r.readAsText(f);
+    }
+
+    // ---------- opciones y selectores de formato ----------
+    async function planCargarOpciones() {
+      if (PLAN_OPC) return PLAN_OPC;
+      try { PLAN_OPC = await api('/api/planificacion/opciones'); } catch (e) { PLAN_OPC = { cursos: {}, bancos: [], formatos: {}, defecto: {}, proveedores_ia: ['offline'], profesor: '' }; }
+      const cursos = new Set([...Object.keys(PLAN_OPC.cursos || {}), ...PLAN_OPC.bancos.map(b => b.curso_codigo)]);
+      $('pm-cursos').innerHTML = [...cursos].map(c => `<option value="${h(c)}">`).join('');
+      const asigs = new Set(['Ciencias Naturales', 'Matemática', 'Lenguaje y Comunicación', 'Historia, Geografía y Ciencias Sociales', 'Música', 'Artes Visuales', 'Educación Física', 'Orientación', 'Inglés', ...PLAN_OPC.bancos.map(b => b.asignatura)]);
+      $('pm-asignaturas').innerHTML = [...asigs].filter(Boolean).map(a => `<option value="${h(a)}">`).join('');
+      ['pm-profesor', 'pa-profesor', 'pt-profesor'].forEach(id => { if (!$(id).value) $(id).value = PLAN_OPC.profesor || ''; });
+      $('pm-motor').innerHTML = PLAN_OPC.proveedores_ia.map(p => `<option value="${h(p)}">${p === 'offline' ? 'Sin IA (propuesta básica)' : h(p)}</option>`).join('');
+      if (!$('pm-meses').children.length) { planAgregarMes('Noviembre', 5); planAgregarMes('Diciembre', 2); }
+      refrescarSelectoresFormato();
+      return PLAN_OPC;
+    }
+
+    function opcionesFormato(tipo) {
+      const o = [['defecto', 'Predeterminado (editable)']];
+      ((PLAN_OPC && PLAN_OPC.formatos[tipo]) || []).filter(n => n !== 'defecto').forEach(n => o.push(['srv:' + n, 'Colegio: ' + n]));
+      Object.keys(localFormatos()[tipo] || {}).forEach(n => o.push(['loc:' + n, 'Mi navegador: ' + n]));
+      if (FM_SESION[tipo]) o.push(['ses', 'Sesión (editado ahora)']);
+      return o;
+    }
+    function refrescarSelectoresFormato() {
+      [['pm-formato', 'mensual'], ['pa-formato', 'anual'], ['pt-formato', 'temario'], ['ev-perfil', 'evaluacion']].forEach(([id, tipo]) => {
+        const sel = $(id); if (!sel) return;
+        const previo = sel.value;
+        sel.innerHTML = opcionesFormato(tipo).map(([v, t]) => `<option value="${h(v)}">${h(t)}</option>`).join('');
+        if ([...sel.options].some(o => o.value === previo)) sel.value = previo;
+      });
+      if ($('fm-perfil')) fmLlenarPerfiles();
+    }
+    // 'defecto' | 'srv:x' | 'loc:x' | 'ses'  ->  campos que se agregan a la solicitud ({formato_perfil} o {formato})
+    function formatoReferencia(tipo, valor) {
+      if (!valor || valor === 'defecto') return {};
+      if (valor === 'ses') return { formato: FM_SESION[tipo] };
+      if (valor.startsWith('srv:')) return { formato_perfil: valor.slice(4) };
+      if (valor.startsWith('loc:')) return { formato: (localFormatos()[tipo] || {})[valor.slice(4)] };
+      return {};
+    }
+
+    // ---------- navegación interna ----------
+    function planSub(nombre) {
+      ['mensual', 'anual', 'temario', 'formatos'].forEach(n => $('plan-sec-' + n).classList.toggle('hidden', n !== nombre));
+      document.querySelectorAll('.plan-sub').forEach(b => {
+        const activo = b.dataset.sub === nombre;
+        b.className = 'plan-sub px-3 py-1.5 rounded-sm text-xs font-bold border ' + (activo ? 'bg-brand-700 text-white border-brand-700' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50');
+      });
+      if (nombre === 'formatos' && !fmActual) fmCambiarTipo();
+    }
+    async function planInit() {
+      await planCargarOpciones();
+      planSub(document.querySelector('.plan-sub.bg-brand-700')?.dataset.sub || 'mensual');
+    }
+
+    // ---------- planificación mensual ----------
+    function planAgregarMes(nombre, clases) {
+      const fila = document.createElement('div');
+      fila.className = 'flex items-center gap-2';
+      fila.innerHTML = `<input class="pm-mes-nombre text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 w-44" placeholder="Mes" value="${h(nombre || '')}">
+        <input class="pm-mes-clases text-xs px-2.5 py-1.5 rounded-sm border border-slate-300 w-24" type="number" min="1" max="40" value="${clases || 5}">
+        <span class="text-[11px] text-slate-500">clases</span>
+        <button type="button" class="text-rose-600 text-xs font-bold px-2" onclick="this.parentElement.remove()">✕</button>`;
+      $('pm-meses').appendChild(fila);
+    }
+    async function formatoCompleto(tipo, ref) {
+      return await api('/api/planificacion/formato', { tipo, perfil: ref.formato_perfil || '', formato: ref.formato || null });
+    }
+    async function planArmar() {
+      const asignatura = $('pm-asignatura').value.trim(), codigo = $('pm-curso').value.trim();
+      const periodos = [...$('pm-meses').children].map(f => ({ nombre: f.querySelector('.pm-mes-nombre').value.trim(), n: parseInt(f.querySelector('.pm-mes-clases').value) || 0 })).filter(p => p.nombre && p.n > 0);
+      if (!asignatura || !codigo || !periodos.length) { showToast('Completa curso, asignatura y al menos un mes con clases', 'error'); return; }
+      const ref = formatoReferencia('mensual', $('pm-formato').value);
+      try {
+        planFmt = await formatoCompleto('mensual', ref);
+        const claves = planFmt.clases.columnas.filter(c => c.clave !== 'n').map(c => c.clave);
+        const codigos = $('pm-oa').value.split(/[\s,;]+/).map(x => x.replace(/^OA/i, '').trim()).filter(Boolean);
+        const anio = parseInt($('pm-anio').value) || 2026;
+        let oas = [];
+        if (codigos.length) {
+          const r = await api('/api/planificacion/oa', { curso_codigo: codigo, asignatura, anio, unidad: $('pm-unidad').value.trim(), codigos });
+          oas = r.oa.map(o => ({ codigo: o.codigo, texto: o.texto, puntos: o.puntos || [], indicadores: o.indicadores || [] }));
+          if (!r.hay_banco || oas.some(o => !o.texto)) showToast('Algunos OA no están en el banco curricular: escribe su texto en el recuadro de objetivos', 'error');
+        }
+        planState = Object.assign({ anio, profesor: $('pm-profesor').value.trim(), curso: (PLAN_OPC.cursos || {})[codigo] || codigo, curso_codigo: codigo, asignatura,
+          horas: $('pm-horas').value.trim(), unidad: { numero: $('pm-unidad').value.trim(), nombre: $('pm-unidad-nombre').value.trim() }, oa: oas,
+          periodos: periodos.map(p => ({ nombre: p.nombre, clases: Array.from({ length: p.n }, () => Object.fromEntries(claves.map(k => [k, '']))) })) }, ref);
+        planRender(); planGuardarBorrador();
+        $('pm-editor').classList.remove('hidden'); $('pm-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    function planRender() {
+      if (!planState) return;
+      const colsEditables = planFmt.clases.columnas.filter(c => c.clave !== 'n');
+      // OA
+      const oaBox = $('pm-oa-editor'); oaBox.innerHTML = '';
+      if (!planState.oa.length) oaBox.innerHTML = '<p class="text-xs text-slate-500">No indicaste OA.</p>';
+      planState.oa.forEach((oa, i) => {
+        const d = document.createElement('div'); d.className = 'border border-slate-200 rounded-sm p-3 space-y-2 bg-slate-50';
+        d.innerHTML = `<div class="flex items-center justify-between"><span class="text-xs font-bold text-brand-700">OA ${h(oa.codigo)}</span>
+          <button type="button" class="text-rose-600 text-[11px] font-bold" data-quitar="${i}">Quitar</button></div>
+          <textarea rows="2" class="w-full text-xs px-2 py-1.5 rounded-sm border border-slate-300" data-oa="${i}" data-campo="texto" placeholder="Texto del objetivo">${h(oa.texto)}</textarea>
+          <textarea rows="4" class="w-full text-xs px-2 py-1.5 rounded-sm border border-slate-300" data-oa="${i}" data-campo="indicadores" placeholder="Indicadores (uno por línea)">${h((oa.indicadores || []).join('\n'))}</textarea>`;
+        oaBox.appendChild(d);
+      });
+      oaBox.querySelectorAll('textarea').forEach(t => t.addEventListener('input', () => {
+        const oa = planState.oa[+t.dataset.oa];
+        oa[t.dataset.campo] = t.dataset.campo === 'texto' ? t.value : t.value.split('\n').map(x => x.trim()).filter(Boolean);
+        planProgramarGuardado();
+      }));
+      oaBox.querySelectorAll('[data-quitar]').forEach(b => b.addEventListener('click', () => { planState.oa.splice(+b.dataset.quitar, 1); planRender(); planProgramarGuardado(); }));
+      // Clases
+      const box = $('pm-clases-editor'); box.innerHTML = '';
+      planState.periodos.forEach((per, pi) => {
+        const sec = document.createElement('div'); sec.className = 'glass-card rounded-sm shadow-sm overflow-hidden';
+        sec.innerHTML = `<div class="px-4 py-2 bg-brand-700 text-white text-xs font-bold flex items-center justify-between"><span>${h(per.nombre.toUpperCase())} · ${per.clases.length} clases</span>
+          <span class="space-x-1"><button type="button" class="px-2 py-0.5 rounded-sm bg-white/15 hover:bg-white/25" data-mas="${pi}">+ clase</button>
+          <button type="button" class="px-2 py-0.5 rounded-sm bg-white/15 hover:bg-white/25" data-menos="${pi}">− clase</button></span></div><div class="divide-y divide-slate-100"></div>`;
+        const lista = sec.lastElementChild;
+        per.clases.forEach((cl, ci) => {
+          const fila = document.createElement('div'); fila.className = 'p-3 grid grid-cols-1 md:grid-cols-[3.5rem_1fr] gap-3';
+          const tienePropuesta = cl.sugerencia && Object.values(cl.sugerencia).some(Boolean);
+          fila.innerHTML = `<div class="text-center"><div class="text-xs text-slate-500">Clase</div><div class="text-lg font-extrabold text-brand-700">${ci + 1}</div>
+            ${tienePropuesta ? `<button type="button" class="mt-1 text-[10px] font-bold text-indigo-600 hover:underline" data-aceptar="${pi}:${ci}">Usar sugerencia</button>` : ''}</div>
+            <div class="grid grid-cols-1 lg:grid-cols-${Math.min(colsEditables.length, 4)} gap-2">${colsEditables.map(c => `<label class="text-[11px] font-semibold text-slate-600">${h(c.titulo)}
+              <textarea rows="3" data-p="${pi}" data-c="${ci}" data-k="${h(c.clave)}" placeholder="${h((cl.sugerencia && cl.sugerencia[c.clave]) || '')}"
+              class="mt-0.5 w-full text-xs font-normal px-2 py-1.5 rounded-sm border border-slate-300 placeholder:text-slate-400 placeholder:italic">${h(cl[c.clave] || '')}</textarea></label>`).join('')}</div>`;
+          lista.appendChild(fila);
+        });
+        box.appendChild(sec);
+      });
+      box.querySelectorAll('textarea').forEach(t => t.addEventListener('input', () => { planState.periodos[+t.dataset.p].clases[+t.dataset.c][t.dataset.k] = t.value; planProgramarGuardado(); }));
+      box.querySelectorAll('[data-mas]').forEach(b => b.addEventListener('click', () => { const p = planState.periodos[+b.dataset.mas]; p.clases.push(Object.fromEntries(colsEditables.map(c => [c.clave, '']))); planRender(); planProgramarGuardado(); }));
+      box.querySelectorAll('[data-menos]').forEach(b => b.addEventListener('click', () => { const p = planState.periodos[+b.dataset.menos]; if (p.clases.length > 1) { p.clases.pop(); planRender(); planProgramarGuardado(); } }));
+      box.querySelectorAll('[data-aceptar]').forEach(b => b.addEventListener('click', () => { const [p, c] = b.dataset.aceptar.split(':').map(Number); planAceptarClase(p, c); planRender(); planProgramarGuardado(); }));
+    }
+    function planAceptarClase(p, c) {
+      const cl = planState.periodos[p].clases[c];
+      Object.entries(cl.sugerencia || {}).forEach(([k, v]) => { if (!(cl[k] || '').trim()) cl[k] = v; });
+      delete cl.sugerencia;
+    }
+    function planAceptar(todas) {
+      if (!planState) return;
+      let n = 0;
+      planState.periodos.forEach((per, p) => per.clases.forEach((cl, c) => { if (cl.sugerencia) { planAceptarClase(p, c); n++; } }));
+      planRender(); planProgramarGuardado(); showToast(n + ' clases completadas con la sugerencia');
+    }
+    async function planSugerir() {
+      if (!planState) return;
+      const motor = $('pm-motor').value;
+      $('pm-sug-estado').textContent = 'Consultando…';
+      try {
+        const r = await api('/api/planificacion/sugerir', { plan: planState, motor, api_key: $('pm-clave').value || null });
+        planState.periodos = r.plan.periodos;
+        planRender(); planProgramarGuardado();
+        $('pm-sug-estado').textContent = r.sugeridas + ' clases con sugerencia';
+      } catch (e) { $('pm-sug-estado').textContent = ''; showToast(e.message, 'error'); }
+    }
+    async function planDescargar() {
+      if (!planState) return;
+      const b = $('pm-btn-docx'); b.disabled = true;
+      try {
+        const r = await api('/api/planificacion/mensual', { plan: planState, sugerencias: !!$('pm-incluir-sug')?.checked });
+        window.location.href = r.download_url; showToast('Planificación generada');
+      } catch (e) { showToast(e.message, 'error'); }
+      b.disabled = false;
+    }
+    function planProgramarGuardado() { clearTimeout(planAutoguardar); planAutoguardar = setTimeout(planGuardarBorrador, 600); }
+    function planGuardarBorrador() {
+      if (!planState) return;
+      const ok = lsSet(LS_BORRADOR, { estado: planState, formato: planFmt, guardado: new Date().toISOString() });
+      $('pm-guardado').textContent = ok ? 'Borrador guardado en este navegador ' + new Date().toLocaleTimeString('es-CL') : 'No se pudo guardar en este navegador: descarga el .json';
+    }
+    function planCargarBorrador() {
+      const b = lsGet(LS_BORRADOR, null);
+      if (!b || !b.estado) { showToast('No hay borrador guardado en este navegador', 'error'); return; }
+      planState = b.estado; planFmt = b.formato; planRender(); $('pm-editor').classList.remove('hidden');
+      showToast('Borrador recuperado');
+    }
+    function planDescargarJson() { if (planState) descargarTexto((planState.curso_codigo + ' - ' + planState.asignatura + ' - planificacion.json').replace(/[\\/:*?"<>|]/g, '_'), JSON.stringify(planState, null, 1)); }
+    async function planAbrirArchivo(input) {
+      leerArchivoJson(input, async datos => {
+        if (!Array.isArray(datos.periodos)) { showToast('El archivo no es una planificación', 'error'); return; }
+        try {
+          await planCargarOpciones();
+          planFmt = await formatoCompleto('mensual', { formato_perfil: datos.formato_perfil, formato: datos.formato });
+          planState = datos; planRender(); $('pm-editor').classList.remove('hidden'); planGuardarBorrador();
+        } catch (e) { showToast(e.message, 'error'); }
+      });
+    }
+
+    // ---------- plan anual y temario ----------
+    async function planAnual(desdeBanco) {
+      const asignatura = $('pa-asignatura').value.trim(), codigo = $('pa-curso').value.trim();
+      if (!asignatura || !codigo) { showToast('Indica curso y asignatura', 'error'); return; }
+      await planCargarOpciones();
+      const plan = Object.assign({ anio: parseInt($('pa-anio').value) || 2027, curso: (PLAN_OPC.cursos || {})[codigo] || codigo, curso_codigo: codigo, asignatura,
+        profesor: $('pa-profesor').value.trim(), horas: $('pa-horas').value.trim(), clases: $('pa-clases').value.trim(), desde_banco: !!desdeBanco }, formatoReferencia('anual', $('pa-formato').value));
+      try { const r = await api('/api/planificacion/anual', { plan }); window.location.href = r.download_url; showToast('Plan anual generado'); }
+      catch (e) { showToast(e.message, 'error'); }
+    }
+    async function planTemario() {
+      const t = Object.assign({ curso: $('pt-curso').value.trim(), asignatura: $('pt-asignatura').value.trim(), fecha: $('pt-fecha').value.trim(), puntaje: $('pt-puntaje').value.trim(),
+        contenidos: $('pt-contenidos').value, como_sera: $('pt-comosera').value, profesor: $('pt-profesor').value.trim() }, formatoReferencia('temario', $('pt-formato').value));
+      try { const r = await api('/api/planificacion/temario', { temario: t }); window.location.href = r.download_url; showToast('Temario generado'); }
+      catch (e) { showToast(e.message, 'error'); }
+    }
+
+    // ---------- formatos editables ----------
+    function fmLlenarPerfiles() {
+      const tipo = $('fm-tipo').value, sel = $('fm-perfil'), previo = sel.value;
+      sel.innerHTML = opcionesFormato(tipo).map(([v, t]) => `<option value="${h(v)}">${h(t)}</option>`).join('');
+      if ([...sel.options].some(o => o.value === previo)) sel.value = previo;
+    }
+    async function fmCambiarTipo() { await planCargarOpciones(); fmLlenarPerfiles(); await fmCargar(); }
+    async function fmCargar() {
+      const tipo = $('fm-tipo').value, valor = $('fm-perfil').value;
+      try {
+        fmActual = await api('/api/planificacion/formato', { tipo, perfil: valor.startsWith('srv:') ? valor.slice(4) : '', formato: valor === 'ses' ? FM_SESION[tipo] : (valor.startsWith('loc:') ? (localFormatos()[tipo] || {})[valor.slice(4)] : null) });
+        if (valor.startsWith('loc:') || valor.startsWith('srv:')) $('fm-nombre').value = valor.slice(4);
+        fmRender();
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+    function fmSync() { $('fm-json').value = JSON.stringify(fmActual, null, 1); }
+    function fmDesdeJson() {
+      try { fmActual = JSON.parse($('fm-json').value); fmRender(); showToast('Formato actualizado desde el JSON'); }
+      catch (e) { showToast('JSON inválido: ' + e.message, 'error'); }
+    }
+    function campoTexto(etq, valor, alCambiar, opciones = {}) {
+      const w = document.createElement('label'); w.className = 'block text-xs font-semibold text-slate-700';
+      const el = document.createElement(opciones.area ? 'textarea' : 'input');
+      if (opciones.area) el.rows = opciones.area;
+      if (opciones.tipo) el.type = opciones.tipo;
+      if (opciones.min !== undefined) { el.min = opciones.min; el.max = opciones.max; }
+      el.value = valor ?? ''; el.className = 'mt-1 w-full text-xs font-normal px-2.5 py-1.5 rounded-sm border border-slate-300';
+      el.addEventListener('input', () => { alCambiar(el.value); fmSync(); });
+      w.append(etq, el); return w;
+    }
+    function campoCheck(etq, valor, alCambiar) {
+      const w = document.createElement('label'); w.className = 'flex items-center gap-2 text-xs font-semibold text-slate-700';
+      const el = document.createElement('input'); el.type = 'checkbox'; el.checked = !!valor;
+      el.addEventListener('change', () => { alCambiar(el.checked); fmSync(); });
+      w.append(el, etq); return w;
+    }
+    function fmRender() {
+      const tipo = $('fm-tipo').value, f = fmActual, box = $('fm-controles'); box.innerHTML = '';
+      const tarjeta = (titulo) => { const d = document.createElement('div'); d.className = 'border border-slate-200 rounded-sm p-3 space-y-2 bg-slate-50'; const t = document.createElement('div'); t.className = 'text-xs font-bold text-slate-700'; t.textContent = titulo; d.appendChild(t); box.appendChild(d); return d; };
+      if (tipo === 'evaluacion') {
+        const t = tarjeta('Evaluación');
+        t.append(campoCheck('Mostrar «Objetivo de Aprendizaje» en la prueba', f.mostrar_oa, v => f.mostrar_oa = v),
+                 campoCheck('Mostrar «Contenidos evaluados»', f.mostrar_contenidos, v => f.mostrar_contenidos = v),
+                 campoTexto('Exigencia (%) — 0 = no mostrar', f.exigencia_pct, v => f.exigencia_pct = parseFloat(v) || 0, { tipo: 'number', min: 0, max: 100 }));
+        const p = tarjeta('Ponderación por ítem (% del puntaje total; vacío = no recalcular)');
+        f.ponderacion = f.ponderacion || {};
+        [['item1', 'Ítem I · Selección múltiple'], ['item2', 'Ítem II · Verdadero o falso'], ['item3', 'Ítem III · Aplicación']].forEach(([k, etq]) =>
+          p.append(campoTexto(etq, f.ponderacion[k] ?? '', v => { if (v === '') delete f.ponderacion[k]; else f.ponderacion[k] = parseFloat(v) || 0; }, { tipo: 'number', min: 0, max: 100 })));
+        const e = tarjeta('Etiquetas del cuadro de datos (vacío = texto por defecto)');
+        f.etiquetas = f.etiquetas || {};
+        [['nombre', 'Nombre'], ['curso', 'Curso'], ['fecha', 'Fecha'], ['puntaje_total', 'Puntaje total'], ['puntaje_obtenido', 'Puntaje obtenido']].forEach(([k, etq]) =>
+          e.append(campoTexto(etq, f.etiquetas[k] || '', v => { if (v) f.etiquetas[k] = v; else delete f.etiquetas[k]; })));
+        tarjeta('Instrucciones').append(campoTexto('Texto de instrucciones (vacío = por defecto)', f.instrucciones, v => f.instrucciones = v, { area: 4 }));
+      } else {
+        const g = tarjeta('General');
+        g.append(campoTexto('Título del documento', f.titulo, v => f.titulo = v));
+        if ('subtitulo' in f) g.append(campoTexto('Subtítulo', f.subtitulo, v => f.subtitulo = v));
+        g.append(campoTexto('Pie de página', f.pie, v => f.pie = v), campoCheck('Mostrar logo', f.mostrar_logo, v => f.mostrar_logo = v));
+        const sf = document.createElement('label'); sf.className = 'block text-xs font-semibold text-slate-700'; sf.textContent = 'Fuente ';
+        const sel = document.createElement('select'); sel.className = 'ml-2 text-xs px-2 py-1 rounded-sm border border-slate-300 bg-white';
+        ['Arial', 'Calibri', 'Times New Roman', 'Verdana', 'Tahoma', 'Georgia', 'Cambria', 'Segoe UI'].forEach(n => { const o = document.createElement('option'); o.textContent = n; o.value = n; sel.appendChild(o); });
+        sel.value = f.fuente; sel.addEventListener('change', () => { f.fuente = sel.value; fmSync(); }); sf.appendChild(sel); g.appendChild(sf);
+        const col = tarjeta('Colores'); const fila = document.createElement('div'); fila.className = 'grid grid-cols-2 sm:grid-cols-3 gap-2';
+        [['primario', 'Primario'], ['secundario', 'Secundario'], ['claro', 'Claro'], ['fondo', 'Fondo'], ['borde', 'Borde']].forEach(([k, etq]) => {
+          const w = document.createElement('label'); w.className = 'text-[11px] font-semibold text-slate-600 flex items-center gap-2';
+          const c = document.createElement('input'); c.type = 'color'; c.value = '#' + (f.colores[k] || '000000');
+          c.addEventListener('input', () => { f.colores[k] = c.value.slice(1).toUpperCase(); fmSync(); });
+          w.append(c, etq); fila.appendChild(w);
+        }); col.appendChild(fila);
+        if (tipo === 'mensual') {
+          const c = tarjeta('Columnas de la tabla de clases'); const lista = document.createElement('div'); lista.className = 'space-y-1.5'; c.appendChild(lista);
+          const dibujar = () => {
+            lista.innerHTML = '';
+            f.clases.columnas.forEach((col, i) => {
+              const r = document.createElement('div'); r.className = 'flex items-center gap-1.5';
+              r.innerHTML = `<input class="flex-1 text-xs px-2 py-1 rounded-sm border border-slate-300" value="${h(col.titulo)}" ${col.clave === 'n' ? '' : ''}>
+                <input type="number" class="w-20 text-xs px-2 py-1 rounded-sm border border-slate-300" value="${col.ancho}" title="Ancho relativo">
+                <code class="text-[10px] text-slate-400 w-20 truncate">${h(col.clave)}</code>
+                <button type="button" class="px-1 text-slate-500" data-a="up">▲</button><button type="button" class="px-1 text-slate-500" data-a="down">▼</button>
+                ${col.clave === 'n' ? '' : '<button type="button" class="px-1 text-rose-600" data-a="del">✕</button>'}`;
+              const [t, a] = r.querySelectorAll('input');
+              t.addEventListener('input', () => { col.titulo = t.value; fmSync(); }); a.addEventListener('input', () => { col.ancho = parseInt(a.value) || 1000; fmSync(); });
+              r.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+                const cols = f.clases.columnas;
+                if (b.dataset.a === 'up' && i > 0) [cols[i - 1], cols[i]] = [cols[i], cols[i - 1]];
+                if (b.dataset.a === 'down' && i < cols.length - 1) [cols[i + 1], cols[i]] = [cols[i], cols[i + 1]];
+                if (b.dataset.a === 'del') cols.splice(i, 1);
+                fmSync(); dibujar();
+              }));
+              lista.appendChild(r);
+            });
+          };
+          dibujar();
+          const mas = document.createElement('button'); mas.type = 'button'; mas.textContent = '+ Columna'; mas.className = 'text-[11px] px-2 py-1 rounded-sm bg-white border border-slate-300 font-bold text-slate-700';
+          mas.addEventListener('click', () => { const n = f.clases.columnas.length; f.clases.columnas.push({ clave: 'col' + n, titulo: 'NUEVA COLUMNA', ancho: 2500 }); fmSync(); dibujar(); }); c.appendChild(mas);
+          const o = tarjeta('Opciones'); o.append(campoCheck('Franja con el nombre del mes entre períodos', f.clases.franja_entre_periodos, v => f.clases.franja_entre_periodos = v),
+            campoCheck('Alternar color de filas', f.clases.alternar_color, v => f.clases.alternar_color = v),
+            campoTexto('Título del recuadro de OA', f.oa.titulo, v => f.oa.titulo = v), campoTexto('Título de indicadores', f.indicadores.titulo, v => f.indicadores.titulo = v));
+          const b = tarjeta('Bloques visibles'); ['datos', 'oa', 'clases', 'indicadores'].forEach(k => b.append(campoCheck(k, f.bloques.includes(k), v => { f.bloques = f.bloques.filter(x => x !== k); if (v) f.bloques.push(k); const orden = ['datos', 'oa', 'clases', 'indicadores']; f.bloques.sort((a, b2) => orden.indexOf(a) - orden.indexOf(b2)); })));
+        }
+        if (tipo === 'temario') {
+          const s = tarjeta('Secciones'); const lista = document.createElement('div'); lista.className = 'space-y-2'; s.appendChild(lista);
+          const dibujar = () => {
+            lista.innerHTML = '';
+            f.secciones.forEach((sec, i) => {
+              const r = document.createElement('div'); r.className = 'border border-slate-200 rounded-sm p-2 bg-white space-y-1';
+              r.innerHTML = `<div class="flex gap-1.5"><input class="flex-1 text-xs px-2 py-1 rounded-sm border border-slate-300" value="${h(sec.titulo)}">
+                <select class="text-xs px-1 rounded-sm border border-slate-300"><option value="lista">lista</option><option value="texto">texto</option></select>
+                <button type="button" class="px-1 text-rose-600">✕</button></div><textarea rows="3" class="w-full text-xs px-2 py-1 rounded-sm border border-slate-300">${h(sec.contenido)}</textarea>`;
+              const [t, ta] = [r.querySelector('input'), r.querySelector('textarea')], sl = r.querySelector('select'); sl.value = sec.tipo;
+              t.addEventListener('input', () => { sec.titulo = t.value; fmSync(); }); ta.addEventListener('input', () => { sec.contenido = ta.value; fmSync(); }); sl.addEventListener('change', () => { sec.tipo = sl.value; fmSync(); });
+              r.querySelector('button').addEventListener('click', () => { f.secciones.splice(i, 1); fmSync(); dibujar(); }); lista.appendChild(r);
+            });
+          };
+          dibujar();
+          const mas = document.createElement('button'); mas.type = 'button'; mas.textContent = '+ Sección'; mas.className = 'text-[11px] px-2 py-1 rounded-sm bg-white border border-slate-300 font-bold text-slate-700';
+          mas.addEventListener('click', () => { f.secciones.push({ titulo: 'Nueva sección', tipo: 'texto', contenido: '' }); fmSync(); dibujar(); }); s.appendChild(mas);
+          tarjeta('Cierre').append(campoTexto('Texto de cierre', f.cierre, v => f.cierre = v, { area: 3 }));
+        }
+        if (tipo === 'anual') {
+          const t = tarjeta('Tabla y textos'); f.tabla = f.tabla || {};
+          t.append(campoTexto('Marca de las semanas (p. ej. X)', f.tabla.marca, v => f.tabla.marca = v), campoTexto('Filas en blanco por unidad', f.tabla.filas_en_blanco, v => f.tabla.filas_en_blanco = parseInt(v) || 4, { tipo: 'number', min: 1, max: 12 }),
+            campoTexto('Leyenda', f.leyenda, v => f.leyenda = v, { area: 2 }),
+            campoTexto('Cuadro de cobertura (títulos separados por coma; vacío = sin cuadro)', (f.cobertura || []).join(', '), v => f.cobertura = v.split(',').map(x => x.trim()).filter(Boolean)));
+          const n = document.createElement('p'); n.className = 'text-[11px] text-slate-500'; n.textContent = 'Semestres, meses y semanas por mes se editan en el JSON (campo «semestres»).'; t.appendChild(n);
+        }
+      }
+      fmSync();
+    }
+    function fmUsarSesion() { FM_SESION[$('fm-tipo').value] = JSON.parse(JSON.stringify(fmActual)); refrescarSelectoresFormato(); showToast('Formato listo para esta sesión: elígelo en la lista «Formato» del documento'); }
+    function fmGuardarLocal() {
+      const nombre = $('fm-nombre').value.trim(); if (!nombre) { showToast('Escribe un nombre para el formato', 'error'); return; }
+      const todos = localFormatos(), tipo = $('fm-tipo').value; todos[tipo] = todos[tipo] || {}; todos[tipo][nombre] = fmActual;
+      if (lsSet(LS_FORMATOS, todos)) { refrescarSelectoresFormato(); showToast('Formato guardado en este navegador'); } else showToast('No se pudo guardar en este navegador', 'error');
+    }
+    async function fmGuardarServidor() {
+      const nombre = $('fm-nombre').value.trim(); if (!nombre) { showToast('Escribe un nombre para el formato', 'error'); return; }
+      try { await api('/api/planificacion/formato-guardar', { tipo: $('fm-tipo').value, nombre, formato: fmActual }); PLAN_OPC = null; await planCargarOpciones(); showToast('Formato guardado para todo el colegio'); }
+      catch (e) { showToast(e.message, 'error'); }
+    }
+    async function fmRestablecer() {
+      const tipo = $('fm-tipo').value, valor = $('fm-perfil').value;
+      delete FM_SESION[tipo];
+      if (valor.startsWith('loc:')) { const t = localFormatos(); delete (t[tipo] || {})[valor.slice(4)]; lsSet(LS_FORMATOS, t); }
+      if (valor.startsWith('srv:')) { try { await api('/api/planificacion/formato-restablecer', { tipo, nombre: valor.slice(4) }); PLAN_OPC = null; await planCargarOpciones(); } catch (e) { showToast(e.message, 'error'); return; } }
+      refrescarSelectoresFormato(); $('fm-perfil').value = 'defecto'; await fmCargar(); showToast('Formato restablecido');
+    }
+    function fmDescargar() { descargarTexto('formato-' + $('fm-tipo').value + '.json', JSON.stringify(fmActual, null, 1)); }
+    function fmAbrir(input) { leerArchivoJson(input, d => { fmActual = d; fmRender(); showToast('Formato cargado: revísalo y úsalo o guárdalo'); }); }
+
+    // ---------- formato de la evaluación (panel dentro de «Evaluaciones») ----------
+    function evalFormatoDesdeUI() {
+      const ref = formatoReferencia('evaluacion', $('ev-perfil')?.value);
+      const f = Object.assign({}, ref.formato || {});
+      f.mostrar_oa = $('ev-oa').checked; f.mostrar_contenidos = $('ev-cont').checked;
+      const ex = parseFloat($('ev-exigencia').value); if (ex > 0) f.exigencia_pct = ex;
+      if ($('ev-pond-on').checked) f.ponderacion = { item1: parseFloat($('ev-p1').value) || 0, item2: parseFloat($('ev-p2').value) || 0, item3: parseFloat($('ev-p3').value) || 0 };
+      if ($('ev-instr').value.trim()) f.instrucciones = $('ev-instr').value.trim();
+      const out = { formato: f };
+      if (ref.formato_perfil) out.formato_perfil = ref.formato_perfil;
+      return out;
+    }
+    window.addEventListener('load', () => { planCargarOpciones().catch(() => {}); });
+
   </script>
 </body>
 </html>

@@ -172,6 +172,9 @@ The `planificacion/` module builds both as print-ready, landscape Word files, so
 * **AI-assisted, never AI-dependent:** `sugerir` proposes content for the empty classes, either with an offline heuristic or with any provider from `ai_connector.py`. Suggestions are shown in gray italics, never overwrite what the teacher wrote, and the AI is instructed **not to invent textbook page numbers**.
 * **Cheap for AI agents:** a compact JSON schema plus short commands (`estado`, `semana`, `sugerir`, `aceptar`, `generar-mensual`) mean an agent never has to open or script `.docx` files.
 * **Round trip:** `leer-mensual` reads a Word file the teacher edited back into JSON, so an assistant can see what is already written and complete the rest.
+* **Editable formats:** the bundled layouts are *placeholders*. Titles, colors, font, page, header fields, visible blocks, **table columns** (rename / reorder / add / remove), semesters, weeks per month, temario sections and the evaluation settings (**exigencia %**, **per-item weighting**, labels, instructions, hide OA) are all editable and can be saved as profiles — per session, per browser, or school-wide.
+* **Web panel:** tab **4. Planificaciones** (monthly plan editor with OA lookup, gray AI suggestions, annual plan, temario and a visual format editor). The **Evaluaciones** tab has a *Customize evaluation format* panel.
+* **Spanish (Chile) and authorship by default:** every generated Word file is stamped `es-CL` (no red underlines on Spanish text) and carries a configurable author instead of "python-docx" — see [Document defaults](#-document-defaults-spanish-chile--author).
 * **Next school year:** `nuevo-anual` creates a blank annual plan in the same format, ready for the new curriculum objectives.
 * **Privacy by design:** teacher and school data, the curriculum bank and the plans themselves live in `planificacion/datos/`, which is git-ignored. Only code and a generic example are versioned.
 
@@ -189,6 +192,21 @@ python -m planificacion generar-mensual plan.json --sugerencias
 ```
 
 Full guide, JSON schema and agent protocol: [`planificacion/README.md`](planificacion/README.md).
+
+---
+
+## 📄 Document Defaults: Spanish (Chile) & Author
+
+Documents produced by python-docx are English-tagged and authored "python-docx" by default, which makes Word underline Spanish text in red.
+EduDocente-Studio fixes this for **every** document (assessments, answer keys, temarios, monthly and annual plans) via `documento_meta.py`:
+
+| Setting | Default | Where to change it |
+| :--- | :--- | :--- |
+| Proofing language | `es-CL` | `config/documento.json` → `"idioma"` |
+| Author / last modified by | `Jack` | `config/documento.local.json` (git-ignored) → `{"autor": "Your Name"}`, or env `EDUDOCENTE_AUTOR` |
+| Author = device user name | — | set `"autor": "auto"` |
+
+To fix files that already exist (content is untouched): `python -m planificacion normalizar <file-or-folder> --autor "Your Name"`.
 
 ---
 
@@ -286,6 +304,7 @@ edudocente-studio/
 ├── config/                               # Persistent memory storage
 │   ├── institutions.json                 # Multi-school profiles, logos & color hexes
 │   ├── mineduc_oa_priorizados.json       # Prioritized learning-objective catalog (Mineduc)
+│   ├── documento.json                    # Default document author & language (override: documento.local.json)
 │   └── roster_data.json                  # Configurable student conference database
 │
 ├── planificacion/                        # Lesson & annual planning module (python -m planificacion)
@@ -294,6 +313,8 @@ edudocente-studio/
 │   ├── banco.py                          # Annual plan (.docx) -> curriculum bank (OA + indicators)
 │   ├── leer.py                           # Word edited by the teacher -> JSON
 │   ├── ia.py                             # Offline or multi-provider suggestions
+│   ├── formato.py / temario.py           # Editable formats (placeholders) and the temario generator
+│   ├── web_api.py                        # API functions for the web panel
 │   ├── docx_base.py                      # Styles and tables for the school layout
 │   ├── ejemplos/                         # Generic example configuration
 │   ├── datos/                            # LOCAL ONLY (git-ignored): teacher data, bank, plans
@@ -310,6 +331,7 @@ edudocente-studio/
 │
 ├── app.py                                # Local multi-threaded HTTP server & REST API
 ├── oauth_manager.py                      # OAuth 2.0 manager (Google, GitHub, Microsoft)
+├── documento_meta.py                     # es-CL language + configurable author for every .docx
 ├── sso_auth.py                           # Single sign-on helpers
 ├── institution_manager.py                # Multi-school branding memory
 ├── roster_manager.py                     # Excel roster and interview manager
