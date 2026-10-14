@@ -218,6 +218,17 @@ python main.py --all            # Genera todo el material institucional
 python main.py --excel          # Regenera el cronograma de entrevistas en Excel
 ```
 
+### 5. Planificaciones mensuales y planes anuales
+La docente solo escribe lo de cada clase; los OA, indicadores, numeración y estilos los arma el módulo `planificacion/`
+(una IA puede sugerir las clases vacías, sin inventar páginas del texto escolar).
+```bash
+python -m planificacion nuevo-mensual --curso 5°AB --asignatura "Ciencias Naturales" --unidad 4 \
+       --nombre-unidad "<nombre de la unidad>" --oa 8 9 10 11 --mes Noviembre:15 Diciembre:2 -o plan.json
+python -m planificacion generar-mensual plan.json      # Word con filas vacías para escribir
+python -m planificacion sugerir plan.json              # propuesta para las clases vacías (offline o --ia claude)
+```
+Guía completa en [`planificacion/README.md`](planificacion/README.md).
+
 ---
 
 ## 📁 Estructura del Proyecto

@@ -51,3 +51,6 @@ output/*.docx
 output/*.xlsx
 output/temarios/*.docx
 !output/.gitkeep
+
+# Planificaciones: datos locales de la docente (nombre, bancos, planificaciones)
+planificacion/datos/

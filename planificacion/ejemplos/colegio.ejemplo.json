@@ -1,0 +1,5 @@
+{
+ "profesor": "Nombre Apellido",
+ "colegio": {"linea1": "Nombre del Colegio", "linea2": "Sede o Anexo"},
+ "cursos": {"5°AB": "5°A – 5°B", "6°A": "6°A"}
+}
