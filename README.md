@@ -22,6 +22,7 @@
 [🤖 Multi-AI Connector](#-multi-ai-universal-connector) •
 [🏛️ Multi-School Branding](#-multi-school-institutional-branding-memory) •
 [📊 Excel Roster Manager](#-dynamic-excel-student-roster--conference-manager) •
+[📅 Planning Module](#-lesson--annual-planning-module) •
 [🔐 OAuth 2.0](#-enterprise-authentication--sso-oauth-20) •
 [🚀 Quick Start](#-quick-start--installation) •
 [📄 License](#-license)
@@ -47,6 +48,7 @@ Educators spend over 15 hours each week authoring tests, writing feedback keys, 
    - **Tier III (Technical Drawing & Schematic Application):** Bounded drawing frames with guided prompt lines and vector diagram skeletons (electric circuits, kinetic matter particles, atomic models).
 2. **Multi-School Identity Memory:** Persistently stores high-resolution transparent logos, 5-color corporate palettes, and institutional department headers in `config/institutions.json`.
 3. **Dynamic Excel Roster & Conference Engine:** Generates styled `.xlsx` spreadsheets with auto-adjusted columns and native cell data validation dropdowns.
+4. **Lesson & Annual Planning Module:** Produces the school-format monthly lesson plans and annual plans as Word files; the teacher only writes what is specific to each class, with optional AI suggestions.
 
 ---
 
@@ -156,6 +158,40 @@ The `roster_manager.py` module automates parent-teacher conferences and academic
 
 ---
 
+## 📅 Lesson & Annual Planning Module
+
+Besides assessments, teachers must hand in **monthly lesson plans** and **annual plans** in a fixed school layout.
+The `planificacion/` module builds both as print-ready, landscape Word files, so the teacher only fills in the content of each class.
+
+| Document | What it contains |
+| :--- | :--- |
+| **Monthly plan** (one or several months) | School header, teacher / course / subject / unit, Learning Objectives (OA), class table (class no., class objective, activity, assessment, resources) split by month, and indicators grouped by OA. |
+| **Annual plan** | One block per semester: objectives and indicators with a weekly grid (an `X` marks the weeks in which each objective is taught) and a closing box *OA taught / OA not taught / % curriculum coverage*. |
+
+* **Curriculum bank:** import an annual plan (`.docx`) once; afterwards a monthly plan only needs the OA numbers (e.g. `--oa 8 9 10 11`) to pull the full objective text and its indicators.
+* **AI-assisted, never AI-dependent:** `sugerir` proposes content for the empty classes, either with an offline heuristic or with any provider from `ai_connector.py`. Suggestions are shown in gray italics, never overwrite what the teacher wrote, and the AI is instructed **not to invent textbook page numbers**.
+* **Cheap for AI agents:** a compact JSON schema plus short commands (`estado`, `semana`, `sugerir`, `aceptar`, `generar-mensual`) mean an agent never has to open or script `.docx` files.
+* **Round trip:** `leer-mensual` reads a Word file the teacher edited back into JSON, so an assistant can see what is already written and complete the rest.
+* **Next school year:** `nuevo-anual` creates a blank annual plan in the same format, ready for the new curriculum objectives.
+* **Privacy by design:** teacher and school data, the curriculum bank and the plans themselves live in `planificacion/datos/`, which is git-ignored. Only code and a generic example are versioned.
+
+```bash
+# 1. Create a monthly plan (OA texts and indicators come from the curriculum bank)
+python -m planificacion nuevo-mensual --curso 5°AB --asignatura "Ciencias Naturales" --unidad 4 \
+       --nombre-unidad "<unit name>" --oa 8 9 10 11 --mes Noviembre:15 Diciembre:2 -o plan.json
+
+# 2. Generate the Word file with empty rows for the teacher
+python -m planificacion generar-mensual plan.json
+
+# 3. (Optional) ask for suggestions on empty classes, then review them in gray italics
+python -m planificacion sugerir plan.json            # or: --ia claude | gemini | openai | deepseek | kimi | grok | local
+python -m planificacion generar-mensual plan.json --sugerencias
+```
+
+Full guide, JSON schema and agent protocol: [`planificacion/README.md`](planificacion/README.md).
+
+---
+
 ## 🔐 Enterprise Authentication & SSO (OAuth 2.0)
 
 The `oauth_manager.py` layer provides out-of-the-box Single Sign-On readiness:
@@ -227,6 +263,10 @@ python main.py --wizard
 
 # Batch Compilation of Included Case Studies
 python main.py --all
+
+# Lesson plans & annual plans (see "Lesson & Annual Planning Module")
+python -m planificacion --help
+python -m unittest planificacion.test_planificacion
 ```
 
 ---
@@ -245,7 +285,19 @@ edudocente-studio/
 │
 ├── config/                               # Persistent memory storage
 │   ├── institutions.json                 # Multi-school profiles, logos & color hexes
+│   ├── mineduc_oa_priorizados.json       # Prioritized learning-objective catalog (Mineduc)
 │   └── roster_data.json                  # Configurable student conference database
+│
+├── planificacion/                        # Lesson & annual planning module (python -m planificacion)
+│   ├── cli.py / __main__.py              # Commands: nuevo-mensual, generar-mensual, sugerir, banco-importar...
+│   ├── mensual.py / anual.py             # JSON -> Word (monthly plan / annual plan)
+│   ├── banco.py                          # Annual plan (.docx) -> curriculum bank (OA + indicators)
+│   ├── leer.py                           # Word edited by the teacher -> JSON
+│   ├── ia.py                             # Offline or multi-provider suggestions
+│   ├── docx_base.py                      # Styles and tables for the school layout
+│   ├── ejemplos/                         # Generic example configuration
+│   ├── datos/                            # LOCAL ONLY (git-ignored): teacher data, bank, plans
+│   └── README.md                         # Full guide and agent protocol
 │
 ├── web/                                  # Frontend Web Dashboard (Tailwind CSS SPA)
 │   └── index.html                        # 4-Tab interface with live exam sheet preview
@@ -258,6 +310,7 @@ edudocente-studio/
 │
 ├── app.py                                # Local multi-threaded HTTP server & REST API
 ├── oauth_manager.py                      # OAuth 2.0 manager (Google, GitHub, Microsoft)
+├── sso_auth.py                           # Single sign-on helpers
 ├── institution_manager.py                # Multi-school branding memory
 ├── roster_manager.py                     # Excel roster and interview manager
 ├── ai_connector.py                       # Universal Multi-AI router (Claude, Gemini, GPT-4o, DeepSeek)
@@ -266,6 +319,7 @@ edudocente-studio/
 ├── wizard.py                             # Interactive CLI creation assistant
 ├── main.py                               # Master CLI orchestrator with flags
 │
+├── tests/                                # Automated tests
 ├── install.bat / install.sh              # 1-Click installers for Windows & Linux/macOS
 ├── start.bat                             # 1-Click double-click web launcher
 ├── Dockerfile / docker-compose.yml       # Production containerization

@@ -245,7 +245,19 @@ edudocente_studio/
 │
 ├── config/                               # Memoria persistente del sistema
 │   ├── institutions.json                 # Perfiles, logos y colores de colegios
+│   ├── mineduc_oa_priorizados.json       # Catálogo de objetivos de aprendizaje priorizados (Mineduc)
 │   └── roster_data.json                  # Nómina configurable de apoderados y citas
+│
+├── planificacion/                        # Módulo de planificaciones (python -m planificacion)
+│   ├── cli.py / __main__.py              # Comandos: nuevo-mensual, generar-mensual, sugerir, banco-importar...
+│   ├── mensual.py / anual.py             # JSON -> Word (planificación mensual / plan anual)
+│   ├── banco.py                          # Plan anual (.docx) -> banco de OA e indicadores
+│   ├── leer.py                           # Word escrito por la docente -> JSON
+│   ├── ia.py                             # Sugerencias offline o con proveedor de IA
+│   ├── docx_base.py                      # Estilos y tablas del formato del colegio
+│   ├── ejemplos/                         # Configuración de ejemplo (genérica)
+│   ├── datos/                            # SOLO LOCAL (ignorado por git): docente, banco y planificaciones
+│   └── README.md                         # Guía completa y protocolo para IA
 │
 ├── web/                                  # Interfaz gráfica de usuario (SPA)
 │   └── index.html                        # Panel interactivo moderno (Tailwind CSS)
