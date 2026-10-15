@@ -51,3 +51,12 @@ output/*.docx
 output/*.xlsx
 output/temarios/*.docx
 !output/.gitkeep
+
+# Planificaciones: datos locales de la docente (nombre, bancos, planificaciones)
+planificacion/datos/
+
+# Metadatos de documentos: autor local (no se sube)
+config/documento.local.json
+
+# Trabajos generados por el servidor (documentos de docentes): nunca se suben
+output/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*/

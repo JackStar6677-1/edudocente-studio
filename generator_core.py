@@ -79,6 +79,9 @@ def set_cell_borders(cell, **kwargs):
             tcBorders.append(b_xml)
     cell._tc.get_or_add_tcPr().append(tcBorders)
 
+from documento_meta import aplicar as aplicar_metadatos
+
+
 def set_document_language(doc, lang_code="es-CL"):
     """
     Configura el idioma predeterminado de corrección ortográfica y gramatical
@@ -121,6 +124,7 @@ def set_document_language(doc, lang_code="es-CL"):
 def create_base_doc(lang_code="es-CL"):
     doc = docx.Document()
     set_document_language(doc, lang_code=lang_code)
+    aplicar_metadatos(doc)          # autor (configurable) e idioma es-CL en todo el documento
     for s in doc.sections:
         s.page_width = Inches(8.5)
         s.page_height = Inches(11.0)
@@ -132,6 +136,7 @@ def create_base_doc(lang_code="es-CL"):
 
 def safe_save(doc, path):
     """Guarda el documento Word capturando posibles bloqueos por tener el archivo abierto en Word."""
+    aplicar_metadatos(doc)          # actualiza fecha de modificacion y asegura autor/idioma antes de guardar
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     try:
         doc.save(path)

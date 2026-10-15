@@ -34,6 +34,7 @@ from engine import DocenteEngine
 from institution_manager import institution_manager
 from roster_manager import roster_manager
 from generator_core import reload_active_theme
+from planificacion import web_api
 
 class EduDocenteRequestHandler(BaseHTTPRequestHandler):
 
@@ -79,6 +80,45 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("Referrer-Policy", "no-referrer")
         self.end_headers()
+
+    def _handle_planificacion(self, accion, payload):
+        """Planificaciones, planes anuales, temarios y formatos editables (ver planificacion/web_api.py)."""
+        try:
+            if accion == "oa":
+                return self._send_json(200, web_api.oa_banco(payload))
+            if accion == "sugerir":
+                return self._send_json(200, web_api.sugerir(payload))
+            if accion == "formato":
+                return self._send_json(200, web_api.ver_formato(payload))
+            if accion in ("formato-guardar", "formato-restablecer"):
+                if not self._require_admin():          # los formatos guardados valen para todo el colegio
+                    return
+                if accion == "formato-guardar":
+                    return self._send_json(200, {"success": True, "perfil": web_api.guardar_formato(payload)})
+                return self._send_json(200, {"success": True, "eliminado": web_api.restablecer_formato(payload)})
+            nombres = {"mensual": "Planificacion.docx", "anual": "PlanAnual.docx", "temario": "Temario.docx"}
+            if accion not in nombres:
+                return self._send_json(404, {"error": "Acción de planificación desconocida"})
+            job_dir = None
+            try:
+                job_id = secrets.token_hex(16)
+                new_job_dir = Path(OUTPUT_DIR) / job_id
+                new_job_dir.mkdir(mode=0o700)
+                job_dir = new_job_dir
+                web_api.generar(accion, payload, str(job_dir / nombres[accion]), (self._session_user() or {}).get("name", ""))
+                grant_download(self.headers.get("Cookie", ""), job_id)
+                return self._send_json(200, {"success": True, "filename": nombres[accion],
+                                             "download_url": f"/download/{job_id}/{nombres[accion]}"})
+            except Exception:
+                if job_dir is not None and job_dir.is_dir():
+                    shutil.rmtree(job_dir, ignore_errors=True)
+                raise
+        except (ValueError, KeyError, FileNotFoundError, RuntimeError) as error:
+            return self._send_json(400, {"success": False, "error": str(error)})
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            return self._send_json(500, {"success": False, "error": "No se pudo completar la operación"})
 
     def log_message(self, format, *args):
         """Registra la ruta sin persistir el pase SSO en texto plano."""
@@ -190,7 +230,7 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
         if path.startswith("/download/"):
             parts = path.split("/")
             if (len(parts) != 4 or not re.fullmatch(r"[0-9a-f]{32}", parts[2])
-                    or parts[3] not in ("Evaluacion.docx", "Pauta.docx", "Entrevistas.xlsx")
+                    or parts[3] not in ("Evaluacion.docx", "Pauta.docx", "Entrevistas.xlsx", "Planificacion.docx", "PlanAnual.docx", "Temario.docx")
                     or not can_download(self.headers.get("Cookie", ""), parts[2])):
                 return self._send_json(404, {"error": "Documento no disponible"})
             filename = parts[3]
@@ -215,11 +255,20 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                 self.send_error(404, f"Archivo no encontrado: {filename}")
                 return
 
+        # 2b. API: planificaciones (opciones del panel y formatos editables)
+        if path == "/api/planificacion/opciones":
+            return self._send_json(200, web_api.opciones())
+        if path == "/api/planificacion/formato":
+            try:
+                return self._send_json(200, web_api.ver_formato({"tipo": query.get("tipo", [""])[0], "perfil": query.get("perfil", [""])[0]}))
+            except (ValueError, FileNotFoundError) as e:
+                return self._send_json(400, {"error": str(e)})
+
         # 3. API: Estado general del sistema y usuario
         if path == "/api/status":
             self._send_json(200, {
                 "status": "online",
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "user": user,
                 "oauth_providers": {}
             })
@@ -306,6 +355,9 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             payload = {}
 
+        if path.startswith("/api/planificacion/"):
+            return self._handle_planificacion(path.rsplit("/", 1)[-1], payload)
+
         # 2. API: Generar evaluación completa con IA y DocenteEngine
         if path == "/api/generate":
             provider = payload.get("provider", "antigravity")
@@ -344,6 +396,11 @@ class EduDocenteRequestHandler(BaseHTTPRequestHandler):
                     subject=subject,
                     points=points
                 )
+                fmt_eval = web_api.limpiar_formato_evaluacion(payload.get("formato"), payload.get("formato_perfil"))
+                assessment_data["formato"] = fmt_eval                       # ponderación, exigencia %, etiquetas, OA visibles
+                if fmt_eval.get("instrucciones"):
+                    assessment_data["instrucciones"] = fmt_eval["instrucciones"]
+                assessment_data["anio"] = web_api._n(payload.get("anio"), 2000, 2100, assessment_data.get("anio", 2026))
                 assessment_data["docente"] = teacher["name"]
                 assessment_data["email_docente"] = teacher["email"]
                 assessment_data["exigencia_porcentaje"] = exigencia_porcentaje
